@@ -1,0 +1,7 @@
+{
+  "composerVendorName": "clousale",
+  "composerProjectName": "amazon-sp-api-php",
+  "packagePath": ".",
+  "modelPackage": "Models",
+  "apiPackage": "Api"
+}
