@@ -9,7 +9,7 @@
         "clousale"
     ],
     "homepage": "http://www.clousale.com",
-    "license": "gpl",
+    "license": "MIT",
     "authors": [
         {
             "name": "ClouSale",
