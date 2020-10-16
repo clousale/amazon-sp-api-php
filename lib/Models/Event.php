@@ -197,6 +197,9 @@ class Event implements ModelInterface, ArrayAccess
         if ($this->container['event_code'] === null) {
             $invalidProperties[] = "'event_code' can't be null";
         }
+        if ($this->container['event_time'] === null) {
+            $invalidProperties[] = "'event_time' can't be null";
+        }
         return $invalidProperties;
     }
 
