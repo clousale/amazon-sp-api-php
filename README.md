@@ -19,6 +19,8 @@ Just require this package via composer:
 
 ```
 composer require clousale/amazon-sp-api-php
+or
+composer require rodrigojob/amazon-sp-api-php
 ```
 
 # Detailed Documentation
