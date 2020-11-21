@@ -37,6 +37,7 @@ use Swagger\Client\ApiException;
 use Swagger\Client\Configuration;
 use Swagger\Client\HeaderSelector;
 use Swagger\Client\ObjectSerializer;
+use Swagger\Client\Signature;
 
 /**
  * DefaultApi Class Doc Comment
@@ -388,19 +389,20 @@ class DefaultApi
             }
         }
 
+        $query = \GuzzleHttp\Psr7\build_query($queryParams);
 
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
+        $sign = new SignatureSellingPartner();
+        $headersX = $sign->calculateSignature($this->config->getApiKey("accessKey"),
+                $this->config->getApiKey("secretKey"), $this->config->getApiKey("region"),
+                $this->config->getAccessToken(), $this->config->getUserAgent(), str_replace("https://", "", $this->config->getHost()),
+                'GET', $resourcePath, $query);
 
         $headers = array_merge(
-            $defaultHeaders,
             $headerParams,
-            $headers
+            $headers,
+            $headersX
         );
 
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
         return new Request(
             'GET',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
@@ -711,19 +713,20 @@ class DefaultApi
             }
         }
 
+        $query = \GuzzleHttp\Psr7\build_query($queryParams);
 
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
+        $sign = new SignatureSellingPartner();
+        $headersX = $sign->calculateSignature($this->config->getApiKey("accessKey"),
+                $this->config->getApiKey("secretKey"), $this->config->getApiKey("region"),
+                $this->config->getAccessToken(), $this->config->getUserAgent(), str_replace("https://", "", $this->config->getHost()),
+                'GET', $resourcePath, $query);
 
         $headers = array_merge(
-            $defaultHeaders,
             $headerParams,
-            $headers
+            $headers,
+            $headersX
         );
 
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
         return new Request(
             'GET',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
@@ -1035,19 +1038,20 @@ class DefaultApi
             }
         }
 
+        $query = \GuzzleHttp\Psr7\build_query($queryParams);
 
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
+        $sign = new SignatureSellingPartner();
+        $headersX = $sign->calculateSignature($this->config->getApiKey("accessKey"),
+                $this->config->getApiKey("secretKey"), $this->config->getApiKey("region"),
+                $this->config->getAccessToken(), $this->config->getUserAgent(), str_replace("https://", "", $this->config->getHost()),
+                'GET', $resourcePath, $query);
 
         $headers = array_merge(
-            $defaultHeaders,
             $headerParams,
-            $headers
+            $headers,
+            $headersX
         );
 
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
         return new Request(
             'GET',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
@@ -1359,19 +1363,20 @@ class DefaultApi
             }
         }
 
+        $query = \GuzzleHttp\Psr7\build_query($queryParams);
 
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
+        $sign = new SignatureSellingPartner();
+        $headersX = $sign->calculateSignature($this->config->getApiKey("accessKey"),
+                $this->config->getApiKey("secretKey"), $this->config->getApiKey("region"),
+                $this->config->getAccessToken(), $this->config->getUserAgent(), str_replace("https://", "", $this->config->getHost()),
+                'GET', $resourcePath, $query);
 
         $headers = array_merge(
-            $defaultHeaders,
             $headerParams,
-            $headers
+            $headers,
+            $headersX
         );
 
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
         return new Request(
             'GET',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
