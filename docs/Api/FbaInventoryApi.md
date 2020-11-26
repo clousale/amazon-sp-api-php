@@ -24,10 +24,17 @@ Returns a list of inventory summaries. The summaries returned depend on the pres
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
 
+$config = Swagger\Client\Configuration::getDefaultConfiguration();
+$config->setAccessToken('Atza|IwEBxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'); //access token of Selling Partner
+$config->setApiKey("accessKey", 'AKIA2xxxxxxxxxxxxx'); // Access Key of IAM
+$config->setApiKey("secretKey", '94U4Gi81Tpxxxxxxxxxxxxxxx'); // Secret Key of IAM
+$config->setApiKey("region", 'us-east-1'); //region of MarketPlace country
+
 $apiInstance = new Swagger\Client\Api\FbaInventoryApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
+    new GuzzleHttp\Client(),
+    $config
 );
 $granularity_type = "granularity_type_example"; // string | The granularity type for the inventory aggregation level.
 $granularity_id = "granularity_id_example"; // string | The granularity ID for the inventory aggregation level.

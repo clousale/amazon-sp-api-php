@@ -31,10 +31,17 @@ Cancel the shipment indicated by the specified shipment identifier.
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
 
+$config = Swagger\Client\Configuration::getDefaultConfiguration();
+$config->setAccessToken('Atza|IwEBxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'); //access token of Selling Partner
+$config->setApiKey("accessKey", 'AKIA2xxxxxxxxxxxxx'); // Access Key of IAM
+$config->setApiKey("secretKey", '94U4Gi81Tpxxxxxxxxxxxxxxx'); // Secret Key of IAM
+$config->setApiKey("region", 'us-east-1'); //region of MarketPlace country
+
 $apiInstance = new Swagger\Client\Api\MerchantFulfillmentApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
+    new GuzzleHttp\Client(),
+    $config
 );
 $shipment_id = "shipment_id_example"; // string | The Amazon-defined shipment identifier for the shipment to cancel.
 
@@ -86,10 +93,17 @@ Cancel the shipment indicated by the specified shipment identifer.
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
 
+$config = Swagger\Client\Configuration::getDefaultConfiguration();
+$config->setAccessToken('Atza|IwEBxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'); //access token of Selling Partner
+$config->setApiKey("accessKey", 'AKIA2xxxxxxxxxxxxx'); // Access Key of IAM
+$config->setApiKey("secretKey", '94U4Gi81Tpxxxxxxxxxxxxxxx'); // Secret Key of IAM
+$config->setApiKey("region", 'us-east-1'); //region of MarketPlace country
+
 $apiInstance = new Swagger\Client\Api\MerchantFulfillmentApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
+    new GuzzleHttp\Client(),
+    $config
 );
 $shipment_id = "shipment_id_example"; // string | The Amazon-defined shipment identifier for the shipment to cancel.
 
@@ -141,10 +155,17 @@ Create a shipment with the information provided.
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
 
+$config = Swagger\Client\Configuration::getDefaultConfiguration();
+$config->setAccessToken('Atza|IwEBxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'); //access token of Selling Partner
+$config->setApiKey("accessKey", 'AKIA2xxxxxxxxxxxxx'); // Access Key of IAM
+$config->setApiKey("secretKey", '94U4Gi81Tpxxxxxxxxxxxxxxx'); // Secret Key of IAM
+$config->setApiKey("region", 'us-east-1'); //region of MarketPlace country
+
 $apiInstance = new Swagger\Client\Api\MerchantFulfillmentApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
+    new GuzzleHttp\Client(),
+    $config
 );
 $body = new \Swagger\Client\Models\CreateShipmentRequest(); // \Swagger\Client\Models\CreateShipmentRequest | 
 
@@ -196,10 +217,17 @@ Gets a list of additional seller inputs required for a ship method. This is gene
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
 
+$config = Swagger\Client\Configuration::getDefaultConfiguration();
+$config->setAccessToken('Atza|IwEBxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'); //access token of Selling Partner
+$config->setApiKey("accessKey", 'AKIA2xxxxxxxxxxxxx'); // Access Key of IAM
+$config->setApiKey("secretKey", '94U4Gi81Tpxxxxxxxxxxxxxxx'); // Secret Key of IAM
+$config->setApiKey("region", 'us-east-1'); //region of MarketPlace country
+
 $apiInstance = new Swagger\Client\Api\MerchantFulfillmentApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
+    new GuzzleHttp\Client(),
+    $config
 );
 $body = new \Swagger\Client\Models\GetAdditionalSellerInputsRequest(); // \Swagger\Client\Models\GetAdditionalSellerInputsRequest | 
 
@@ -251,10 +279,17 @@ Get a list of additional seller inputs required for a ship method. This is gener
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
 
+$config = Swagger\Client\Configuration::getDefaultConfiguration();
+$config->setAccessToken('Atza|IwEBxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'); //access token of Selling Partner
+$config->setApiKey("accessKey", 'AKIA2xxxxxxxxxxxxx'); // Access Key of IAM
+$config->setApiKey("secretKey", '94U4Gi81Tpxxxxxxxxxxxxxxx'); // Secret Key of IAM
+$config->setApiKey("region", 'us-east-1'); //region of MarketPlace country
+
 $apiInstance = new Swagger\Client\Api\MerchantFulfillmentApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
+    new GuzzleHttp\Client(),
+    $config
 );
 $body = new \Swagger\Client\Models\GetAdditionalSellerInputsRequest(); // \Swagger\Client\Models\GetAdditionalSellerInputsRequest | 
 
@@ -306,10 +341,17 @@ Returns a list of shipping service offers that satisfy the specified shipment re
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
 
+$config = Swagger\Client\Configuration::getDefaultConfiguration();
+$config->setAccessToken('Atza|IwEBxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'); //access token of Selling Partner
+$config->setApiKey("accessKey", 'AKIA2xxxxxxxxxxxxx'); // Access Key of IAM
+$config->setApiKey("secretKey", '94U4Gi81Tpxxxxxxxxxxxxxxx'); // Secret Key of IAM
+$config->setApiKey("region", 'us-east-1'); //region of MarketPlace country
+
 $apiInstance = new Swagger\Client\Api\MerchantFulfillmentApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
+    new GuzzleHttp\Client(),
+    $config
 );
 $body = new \Swagger\Client\Models\GetEligibleShipmentServicesRequest(); // \Swagger\Client\Models\GetEligibleShipmentServicesRequest | 
 
@@ -361,10 +403,17 @@ Returns a list of shipping service offers that satisfy the specified shipment re
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
 
+$config = Swagger\Client\Configuration::getDefaultConfiguration();
+$config->setAccessToken('Atza|IwEBxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'); //access token of Selling Partner
+$config->setApiKey("accessKey", 'AKIA2xxxxxxxxxxxxx'); // Access Key of IAM
+$config->setApiKey("secretKey", '94U4Gi81Tpxxxxxxxxxxxxxxx'); // Secret Key of IAM
+$config->setApiKey("region", 'us-east-1'); //region of MarketPlace country
+
 $apiInstance = new Swagger\Client\Api\MerchantFulfillmentApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
+    new GuzzleHttp\Client(),
+    $config
 );
 $body = new \Swagger\Client\Models\GetEligibleShipmentServicesRequest(); // \Swagger\Client\Models\GetEligibleShipmentServicesRequest | 
 
@@ -416,10 +465,17 @@ Returns the shipment information for an existing shipment.
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
 
+$config = Swagger\Client\Configuration::getDefaultConfiguration();
+$config->setAccessToken('Atza|IwEBxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'); //access token of Selling Partner
+$config->setApiKey("accessKey", 'AKIA2xxxxxxxxxxxxx'); // Access Key of IAM
+$config->setApiKey("secretKey", '94U4Gi81Tpxxxxxxxxxxxxxxx'); // Secret Key of IAM
+$config->setApiKey("region", 'us-east-1'); //region of MarketPlace country
+
 $apiInstance = new Swagger\Client\Api\MerchantFulfillmentApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
+    new GuzzleHttp\Client(),
+    $config
 );
 $shipment_id = "shipment_id_example"; // string | The Amazon-defined shipment identifier for the shipment.
 

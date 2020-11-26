@@ -25,10 +25,17 @@ Sends a solicitation to a buyer asking for seller feedback and a product review 
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
 
+$config = Swagger\Client\Configuration::getDefaultConfiguration();
+$config->setAccessToken('Atza|IwEBxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'); //access token of Selling Partner
+$config->setApiKey("accessKey", 'AKIA2xxxxxxxxxxxxx'); // Access Key of IAM
+$config->setApiKey("secretKey", '94U4Gi81Tpxxxxxxxxxxxxxxx'); // Secret Key of IAM
+$config->setApiKey("region", 'us-east-1'); //region of MarketPlace country
+
 $apiInstance = new Swagger\Client\Api\SolicitationsApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
+    new GuzzleHttp\Client(),
+    $config
 );
 $amazon_order_id = "amazon_order_id_example"; // string | An Amazon order identifier. This specifies the order for which a solicitation is sent.
 $marketplace_ids = array("marketplace_ids_example"); // string[] | A marketplace identifier. This specifies the marketplace in which the order was placed. Only one marketplace can be specified.
@@ -82,10 +89,17 @@ Returns a list of solicitation types that are available for an order that you sp
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
 
+$config = Swagger\Client\Configuration::getDefaultConfiguration();
+$config->setAccessToken('Atza|IwEBxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'); //access token of Selling Partner
+$config->setApiKey("accessKey", 'AKIA2xxxxxxxxxxxxx'); // Access Key of IAM
+$config->setApiKey("secretKey", '94U4Gi81Tpxxxxxxxxxxxxxxx'); // Secret Key of IAM
+$config->setApiKey("region", 'us-east-1'); //region of MarketPlace country
+
 $apiInstance = new Swagger\Client\Api\SolicitationsApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
+    new GuzzleHttp\Client(),
+    $config
 );
 $amazon_order_id = "amazon_order_id_example"; // string | An Amazon order identifier. This specifies the order for which you want a list of available solicitation types.
 $marketplace_ids = array("marketplace_ids_example"); // string[] | A marketplace identifier. This specifies the marketplace in which the order was placed. Only one marketplace can be specified.

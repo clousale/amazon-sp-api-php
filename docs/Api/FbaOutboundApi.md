@@ -32,10 +32,18 @@ Requests that Amazon stop attempting to fulfill the fulfillment order indicated 
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
 
+$config = Swagger\Client\Configuration::getDefaultConfiguration();
+$config->setAccessToken('Atza|IwEBxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'); //access token of Selling Partner
+$config->setApiKey("accessKey", 'AKIA2xxxxxxxxxxxxx'); // Access Key of IAM
+$config->setApiKey("secretKey", '94U4Gi81Tpxxxxxxxxxxxxxxx'); // Secret Key of IAM
+$config->setApiKey("region", 'us-east-1'); //region of MarketPlace country
+
+
 $apiInstance = new Swagger\Client\Api\FbaOutboundApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
+    new GuzzleHttp\Client(),
+    $config
 );
 $seller_fulfillment_order_id = "seller_fulfillment_order_id_example"; // string | The identifier assigned to the item by the seller when the fulfillment order was created.
 
@@ -87,10 +95,18 @@ Requests that Amazon ship items from the seller's inventory in Amazon's fulfillm
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
 
+$config = Swagger\Client\Configuration::getDefaultConfiguration();
+$config->setAccessToken('Atza|IwEBxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'); //access token of Selling Partner
+$config->setApiKey("accessKey", 'AKIA2xxxxxxxxxxxxx'); // Access Key of IAM
+$config->setApiKey("secretKey", '94U4Gi81Tpxxxxxxxxxxxxxxx'); // Secret Key of IAM
+$config->setApiKey("region", 'us-east-1'); //region of MarketPlace country
+
+
 $apiInstance = new Swagger\Client\Api\FbaOutboundApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
+    new GuzzleHttp\Client(),
+    $config
 );
 $body = new \Swagger\Client\Models\CreateFulfillmentOrderRequest(); // \Swagger\Client\Models\CreateFulfillmentOrderRequest | 
 
@@ -142,10 +158,18 @@ Creates a fulfillment return.
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
 
+$config = Swagger\Client\Configuration::getDefaultConfiguration();
+$config->setAccessToken('Atza|IwEBxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'); //access token of Selling Partner
+$config->setApiKey("accessKey", 'AKIA2xxxxxxxxxxxxx'); // Access Key of IAM
+$config->setApiKey("secretKey", '94U4Gi81Tpxxxxxxxxxxxxxxx'); // Secret Key of IAM
+$config->setApiKey("region", 'us-east-1'); //region of MarketPlace country
+
+
 $apiInstance = new Swagger\Client\Api\FbaOutboundApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
+    new GuzzleHttp\Client(),
+    $config
 );
 $body = new \Swagger\Client\Models\CreateFulfillmentReturnRequest(); // \Swagger\Client\Models\CreateFulfillmentReturnRequest | 
 $seller_fulfillment_order_id = "seller_fulfillment_order_id_example"; // string | An identifier assigned by the seller to the fulfillment order at the time it was created. The seller uses their own records to find the correct SellerFulfillmentOrderId value based on the buyer's request to return items.
@@ -199,10 +223,18 @@ Returns the fulfillment order indicated by the specified order identifier.
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
 
+$config = Swagger\Client\Configuration::getDefaultConfiguration();
+$config->setAccessToken('Atza|IwEBxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'); //access token of Selling Partner
+$config->setApiKey("accessKey", 'AKIA2xxxxxxxxxxxxx'); // Access Key of IAM
+$config->setApiKey("secretKey", '94U4Gi81Tpxxxxxxxxxxxxxxx'); // Secret Key of IAM
+$config->setApiKey("region", 'us-east-1'); //region of MarketPlace country
+
+
 $apiInstance = new Swagger\Client\Api\FbaOutboundApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
+    new GuzzleHttp\Client(),
+    $config
 );
 $seller_fulfillment_order_id = "seller_fulfillment_order_id_example"; // string | The identifier assigned to the item by the seller when the fulfillment order was created.
 
@@ -254,10 +286,18 @@ Returns a list of fulfillment order previews based on shipping criteria that you
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
 
+$config = Swagger\Client\Configuration::getDefaultConfiguration();
+$config->setAccessToken('Atza|IwEBxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'); //access token of Selling Partner
+$config->setApiKey("accessKey", 'AKIA2xxxxxxxxxxxxx'); // Access Key of IAM
+$config->setApiKey("secretKey", '94U4Gi81Tpxxxxxxxxxxxxxxx'); // Secret Key of IAM
+$config->setApiKey("region", 'us-east-1'); //region of MarketPlace country
+
+
 $apiInstance = new Swagger\Client\Api\FbaOutboundApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
+    new GuzzleHttp\Client(),
+    $config
 );
 $body = new \Swagger\Client\Models\GetFulfillmentPreviewRequest(); // \Swagger\Client\Models\GetFulfillmentPreviewRequest | 
 
@@ -309,10 +349,18 @@ Returns delivery tracking information for a package in an outbound shipment for 
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
 
+$config = Swagger\Client\Configuration::getDefaultConfiguration();
+$config->setAccessToken('Atza|IwEBxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'); //access token of Selling Partner
+$config->setApiKey("accessKey", 'AKIA2xxxxxxxxxxxxx'); // Access Key of IAM
+$config->setApiKey("secretKey", '94U4Gi81Tpxxxxxxxxxxxxxxx'); // Secret Key of IAM
+$config->setApiKey("region", 'us-east-1'); //region of MarketPlace country
+
+
 $apiInstance = new Swagger\Client\Api\FbaOutboundApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
+    new GuzzleHttp\Client(),
+    $config
 );
 $package_number = 56; // int | The unencrypted package identifier returned by the getFulfillmentOrder operation.
 
@@ -364,10 +412,18 @@ Returns a list of fulfillment orders fulfilled after (or at) a specified date-ti
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
 
+$config = Swagger\Client\Configuration::getDefaultConfiguration();
+$config->setAccessToken('Atza|IwEBxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'); //access token of Selling Partner
+$config->setApiKey("accessKey", 'AKIA2xxxxxxxxxxxxx'); // Access Key of IAM
+$config->setApiKey("secretKey", '94U4Gi81Tpxxxxxxxxxxxxxxx'); // Secret Key of IAM
+$config->setApiKey("region", 'us-east-1'); //region of MarketPlace country
+
+
 $apiInstance = new Swagger\Client\Api\FbaOutboundApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
+    new GuzzleHttp\Client(),
+    $config
 );
 $query_start_date_time = new \DateTime("2013-10-20T19:20:30+01:00"); // \DateTime | A date and time used to select fulfillment orders that were last updated after (or at) a specified time. An update is defined as any change in fulfillment order status, including the creation of a new fulfillment order.
 $fulfillment_method = array("fulfillment_method_example"); // string[] | Indicates the intended recipient channel for the order.
@@ -423,10 +479,18 @@ Returns a list of return reason codes for a seller SKU in a given marketplace.
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
 
+$config = Swagger\Client\Configuration::getDefaultConfiguration();
+$config->setAccessToken('Atza|IwEBxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'); //access token of Selling Partner
+$config->setApiKey("accessKey", 'AKIA2xxxxxxxxxxxxx'); // Access Key of IAM
+$config->setApiKey("secretKey", '94U4Gi81Tpxxxxxxxxxxxxxxx'); // Secret Key of IAM
+$config->setApiKey("region", 'us-east-1'); //region of MarketPlace country
+
+
 $apiInstance = new Swagger\Client\Api\FbaOutboundApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
+    new GuzzleHttp\Client(),
+    $config
 );
 $seller_sku = "seller_sku_example"; // string | The seller SKU for which return reason codes are required.
 $language = "language_example"; // string | The language that the TranslatedDescription property of the ReasonCodeDetails response object should be translated into.
@@ -484,10 +548,18 @@ Updates and/or requests shipment for a fulfillment order with an order hold on i
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
 
+$config = Swagger\Client\Configuration::getDefaultConfiguration();
+$config->setAccessToken('Atza|IwEBxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'); //access token of Selling Partner
+$config->setApiKey("accessKey", 'AKIA2xxxxxxxxxxxxx'); // Access Key of IAM
+$config->setApiKey("secretKey", '94U4Gi81Tpxxxxxxxxxxxxxxx'); // Secret Key of IAM
+$config->setApiKey("region", 'us-east-1'); //region of MarketPlace country
+
+
 $apiInstance = new Swagger\Client\Api\FbaOutboundApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
+    new GuzzleHttp\Client(),
+    $config
 );
 $body = new \Swagger\Client\Models\UpdateFulfillmentOrderRequest(); // \Swagger\Client\Models\UpdateFulfillmentOrderRequest | 
 $seller_fulfillment_order_id = "seller_fulfillment_order_id_example"; // string | The identifier assigned to the item by the seller when the fulfillment order was created.

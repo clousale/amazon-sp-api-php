@@ -29,10 +29,17 @@ Adds an appointment to the service job indicated by the service job identifier y
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
 
+$config = Swagger\Client\Configuration::getDefaultConfiguration();
+$config->setAccessToken('Atza|IwEBxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'); //access token of Selling Partner
+$config->setApiKey("accessKey", 'AKIA2xxxxxxxxxxxxx'); // Access Key of IAM
+$config->setApiKey("secretKey", '94U4Gi81Tpxxxxxxxxxxxxxxx'); // Secret Key of IAM
+$config->setApiKey("region", 'us-east-1'); //region of MarketPlace country
+
 $apiInstance = new Swagger\Client\Api\ServiceApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
+    new GuzzleHttp\Client(),
+    $config
 );
 $body = new \Swagger\Client\Models\AddAppointmentRequest(); // \Swagger\Client\Models\AddAppointmentRequest | Add appointment operation input details.
 $service_job_id = "service_job_id_example"; // string | An Amazon defined service job identifier.
@@ -86,10 +93,17 @@ Cancels the service job indicated by the service job identifier you specify.
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
 
+$config = Swagger\Client\Configuration::getDefaultConfiguration();
+$config->setAccessToken('Atza|IwEBxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'); //access token of Selling Partner
+$config->setApiKey("accessKey", 'AKIA2xxxxxxxxxxxxx'); // Access Key of IAM
+$config->setApiKey("secretKey", '94U4Gi81Tpxxxxxxxxxxxxxxx'); // Secret Key of IAM
+$config->setApiKey("region", 'us-east-1'); //region of MarketPlace country
+
 $apiInstance = new Swagger\Client\Api\ServiceApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
+    new GuzzleHttp\Client(),
+    $config
 );
 $service_job_id = "service_job_id_example"; // string | An Amazon defined service job identifier.
 $cancellation_reason_code = "cancellation_reason_code_example"; // string | A cancel reason code that specifies the reason for cancelling a service job.
@@ -143,10 +157,17 @@ Completes the service job indicated by the service job identifier you specify.
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
 
+$config = Swagger\Client\Configuration::getDefaultConfiguration();
+$config->setAccessToken('Atza|IwEBxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'); //access token of Selling Partner
+$config->setApiKey("accessKey", 'AKIA2xxxxxxxxxxxxx'); // Access Key of IAM
+$config->setApiKey("secretKey", '94U4Gi81Tpxxxxxxxxxxxxxxx'); // Secret Key of IAM
+$config->setApiKey("region", 'us-east-1'); //region of MarketPlace country
+
 $apiInstance = new Swagger\Client\Api\ServiceApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
+    new GuzzleHttp\Client(),
+    $config
 );
 $service_job_id = "service_job_id_example"; // string | An Amazon defined service job identifier.
 
@@ -198,10 +219,17 @@ Gets service job details for the service job indicated by the service job identi
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
 
+$config = Swagger\Client\Configuration::getDefaultConfiguration();
+$config->setAccessToken('Atza|IwEBxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'); //access token of Selling Partner
+$config->setApiKey("accessKey", 'AKIA2xxxxxxxxxxxxx'); // Access Key of IAM
+$config->setApiKey("secretKey", '94U4Gi81Tpxxxxxxxxxxxxxxx'); // Secret Key of IAM
+$config->setApiKey("region", 'us-east-1'); //region of MarketPlace country
+
 $apiInstance = new Swagger\Client\Api\ServiceApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
+    new GuzzleHttp\Client(),
+    $config
 );
 $service_job_id = "service_job_id_example"; // string | A service job identifier.
 
@@ -253,10 +281,17 @@ Gets service job details for the specified filter query.
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
 
+$config = Swagger\Client\Configuration::getDefaultConfiguration();
+$config->setAccessToken('Atza|IwEBxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'); //access token of Selling Partner
+$config->setApiKey("accessKey", 'AKIA2xxxxxxxxxxxxx'); // Access Key of IAM
+$config->setApiKey("secretKey", '94U4Gi81Tpxxxxxxxxxxxxxxx'); // Secret Key of IAM
+$config->setApiKey("region", 'us-east-1'); //region of MarketPlace country
+
 $apiInstance = new Swagger\Client\Api\ServiceApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
+    new GuzzleHttp\Client(),
+    $config
 );
 $marketplace_ids = array("marketplace_ids_example"); // string[] | Used to select jobs that were placed in the specified marketplaces.
 $service_order_ids = array("service_order_ids_example"); // string[] | List of service order ids for the query you want to perform.Max values supported 20.
@@ -332,10 +367,17 @@ Reschedules an appointment for the service job indicated by the service job iden
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
 
+$config = Swagger\Client\Configuration::getDefaultConfiguration();
+$config->setAccessToken('Atza|IwEBxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'); //access token of Selling Partner
+$config->setApiKey("accessKey", 'AKIA2xxxxxxxxxxxxx'); // Access Key of IAM
+$config->setApiKey("secretKey", '94U4Gi81Tpxxxxxxxxxxxxxxx'); // Secret Key of IAM
+$config->setApiKey("region", 'us-east-1'); //region of MarketPlace country
+
 $apiInstance = new Swagger\Client\Api\ServiceApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
+    new GuzzleHttp\Client(),
+    $config
 );
 $body = new \Swagger\Client\Models\RescheduleAppointmentRequest(); // \Swagger\Client\Models\RescheduleAppointmentRequest | Reschedule appointment operation input details.
 $service_job_id = "service_job_id_example"; // string | An Amazon defined service job identifier.

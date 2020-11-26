@@ -379,19 +379,20 @@ class FbaOutboundApi
             }
         }
 
+        $query = \GuzzleHttp\Psr7\build_query($queryParams);
 
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
+        $sign = new SignatureSellingPartner();
+        $headersX = $sign->calculateSignature($this->config->getApiKey("accessKey"),
+                $this->config->getApiKey("secretKey"), $this->config->getApiKey("region"),
+                $this->config->getAccessToken(), $this->config->getUserAgent(), str_replace("https://", "", $this->config->getHost()),
+                'PUT', $resourcePath, $query);
 
         $headers = array_merge(
-            $defaultHeaders,
             $headerParams,
-            $headers
+            $headers,
+            $headersX
         );
 
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
         return new Request(
             'PUT',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
@@ -688,19 +689,20 @@ class FbaOutboundApi
             }
         }
 
+        $query = \GuzzleHttp\Psr7\build_query($queryParams);
 
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
+        $sign = new SignatureSellingPartner();
+        $headersX = $sign->calculateSignature($this->config->getApiKey("accessKey"),
+                $this->config->getApiKey("secretKey"), $this->config->getApiKey("region"),
+                $this->config->getAccessToken(), $this->config->getUserAgent(), str_replace("https://", "", $this->config->getHost()),
+                'POST', $resourcePath, $query);
 
         $headers = array_merge(
-            $defaultHeaders,
             $headerParams,
-            $headers
+            $headers,
+            $headersX
         );
 
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
         return new Request(
             'POST',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
@@ -1016,19 +1018,20 @@ class FbaOutboundApi
             }
         }
 
+        $query = \GuzzleHttp\Psr7\build_query($queryParams);
 
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
+        $sign = new SignatureSellingPartner();
+        $headersX = $sign->calculateSignature($this->config->getApiKey("accessKey"),
+                $this->config->getApiKey("secretKey"), $this->config->getApiKey("region"),
+                $this->config->getAccessToken(), $this->config->getUserAgent(), str_replace("https://", "", $this->config->getHost()),
+                'PUT', $resourcePath, $query);
 
         $headers = array_merge(
-            $defaultHeaders,
             $headerParams,
-            $headers
+            $headers,
+            $headersX
         );
 
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
         return new Request(
             'PUT',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
@@ -1330,19 +1333,20 @@ class FbaOutboundApi
             }
         }
 
+        $query = \GuzzleHttp\Psr7\build_query($queryParams);
 
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
+        $sign = new SignatureSellingPartner();
+        $headersX = $sign->calculateSignature($this->config->getApiKey("accessKey"),
+                $this->config->getApiKey("secretKey"), $this->config->getApiKey("region"),
+                $this->config->getAccessToken(), $this->config->getUserAgent(), str_replace("https://", "", $this->config->getHost()),
+                'GET', $resourcePath, $query);
 
         $headers = array_merge(
-            $defaultHeaders,
             $headerParams,
-            $headers
+            $headers,
+            $headersX
         );
 
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
         return new Request(
             'GET',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
@@ -1639,19 +1643,20 @@ class FbaOutboundApi
             }
         }
 
+        $query = \GuzzleHttp\Psr7\build_query($queryParams);
 
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
+        $sign = new SignatureSellingPartner();
+        $headersX = $sign->calculateSignature($this->config->getApiKey("accessKey"),
+                $this->config->getApiKey("secretKey"), $this->config->getApiKey("region"),
+                $this->config->getAccessToken(), $this->config->getUserAgent(), str_replace("https://", "", $this->config->getHost()),
+                'POST', $resourcePath, $query);
 
         $headers = array_merge(
-            $defaultHeaders,
             $headerParams,
-            $headers
+            $headers,
+            $headersX
         );
 
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
         return new Request(
             'POST',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
@@ -1949,19 +1954,20 @@ class FbaOutboundApi
             }
         }
 
+        $query = \GuzzleHttp\Psr7\build_query($queryParams);
 
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
+        $sign = new SignatureSellingPartner();
+        $headersX = $sign->calculateSignature($this->config->getApiKey("accessKey"),
+                $this->config->getApiKey("secretKey"), $this->config->getApiKey("region"),
+                $this->config->getAccessToken(), $this->config->getUserAgent(), str_replace("https://", "", $this->config->getHost()),
+                'GET', $resourcePath, $query);
 
         $headers = array_merge(
-            $defaultHeaders,
             $headerParams,
-            $headers
+            $headers,
+            $headersX
         );
 
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
         return new Request(
             'GET',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
@@ -2274,19 +2280,20 @@ class FbaOutboundApi
             }
         }
 
+        $query = \GuzzleHttp\Psr7\build_query($queryParams);
 
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
+        $sign = new SignatureSellingPartner();
+        $headersX = $sign->calculateSignature($this->config->getApiKey("accessKey"),
+                $this->config->getApiKey("secretKey"), $this->config->getApiKey("region"),
+                $this->config->getAccessToken(), $this->config->getUserAgent(), str_replace("https://", "", $this->config->getHost()),
+                'GET', $resourcePath, $query);
 
         $headers = array_merge(
-            $defaultHeaders,
             $headerParams,
-            $headers
+            $headers,
+            $headersX
         );
 
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
         return new Request(
             'GET',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
@@ -2617,19 +2624,20 @@ class FbaOutboundApi
             }
         }
 
+        $query = \GuzzleHttp\Psr7\build_query($queryParams);
 
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
+        $sign = new SignatureSellingPartner();
+        $headersX = $sign->calculateSignature($this->config->getApiKey("accessKey"),
+                $this->config->getApiKey("secretKey"), $this->config->getApiKey("region"),
+                $this->config->getAccessToken(), $this->config->getUserAgent(), str_replace("https://", "", $this->config->getHost()),
+                'GET', $resourcePath, $query);
 
         $headers = array_merge(
-            $defaultHeaders,
             $headerParams,
-            $headers
+            $headers,
+            $headersX
         );
 
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
         return new Request(
             'GET',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
@@ -2945,19 +2953,20 @@ class FbaOutboundApi
             }
         }
 
+        $query = \GuzzleHttp\Psr7\build_query($queryParams);
 
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
+        $sign = new SignatureSellingPartner();
+        $headersX = $sign->calculateSignature($this->config->getApiKey("accessKey"),
+                $this->config->getApiKey("secretKey"), $this->config->getApiKey("region"),
+                $this->config->getAccessToken(), $this->config->getUserAgent(), str_replace("https://", "", $this->config->getHost()),
+                'PUT', $resourcePath, $query);
 
         $headers = array_merge(
-            $defaultHeaders,
             $headerParams,
-            $headers
+            $headers,
+            $headersX
         );
 
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
         return new Request(
             'PUT',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),

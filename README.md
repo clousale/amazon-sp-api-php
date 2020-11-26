@@ -30,3 +30,9 @@ You can find general information about the Amazon Selling Partner API on [the of
 # Notes
 
 If you're looking for a complete Repricing & FBA-Reimbursement solution, you might want to consider giving [ClouSale.com](https://www.clousale.com) a shot.
+
+# Thanks
+
+Thanks go out to everybody who added PRs and worked on this package:
+
+- [rodrigojob](https://www.github.com/rodrigojob)

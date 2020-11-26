@@ -80,7 +80,7 @@ class Configuration
      *
      * @var string
      */
-    protected $host = 'https://sellingpartnerapi-na.amazon.com/';
+    protected $host = 'https://sellingpartnerapi-na.amazon.com';
 
     /**
      * User agent of the HTTP request, set to "PHP-Swagger" by default
