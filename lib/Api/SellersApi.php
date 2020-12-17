@@ -1,4 +1,5 @@
 <?php
+
 /**
  * SellersApi
  * PHP version 5
@@ -147,7 +148,7 @@ class SellersApi
                 $content = $responseBody; //stream goes to serializer
             } else {
                 $content = $responseBody->getContents();
-                if (!in_array($returnType, ['string','integer','bool'])) {
+                if (!in_array($returnType, ['string', 'integer', 'bool'])) {
                     $content = json_decode($content);
                 }
             }
@@ -157,7 +158,6 @@ class SellersApi
                 $response->getStatusCode(),
                 $response->getHeaders()
             ];
-
         } catch (ApiException $e) {
             switch ($e->getCode()) {
                 case 200:
@@ -359,10 +359,8 @@ class SellersApi
                 }
                 // for HTTP post (form)
                 $httpBody = new MultipartStream($multipartContents);
-
             } elseif ($headers['Content-Type'] === 'application/json') {
                 $httpBody = \GuzzleHttp\json_encode($formParams);
-
             } else {
                 // for HTTP post (form)
                 $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
@@ -372,15 +370,29 @@ class SellersApi
         $query = \GuzzleHttp\Psr7\build_query($queryParams);
 
         $sign = new SignatureSellingPartner();
-        $headersX = $sign->calculateSignature($this->config->getApiKey("accessKey"),
-                $this->config->getApiKey("secretKey"), $this->config->getApiKey("region"),
-                $this->config->getAccessToken(), $this->config->getUserAgent(), str_replace("https://", "", $this->config->getHost()),
-                'GET', $resourcePath, $query);
+        $headersX = $sign->calculateSignature(
+            $this->config->getApiKey("accessKey"),
+            $this->config->getApiKey("secretKey"),
+            $this->config->getApiKey("region"),
+            $this->config->getAccessToken(),
+            $this->config->getUserAgent(),
+            str_replace("https://", "", $this->config->getHost()),
+            'GET',
+            $resourcePath,
+            $query
+        );
 
         $headers = array_merge(
             $headerParams,
             $headers,
             $headersX
+        );
+
+        return new Request(
+            'GET',
+            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
         );
     }
 
