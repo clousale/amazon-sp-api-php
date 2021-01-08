@@ -10,9 +10,14 @@ return PhpCsFixer\Config::create()
         '@PSR1' => true,
         '@PSR2' => true,
         '@Symfony' => true,
-        'array_syntax' => ['syntax' => 'short'],
+        'array_syntax' => [
+            'syntax' => 'short'
+        ],
         'phpdoc_order' => true,
         'ordered_imports' => true,
+        'method_argument_space' => [
+            'on_multiline' => 'ensure_fully_multiline',
+        ]
     ])
     ->setUsingCache(false)
     ->setFinder($finder)
