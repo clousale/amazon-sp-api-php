@@ -24,6 +24,7 @@
         "guzzlehttp/guzzle": "^6.2"
     },
     "require-dev": {
+        "roave/security-advisories": "dev-master",
         "phpunit/phpunit": "^4.8",
         "squizlabs/php_codesniffer": "~2.6",
         "friendsofphp/php-cs-fixer": "v2.17.3"
