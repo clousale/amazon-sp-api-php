@@ -37,7 +37,7 @@ use Swagger\Client\ApiException;
 use Swagger\Client\Configuration;
 use Swagger\Client\HeaderSelector;
 use Swagger\Client\ObjectSerializer;
-use Swagger\Client\Signature;
+use Swagger\Client\SignatureSellingPartner;
 
 /**
  * ProductPricingApi Class Doc Comment
