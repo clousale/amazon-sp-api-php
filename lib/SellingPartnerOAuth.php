@@ -12,7 +12,7 @@ class SellingPartnerOAuth
      * @param $refreshToken
      * @param $clientId
      * @param $clientSecret
-     * @return string|null
+     *
      * @throws GuzzleException
      */
     public static function getAccessTokenFromRefreshToken($refreshToken, $clientId, $clientSecret): ?string
@@ -36,6 +36,7 @@ class SellingPartnerOAuth
 
         $body = $response->getBody()->getContents();
         $bodyAsJson = json_decode($body, true);
+
         return $bodyAsJson['access_token'];
     }
 }

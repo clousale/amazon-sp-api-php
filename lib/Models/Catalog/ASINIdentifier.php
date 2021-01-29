@@ -30,8 +30,9 @@
 namespace ClouSale\AmazonSellingPartnerAPI\Models\Catalog;
 
 use ArrayAccess;
+use ClouSale\AmazonSellingPartnerAPI\Models\ModelInterface;
 use ClouSale\AmazonSellingPartnerAPI\ObjectSerializer;
-use \ClouSale\AmazonSellingPartnerAPI\Models\ModelInterface;
+
 /**
  * ASINIdentifier Class Doc Comment.
  *

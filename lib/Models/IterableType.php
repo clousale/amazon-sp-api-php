@@ -1,9 +1,8 @@
 <?php
 
-
 namespace ClouSale\AmazonSellingPartnerAPI\Models;
 
-
-interface IterableType {
+interface IterableType
+{
     public function getSubClass();
 }

@@ -27,32 +27,32 @@ class AssumeRole
     /**
      * @return mixed
      */
-    public function getAccessKeyId() {
+    public function getAccessKeyId()
+    {
         return $this->accessKeyId;
     }
 
     /**
      * @return mixed
      */
-    public function getSecretAccessKey() {
+    public function getSecretAccessKey()
+    {
         return $this->secretAccessKey;
     }
 
     /**
      * @return mixed
      */
-    public function getSessionToken() {
+    public function getSessionToken()
+    {
         return $this->sessionToken;
     }
-
-
 
     /**
      * @param $region
      * @param $accessKey
      * @param $secretKey
      * @param $roleArn
-     * @return AssumeRole
      */
     public static function assume($region, $accessKey, $secretKey, $roleArn): AssumeRole
     {

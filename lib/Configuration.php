@@ -437,19 +437,13 @@ class Configuration
         $this->secretKey = $secretKey;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getRegion(): ?string {
+    public function getRegion(): ?string
+    {
         return $this->region;
     }
 
-    /**
-     * @param string|null $region
-     */
-    public function setRegion(?string $region): void {
+    public function setRegion(?string $region): void
+    {
         $this->region = $region;
     }
-
-
 }
