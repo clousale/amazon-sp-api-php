@@ -7,7 +7,6 @@
  *
  * @category Class
  * @author   rodrigojob
-
  */
 /**
  * Selling Partner API for Solicitations
@@ -25,34 +24,32 @@
  * Do not edit the class manually.
  */
 
-namespace Swagger\Client;
+namespace ClouSale\AmazonSellingPartnerAPI;
 
 /**
  * Signature Class Doc Comment
  *
  * @category Class
- * @package  Swagger\Client
+ * @package  ClouSale\AmazonSellingPartnerAPI
  * @author   rodrigojob
  */
 class SignatureSellingPartner {
 
     /**
-     * calculateSignature data
-     *
-     * @param string  $accessKey   the Selling Partner Access Key
-     * @param string  $secretKey   the IAM secret
-     * @param string  $region the region use AWS
-     * @param string  $accessToken   the Selling Partner access-token
-     * @param string  $userAgent   the user-agent to sign
-     * @param string  $host   the host to sign
-     * @param string  $method   the method to sign
-     * @param string  $uri   the uri to sign
-     * @param string  $queryString   the queryString to sign
-     * @param mixed   $data   the data to sign
-     *
-     * @return array headers signed
+     * @param $accessKey
+     * @param $securityToken
+     * @param $secretKey
+     * @param $region
+     * @param $accessToken
+     * @param $userAgent
+     * @param $host
+     * @param $method
+     * @param string $uri
+     * @param string $queryString
+     * @param array $data
+     * @return array
      */
-    public static function calculateSignature($accessKey, $secretKey, $region, $accessToken, $userAgent, $host, $method, $uri = "", $queryString = "", $data = array()){
+    public static function calculateSignature($accessKey, $securityToken, $secretKey, $region, $accessToken, $userAgent, $host, $method, $uri = "", $queryString = "", $data = array()): array {
         $service = 'execute-api';
         $terminationString = 'aws4_request';
         $algorithm = 'AWS4-HMAC-SHA256';
@@ -67,9 +64,9 @@ class SignatureSellingPartner {
         }
         $hashedPayload = hash('sha256', $requestPayload);
 
-        $canonical_headers = "host:" . $host . "\n" . "user-agent:" . $userAgent . "\n" . "x-amz-access-token:" . $accessToken . "\n" . "x-amz-date:" . $amzdate . "\n";
+        $canonical_headers = "host:" . $host . "\n" . "user-agent:" . $userAgent . "\n" . "x-amz-access-token:" . $accessToken . "\n" . "x-amz-date:" . $amzdate . "\n" . "x-amz-security-token:" . $securityToken . "\n";
         $credential_scope = $date . '/' . $region . '/' . $service . '/' . $terminationString;
-        $signed_headers = 'host;user-agent;x-amz-access-token;x-amz-date';
+        $signed_headers = 'host;user-agent;x-amz-access-token;x-amz-date;x-amz-security-token';
 
         $canonical_request = $method . "\n" . $uri . "\n" . $queryString . "\n" . $canonical_headers . "\n" . $signed_headers . "\n" . $hashedPayload;
 
@@ -84,13 +81,14 @@ class SignatureSellingPartner {
         $signature = trim(hash_hmac('sha256', $stringToSign, $kSigning)); // Without fourth parameter passed as true, returns lowercase hexits as called for by docs
 
         $authorization_header = $algorithm . " Credential={$accessKey}/{$credential_scope}, SignedHeaders={$signed_headers}, Signature={$signature}";
-
+//        var_dump($accessKey, $securityToken, $secretKey, $region, $accessToken);
         $headers = array(
             "host" => $host,
             "Authorization" => $authorization_header,
             "user-agent" => $userAgent,
             "x-amz-access-token" => $accessToken,
-            "x-amz-date" => $amzdate
+            "x-amz-date" => $amzdate,
+            "x-amz-security-token" => $securityToken,
         );
 
         return $headers;

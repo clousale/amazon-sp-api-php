@@ -26,19 +26,23 @@
  * Do not edit the class manually.
  */
 
-namespace Swagger\Client\Api;
+namespace ClouSale\AmazonSellingPartnerAPI\Api;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
-use GuzzleHttp\Exception\RequestException;
-use GuzzleHttp\Psr7\MultipartStream;
 use GuzzleHttp\Psr7\Request;
-use GuzzleHttp\RequestOptions;
-use Swagger\Client\ApiException;
-use Swagger\Client\Configuration;
-use Swagger\Client\HeaderSelector;
-use Swagger\Client\ObjectSerializer;
-use Swagger\Client\SignatureSellingPartner;
+use ClouSale\AmazonSellingPartnerAPI\Configuration;
+use ClouSale\AmazonSellingPartnerAPI\HeaderSelector;
+use ClouSale\AmazonSellingPartnerAPI\Helpers\SellingPartnerApiRequest;
+use ClouSale\AmazonSellingPartnerAPI\Models\Notifications\CreateDestinationResponse;
+use ClouSale\AmazonSellingPartnerAPI\Models\Notifications\CreateSubscriptionResponse;
+use ClouSale\AmazonSellingPartnerAPI\Models\Notifications\DeleteDestinationResponse;
+use ClouSale\AmazonSellingPartnerAPI\Models\Notifications\DeleteSubscriptionByIdResponse;
+use ClouSale\AmazonSellingPartnerAPI\Models\Notifications\GetDestinationResponse;
+use ClouSale\AmazonSellingPartnerAPI\Models\Notifications\GetDestinationsResponse;
+use ClouSale\AmazonSellingPartnerAPI\Models\Notifications\GetSubscriptionByIdResponse;
+use ClouSale\AmazonSellingPartnerAPI\Models\Notifications\GetSubscriptionResponse;
+use ClouSale\AmazonSellingPartnerAPI\ObjectSerializer;
 
 /**
  * NotificationsApi Class Doc Comment.
@@ -51,6 +55,8 @@ use Swagger\Client\SignatureSellingPartner;
  */
 class NotificationsApi
 {
+    use SellingPartnerApiRequest;
+
     /**
      * @var ClientInterface
      */
@@ -71,14 +77,10 @@ class NotificationsApi
      * @param Configuration   $config
      * @param HeaderSelector  $selector
      */
-    public function __construct(
-        ClientInterface $client = null,
-        Configuration $config = null,
-        HeaderSelector $selector = null
-    ) {
-        $this->client = $client ?: new Client();
-        $this->config = $config ?: new Configuration();
-        $this->headerSelector = $selector ?: new HeaderSelector();
+    public function __construct(Configuration $config) {
+        $this->client = new Client();
+        $this->config = $config;
+        $this->headerSelector = new HeaderSelector();
     }
 
     /**
@@ -92,12 +94,12 @@ class NotificationsApi
     /**
      * Operation createDestination.
      *
-     * @param \Swagger\Client\Models\CreateDestinationRequest $body body (required)
+     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Notifications\CreateDestinationRequest $body body (required)
      *
-     * @throws \Swagger\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
+     * @throws \ClouSale\AmazonSellingPartnerAPI\ApiException on non-2xx response
      *
-     * @return \Swagger\Client\Models\CreateDestinationResponse
+     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Notifications\CreateDestinationResponse
      */
     public function createDestination($body)
     {
@@ -109,138 +111,24 @@ class NotificationsApi
     /**
      * Operation createDestinationWithHttpInfo.
      *
-     * @param \Swagger\Client\Models\CreateDestinationRequest $body (required)
+     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Notifications\CreateDestinationRequest $body (required)
      *
-     * @throws \Swagger\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
+     * @throws \ClouSale\AmazonSellingPartnerAPI\ApiException on non-2xx response
      *
-     * @return array of \Swagger\Client\Models\CreateDestinationResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \ClouSale\AmazonSellingPartnerAPI\Models\Notifications\CreateDestinationResponse, HTTP status code, HTTP response headers (array of strings)
      */
     public function createDestinationWithHttpInfo($body)
     {
-        $returnType = '\Swagger\Client\Models\CreateDestinationResponse';
         $request = $this->createDestinationRequest($body);
 
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException("[{$e->getCode()}] {$e->getMessage()}", $e->getCode(), $e->getResponse() ? $e->getResponse()->getHeaders() : null, $e->getResponse() ? $e->getResponse()->getBody()->getContents() : null);
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $request->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
-            }
-
-            $responseBody = $response->getBody();
-            if ('\SplFileObject' === $returnType) {
-                $content = $responseBody; //stream goes to serializer
-            } else {
-                $content = $responseBody->getContents();
-                if (!in_array($returnType, ['string', 'integer', 'bool'])) {
-                    $content = json_decode($content);
-                }
-            }
-
-            return [
-                ObjectSerializer::deserialize($content, $returnType, []),
-                $response->getStatusCode(),
-                $response->getHeaders(),
-            ];
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CreateDestinationResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 400:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CreateDestinationResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 403:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CreateDestinationResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 404:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CreateDestinationResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 409:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CreateDestinationResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 413:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CreateDestinationResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 415:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CreateDestinationResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 429:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CreateDestinationResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 500:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CreateDestinationResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 503:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CreateDestinationResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
+        return $this->sendRequest($request, CreateDestinationResponse::class);
     }
 
     /**
      * Operation createDestinationAsync.
      *
-     * @param \Swagger\Client\Models\CreateDestinationRequest $body (required)
+     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Notifications\CreateDestinationRequest $body (required)
      *
      * @throws \InvalidArgumentException
      *
@@ -259,7 +147,7 @@ class NotificationsApi
     /**
      * Operation createDestinationAsyncWithHttpInfo.
      *
-     * @param \Swagger\Client\Models\CreateDestinationRequest $body (required)
+     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Notifications\CreateDestinationRequest $body (required)
      *
      * @throws \InvalidArgumentException
      *
@@ -267,41 +155,15 @@ class NotificationsApi
      */
     public function createDestinationAsyncWithHttpInfo($body)
     {
-        $returnType = '\Swagger\Client\Models\CreateDestinationResponse';
         $request = $this->createDestinationRequest($body);
 
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    $responseBody = $response->getBody();
-                    if ('\SplFileObject' === $returnType) {
-                        $content = $responseBody; //stream goes to serializer
-                    } else {
-                        $content = $responseBody->getContents();
-                        if ('string' !== $returnType) {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders(),
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $exception->getRequest()->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
-                }
-            );
+        return $this->sendRequestAsync($request, CreateDestinationResponse::class);
     }
 
     /**
      * Create request for operation 'createDestination'.
      *
-     * @param \Swagger\Client\Models\CreateDestinationRequest $body (required)
+     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Notifications\CreateDestinationRequest $body (required)
      *
      * @throws \InvalidArgumentException
      *
@@ -318,92 +180,22 @@ class NotificationsApi
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
-        $httpBody = '';
+        $httpBody = $body;
         $multipart = false;
 
-        // body params
-        $_tempBody = null;
-        if (isset($body)) {
-            $_tempBody = $body;
-        }
-
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/json', 'Successful Response']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/json', 'Successful Response'],
-                ['application/json']
-            );
-        }
-
-        // for model (json/xml)
-        if (isset($_tempBody)) {
-            // $_tempBody is the method argument, if present
-            $httpBody = $_tempBody;
-            // \stdClass has no __toString(), so we should encode it manually
-            if ($httpBody instanceof \stdClass && 'application/json' === $headers['Content-Type']) {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
-            }
-        } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $multipartContents[] = [
-                        'name' => $formParamName,
-                        'contents' => $formParamValue,
-                    ];
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-            } elseif ('application/json' === $headers['Content-Type']) {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
-            }
-        }
-
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
-
-        $sign = new SignatureSellingPartner();
-        $headersX = $sign->calculateSignature(
-            $this->config->getApiKey('accessKey'),
-            $this->config->getApiKey('secretKey'),
-            $this->config->getApiKey('region'),
-            $this->config->getAccessToken(),
-            $this->config->getUserAgent(),
-            str_replace('https://', '', $this->config->getHost()),
-            'POST',
-            $resourcePath,
-            $query
-        );
-
-        $headers = array_merge(
-            $headerParams,
-            $headers,
-            $headersX
-        );
-
-        return new Request(
-            'POST',
-            $this->config->getHost().$resourcePath.($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
+        return $this->generateRequest($multipart, $formParams, $queryParams, $resourcePath, $headerParams, 'POST', $httpBody);
     }
 
     /**
      * Operation createSubscription.
      *
-     * @param \Swagger\Client\Models\CreateSubscriptionRequest $body              body (required)
-     * @param string                                           $notification_type The type of notification to which you want to subscribe.   For more information about notification types, see the Notifications API Use Case Guide. (required)
+     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Notifications\CreateSubscriptionRequest $body              body (required)
+     * @param string                                                         $notification_type The type of notification to which you want to subscribe.   For more information about notification types, see the Notifications API Use Case Guide. (required)
      *
-     * @throws \Swagger\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
+     * @throws \ClouSale\AmazonSellingPartnerAPI\ApiException on non-2xx response
      *
-     * @return \Swagger\Client\Models\CreateSubscriptionResponse
+     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Notifications\CreateSubscriptionResponse
      */
     public function createSubscription($body, $notification_type)
     {
@@ -415,140 +207,26 @@ class NotificationsApi
     /**
      * Operation createSubscriptionWithHttpInfo.
      *
-     * @param \Swagger\Client\Models\CreateSubscriptionRequest $body              (required)
-     * @param string                                           $notification_type The type of notification to which you want to subscribe.   For more information about notification types, see the Notifications API Use Case Guide. (required)
+     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Notifications\CreateSubscriptionRequest $body              (required)
+     * @param string                                                         $notification_type The type of notification to which you want to subscribe.   For more information about notification types, see the Notifications API Use Case Guide. (required)
      *
-     * @throws \Swagger\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
+     * @throws \ClouSale\AmazonSellingPartnerAPI\ApiException on non-2xx response
      *
-     * @return array of \Swagger\Client\Models\CreateSubscriptionResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \ClouSale\AmazonSellingPartnerAPI\Models\Notifications\CreateSubscriptionResponse, HTTP status code, HTTP response headers (array of strings)
      */
     public function createSubscriptionWithHttpInfo($body, $notification_type)
     {
-        $returnType = '\Swagger\Client\Models\CreateSubscriptionResponse';
         $request = $this->createSubscriptionRequest($body, $notification_type);
 
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException("[{$e->getCode()}] {$e->getMessage()}", $e->getCode(), $e->getResponse() ? $e->getResponse()->getHeaders() : null, $e->getResponse() ? $e->getResponse()->getBody()->getContents() : null);
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $request->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
-            }
-
-            $responseBody = $response->getBody();
-            if ('\SplFileObject' === $returnType) {
-                $content = $responseBody; //stream goes to serializer
-            } else {
-                $content = $responseBody->getContents();
-                if (!in_array($returnType, ['string', 'integer', 'bool'])) {
-                    $content = json_decode($content);
-                }
-            }
-
-            return [
-                ObjectSerializer::deserialize($content, $returnType, []),
-                $response->getStatusCode(),
-                $response->getHeaders(),
-            ];
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CreateSubscriptionResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 400:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CreateSubscriptionResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 403:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CreateSubscriptionResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 404:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CreateSubscriptionResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 409:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CreateSubscriptionResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 413:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CreateSubscriptionResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 415:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CreateSubscriptionResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 429:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CreateSubscriptionResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 500:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CreateSubscriptionResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 503:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CreateSubscriptionResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
+        return $this->sendRequest($request, CreateSubscriptionResponse::class);
     }
 
     /**
      * Operation createSubscriptionAsync.
      *
-     * @param \Swagger\Client\Models\CreateSubscriptionRequest $body              (required)
-     * @param string                                           $notification_type The type of notification to which you want to subscribe.   For more information about notification types, see the Notifications API Use Case Guide. (required)
+     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Notifications\CreateSubscriptionRequest $body              (required)
+     * @param string                                                         $notification_type The type of notification to which you want to subscribe.   For more information about notification types, see the Notifications API Use Case Guide. (required)
      *
      * @throws \InvalidArgumentException
      *
@@ -567,8 +245,8 @@ class NotificationsApi
     /**
      * Operation createSubscriptionAsyncWithHttpInfo.
      *
-     * @param \Swagger\Client\Models\CreateSubscriptionRequest $body              (required)
-     * @param string                                           $notification_type The type of notification to which you want to subscribe.   For more information about notification types, see the Notifications API Use Case Guide. (required)
+     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Notifications\CreateSubscriptionRequest $body              (required)
+     * @param string                                                         $notification_type The type of notification to which you want to subscribe.   For more information about notification types, see the Notifications API Use Case Guide. (required)
      *
      * @throws \InvalidArgumentException
      *
@@ -576,42 +254,16 @@ class NotificationsApi
      */
     public function createSubscriptionAsyncWithHttpInfo($body, $notification_type)
     {
-        $returnType = '\Swagger\Client\Models\CreateSubscriptionResponse';
         $request = $this->createSubscriptionRequest($body, $notification_type);
 
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    $responseBody = $response->getBody();
-                    if ('\SplFileObject' === $returnType) {
-                        $content = $responseBody; //stream goes to serializer
-                    } else {
-                        $content = $responseBody->getContents();
-                        if ('string' !== $returnType) {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders(),
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $exception->getRequest()->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
-                }
-            );
+        return $this->sendRequestAsync($request, CreateSubscriptionResponse::class);
     }
 
     /**
      * Create request for operation 'createSubscription'.
      *
-     * @param \Swagger\Client\Models\CreateSubscriptionRequest $body              (required)
-     * @param string                                           $notification_type The type of notification to which you want to subscribe.   For more information about notification types, see the Notifications API Use Case Guide. (required)
+     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Notifications\CreateSubscriptionRequest $body              (required)
+     * @param string                                                         $notification_type The type of notification to which you want to subscribe.   For more information about notification types, see the Notifications API Use Case Guide. (required)
      *
      * @throws \InvalidArgumentException
      *
@@ -632,7 +284,7 @@ class NotificationsApi
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
-        $httpBody = '';
+        $httpBody = $body;
         $multipart = false;
 
         // path params
@@ -644,77 +296,7 @@ class NotificationsApi
             );
         }
 
-        // body params
-        $_tempBody = null;
-        if (isset($body)) {
-            $_tempBody = $body;
-        }
-
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/json', 'Successful Response']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/json', 'Successful Response'],
-                ['application/json']
-            );
-        }
-
-        // for model (json/xml)
-        if (isset($_tempBody)) {
-            // $_tempBody is the method argument, if present
-            $httpBody = $_tempBody;
-            // \stdClass has no __toString(), so we should encode it manually
-            if ($httpBody instanceof \stdClass && 'application/json' === $headers['Content-Type']) {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
-            }
-        } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $multipartContents[] = [
-                        'name' => $formParamName,
-                        'contents' => $formParamValue,
-                    ];
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-            } elseif ('application/json' === $headers['Content-Type']) {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
-            }
-        }
-
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
-
-        $sign = new SignatureSellingPartner();
-        $headersX = $sign->calculateSignature(
-            $this->config->getApiKey('accessKey'),
-            $this->config->getApiKey('secretKey'),
-            $this->config->getApiKey('region'),
-            $this->config->getAccessToken(),
-            $this->config->getUserAgent(),
-            str_replace('https://', '', $this->config->getHost()),
-            'POST',
-            $resourcePath,
-            $query
-        );
-
-        $headers = array_merge(
-            $headerParams,
-            $headers,
-            $headersX
-        );
-
-        return new Request(
-            'POST',
-            $this->config->getHost().$resourcePath.($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
+        return $this->generateRequest($multipart, $formParams, $queryParams, $resourcePath, $headerParams, 'POST', $httpBody);
     }
 
     /**
@@ -722,10 +304,10 @@ class NotificationsApi
      *
      * @param string $destination_id The identifier for the destination that you want to delete. (required)
      *
-     * @throws \Swagger\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
+     * @throws \ClouSale\AmazonSellingPartnerAPI\ApiException on non-2xx response
      *
-     * @return \Swagger\Client\Models\DeleteDestinationResponse
+     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Notifications\DeleteDestinationResponse
      */
     public function deleteDestination($destination_id)
     {
@@ -739,130 +321,16 @@ class NotificationsApi
      *
      * @param string $destination_id The identifier for the destination that you want to delete. (required)
      *
-     * @throws \Swagger\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
+     * @throws \ClouSale\AmazonSellingPartnerAPI\ApiException on non-2xx response
      *
-     * @return array of \Swagger\Client\Models\DeleteDestinationResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \ClouSale\AmazonSellingPartnerAPI\Models\Notifications\DeleteDestinationResponse, HTTP status code, HTTP response headers (array of strings)
      */
     public function deleteDestinationWithHttpInfo($destination_id)
     {
-        $returnType = '\Swagger\Client\Models\DeleteDestinationResponse';
         $request = $this->deleteDestinationRequest($destination_id);
 
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException("[{$e->getCode()}] {$e->getMessage()}", $e->getCode(), $e->getResponse() ? $e->getResponse()->getHeaders() : null, $e->getResponse() ? $e->getResponse()->getBody()->getContents() : null);
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $request->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
-            }
-
-            $responseBody = $response->getBody();
-            if ('\SplFileObject' === $returnType) {
-                $content = $responseBody; //stream goes to serializer
-            } else {
-                $content = $responseBody->getContents();
-                if (!in_array($returnType, ['string', 'integer', 'bool'])) {
-                    $content = json_decode($content);
-                }
-            }
-
-            return [
-                ObjectSerializer::deserialize($content, $returnType, []),
-                $response->getStatusCode(),
-                $response->getHeaders(),
-            ];
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\DeleteDestinationResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 400:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\DeleteDestinationResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 403:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\DeleteDestinationResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 404:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\DeleteDestinationResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 409:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\DeleteDestinationResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 413:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\DeleteDestinationResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 415:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\DeleteDestinationResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 429:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\DeleteDestinationResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 500:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\DeleteDestinationResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 503:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\DeleteDestinationResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
+        return $this->sendRequest($request, DeleteDestinationResponse::class);
     }
 
     /**
@@ -895,35 +363,9 @@ class NotificationsApi
      */
     public function deleteDestinationAsyncWithHttpInfo($destination_id)
     {
-        $returnType = '\Swagger\Client\Models\DeleteDestinationResponse';
         $request = $this->deleteDestinationRequest($destination_id);
 
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    $responseBody = $response->getBody();
-                    if ('\SplFileObject' === $returnType) {
-                        $content = $responseBody; //stream goes to serializer
-                    } else {
-                        $content = $responseBody->getContents();
-                        if ('string' !== $returnType) {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders(),
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $exception->getRequest()->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
-                }
-            );
+        return $this->sendRequestAsync($request, DeleteDestinationResponse::class);
     }
 
     /**
@@ -958,74 +400,7 @@ class NotificationsApi
             );
         }
 
-        // body params
-        $_tempBody = null;
-
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/json', 'Successful Response']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/json', 'Successful Response'],
-                []
-            );
-        }
-
-        // for model (json/xml)
-        if (isset($_tempBody)) {
-            // $_tempBody is the method argument, if present
-            $httpBody = $_tempBody;
-            // \stdClass has no __toString(), so we should encode it manually
-            if ($httpBody instanceof \stdClass && 'application/json' === $headers['Content-Type']) {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
-            }
-        } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $multipartContents[] = [
-                        'name' => $formParamName,
-                        'contents' => $formParamValue,
-                    ];
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-            } elseif ('application/json' === $headers['Content-Type']) {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
-            }
-        }
-
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
-
-        $sign = new SignatureSellingPartner();
-        $headersX = $sign->calculateSignature(
-            $this->config->getApiKey('accessKey'),
-            $this->config->getApiKey('secretKey'),
-            $this->config->getApiKey('region'),
-            $this->config->getAccessToken(),
-            $this->config->getUserAgent(),
-            str_replace('https://', '', $this->config->getHost()),
-            'DELETE',
-            $resourcePath,
-            $query
-        );
-
-        $headers = array_merge(
-            $headerParams,
-            $headers,
-            $headersX
-        );
-
-        return new Request(
-            'DELETE',
-            $this->config->getHost().$resourcePath.($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
+        return $this->generateRequest($multipart, $formParams, $queryParams, $resourcePath, $headerParams, 'DELETE', $httpBody);
     }
 
     /**
@@ -1034,10 +409,10 @@ class NotificationsApi
      * @param string $subscription_id   The identifier for the subscription that you want to delete. (required)
      * @param string $notification_type The type of notification to which you want to subscribe.   For more information about notification types, see the Notifications API Use Case Guide. (required)
      *
-     * @throws \Swagger\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
+     * @throws \ClouSale\AmazonSellingPartnerAPI\ApiException on non-2xx response
      *
-     * @return \Swagger\Client\Models\DeleteSubscriptionByIdResponse
+     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Notifications\DeleteSubscriptionByIdResponse
      */
     public function deleteSubscriptionById($subscription_id, $notification_type)
     {
@@ -1052,130 +427,16 @@ class NotificationsApi
      * @param string $subscription_id   The identifier for the subscription that you want to delete. (required)
      * @param string $notification_type The type of notification to which you want to subscribe.   For more information about notification types, see the Notifications API Use Case Guide. (required)
      *
-     * @throws \Swagger\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
+     * @throws \ClouSale\AmazonSellingPartnerAPI\ApiException on non-2xx response
      *
-     * @return array of \Swagger\Client\Models\DeleteSubscriptionByIdResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \ClouSale\AmazonSellingPartnerAPI\Models\Notifications\DeleteSubscriptionByIdResponse, HTTP status code, HTTP response headers (array of strings)
      */
     public function deleteSubscriptionByIdWithHttpInfo($subscription_id, $notification_type)
     {
-        $returnType = '\Swagger\Client\Models\DeleteSubscriptionByIdResponse';
         $request = $this->deleteSubscriptionByIdRequest($subscription_id, $notification_type);
 
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException("[{$e->getCode()}] {$e->getMessage()}", $e->getCode(), $e->getResponse() ? $e->getResponse()->getHeaders() : null, $e->getResponse() ? $e->getResponse()->getBody()->getContents() : null);
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $request->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
-            }
-
-            $responseBody = $response->getBody();
-            if ('\SplFileObject' === $returnType) {
-                $content = $responseBody; //stream goes to serializer
-            } else {
-                $content = $responseBody->getContents();
-                if (!in_array($returnType, ['string', 'integer', 'bool'])) {
-                    $content = json_decode($content);
-                }
-            }
-
-            return [
-                ObjectSerializer::deserialize($content, $returnType, []),
-                $response->getStatusCode(),
-                $response->getHeaders(),
-            ];
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\DeleteSubscriptionByIdResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 400:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\DeleteSubscriptionByIdResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 403:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\DeleteSubscriptionByIdResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 404:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\DeleteSubscriptionByIdResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 409:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\DeleteSubscriptionByIdResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 413:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\DeleteSubscriptionByIdResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 415:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\DeleteSubscriptionByIdResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 429:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\DeleteSubscriptionByIdResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 500:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\DeleteSubscriptionByIdResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 503:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\DeleteSubscriptionByIdResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
+        return $this->sendRequest($request, DeleteSubscriptionByIdResponse::class);
     }
 
     /**
@@ -1210,35 +471,9 @@ class NotificationsApi
      */
     public function deleteSubscriptionByIdAsyncWithHttpInfo($subscription_id, $notification_type)
     {
-        $returnType = '\Swagger\Client\Models\DeleteSubscriptionByIdResponse';
         $request = $this->deleteSubscriptionByIdRequest($subscription_id, $notification_type);
 
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    $responseBody = $response->getBody();
-                    if ('\SplFileObject' === $returnType) {
-                        $content = $responseBody; //stream goes to serializer
-                    } else {
-                        $content = $responseBody->getContents();
-                        if ('string' !== $returnType) {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders(),
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $exception->getRequest()->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
-                }
-            );
+        return $this->sendRequestAsync($request, DeleteSubscriptionByIdResponse::class);
     }
 
     /**
@@ -1286,74 +521,7 @@ class NotificationsApi
             );
         }
 
-        // body params
-        $_tempBody = null;
-
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/json', 'Successful Operation Response']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/json', 'Successful Operation Response'],
-                []
-            );
-        }
-
-        // for model (json/xml)
-        if (isset($_tempBody)) {
-            // $_tempBody is the method argument, if present
-            $httpBody = $_tempBody;
-            // \stdClass has no __toString(), so we should encode it manually
-            if ($httpBody instanceof \stdClass && 'application/json' === $headers['Content-Type']) {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
-            }
-        } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $multipartContents[] = [
-                        'name' => $formParamName,
-                        'contents' => $formParamValue,
-                    ];
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-            } elseif ('application/json' === $headers['Content-Type']) {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
-            }
-        }
-
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
-
-        $sign = new SignatureSellingPartner();
-        $headersX = $sign->calculateSignature(
-            $this->config->getApiKey('accessKey'),
-            $this->config->getApiKey('secretKey'),
-            $this->config->getApiKey('region'),
-            $this->config->getAccessToken(),
-            $this->config->getUserAgent(),
-            str_replace('https://', '', $this->config->getHost()),
-            'DELETE',
-            $resourcePath,
-            $query
-        );
-
-        $headers = array_merge(
-            $headerParams,
-            $headers,
-            $headersX
-        );
-
-        return new Request(
-            'DELETE',
-            $this->config->getHost().$resourcePath.($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
+        return $this->generateRequest($multipart, $formParams, $queryParams, $resourcePath, $headerParams, 'DELETE', $httpBody);
     }
 
     /**
@@ -1361,10 +529,10 @@ class NotificationsApi
      *
      * @param string $destination_id The identifier generated when you created the destination. (required)
      *
-     * @throws \Swagger\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
+     * @throws \ClouSale\AmazonSellingPartnerAPI\ApiException on non-2xx response
      *
-     * @return \Swagger\Client\Models\GetDestinationResponse
+     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Notifications\GetDestinationResponse
      */
     public function getDestination($destination_id)
     {
@@ -1378,130 +546,16 @@ class NotificationsApi
      *
      * @param string $destination_id The identifier generated when you created the destination. (required)
      *
-     * @throws \Swagger\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
+     * @throws \ClouSale\AmazonSellingPartnerAPI\ApiException on non-2xx response
      *
-     * @return array of \Swagger\Client\Models\GetDestinationResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \ClouSale\AmazonSellingPartnerAPI\Models\Notifications\GetDestinationResponse, HTTP status code, HTTP response headers (array of strings)
      */
     public function getDestinationWithHttpInfo($destination_id)
     {
-        $returnType = '\Swagger\Client\Models\GetDestinationResponse';
         $request = $this->getDestinationRequest($destination_id);
 
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException("[{$e->getCode()}] {$e->getMessage()}", $e->getCode(), $e->getResponse() ? $e->getResponse()->getHeaders() : null, $e->getResponse() ? $e->getResponse()->getBody()->getContents() : null);
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $request->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
-            }
-
-            $responseBody = $response->getBody();
-            if ('\SplFileObject' === $returnType) {
-                $content = $responseBody; //stream goes to serializer
-            } else {
-                $content = $responseBody->getContents();
-                if (!in_array($returnType, ['string', 'integer', 'bool'])) {
-                    $content = json_decode($content);
-                }
-            }
-
-            return [
-                ObjectSerializer::deserialize($content, $returnType, []),
-                $response->getStatusCode(),
-                $response->getHeaders(),
-            ];
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetDestinationResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 400:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetDestinationResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 403:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetDestinationResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 404:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetDestinationResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 409:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetDestinationResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 413:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetDestinationResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 415:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetDestinationResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 429:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetDestinationResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 500:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetDestinationResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 503:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetDestinationResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
+        return $this->sendRequest($request, GetDestinationResponse::class);
     }
 
     /**
@@ -1534,35 +588,9 @@ class NotificationsApi
      */
     public function getDestinationAsyncWithHttpInfo($destination_id)
     {
-        $returnType = '\Swagger\Client\Models\GetDestinationResponse';
         $request = $this->getDestinationRequest($destination_id);
 
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    $responseBody = $response->getBody();
-                    if ('\SplFileObject' === $returnType) {
-                        $content = $responseBody; //stream goes to serializer
-                    } else {
-                        $content = $responseBody->getContents();
-                        if ('string' !== $returnType) {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders(),
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $exception->getRequest()->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
-                }
-            );
+        return $this->sendRequestAsync($request, GetDestinationResponse::class);
     }
 
     /**
@@ -1597,83 +625,16 @@ class NotificationsApi
             );
         }
 
-        // body params
-        $_tempBody = null;
-
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/json', 'Successful Response']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/json', 'Successful Response'],
-                []
-            );
-        }
-
-        // for model (json/xml)
-        if (isset($_tempBody)) {
-            // $_tempBody is the method argument, if present
-            $httpBody = $_tempBody;
-            // \stdClass has no __toString(), so we should encode it manually
-            if ($httpBody instanceof \stdClass && 'application/json' === $headers['Content-Type']) {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
-            }
-        } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $multipartContents[] = [
-                        'name' => $formParamName,
-                        'contents' => $formParamValue,
-                    ];
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-            } elseif ('application/json' === $headers['Content-Type']) {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
-            }
-        }
-
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
-
-        $sign = new SignatureSellingPartner();
-        $headersX = $sign->calculateSignature(
-            $this->config->getApiKey('accessKey'),
-            $this->config->getApiKey('secretKey'),
-            $this->config->getApiKey('region'),
-            $this->config->getAccessToken(),
-            $this->config->getUserAgent(),
-            str_replace('https://', '', $this->config->getHost()),
-            'GET',
-            $resourcePath,
-            $query
-        );
-
-        $headers = array_merge(
-            $headerParams,
-            $headers,
-            $headersX
-        );
-
-        return new Request(
-            'GET',
-            $this->config->getHost().$resourcePath.($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
+        return $this->generateRequest($multipart, $formParams, $queryParams, $resourcePath, $headerParams, 'GET', $httpBody);
     }
 
     /**
      * Operation getDestinations.
      *
-     * @throws \Swagger\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
+     * @throws \ClouSale\AmazonSellingPartnerAPI\ApiException on non-2xx response
      *
-     * @return \Swagger\Client\Models\GetDestinationsResponse
+     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Notifications\GetDestinationsResponse
      */
     public function getDestinations()
     {
@@ -1685,130 +646,16 @@ class NotificationsApi
     /**
      * Operation getDestinationsWithHttpInfo.
      *
-     * @throws \Swagger\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
+     * @throws \ClouSale\AmazonSellingPartnerAPI\ApiException on non-2xx response
      *
-     * @return array of \Swagger\Client\Models\GetDestinationsResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \ClouSale\AmazonSellingPartnerAPI\Models\Notifications\GetDestinationsResponse, HTTP status code, HTTP response headers (array of strings)
      */
     public function getDestinationsWithHttpInfo()
     {
-        $returnType = '\Swagger\Client\Models\GetDestinationsResponse';
         $request = $this->getDestinationsRequest();
 
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException("[{$e->getCode()}] {$e->getMessage()}", $e->getCode(), $e->getResponse() ? $e->getResponse()->getHeaders() : null, $e->getResponse() ? $e->getResponse()->getBody()->getContents() : null);
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $request->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
-            }
-
-            $responseBody = $response->getBody();
-            if ('\SplFileObject' === $returnType) {
-                $content = $responseBody; //stream goes to serializer
-            } else {
-                $content = $responseBody->getContents();
-                if (!in_array($returnType, ['string', 'integer', 'bool'])) {
-                    $content = json_decode($content);
-                }
-            }
-
-            return [
-                ObjectSerializer::deserialize($content, $returnType, []),
-                $response->getStatusCode(),
-                $response->getHeaders(),
-            ];
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetDestinationsResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 400:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetDestinationsResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 403:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetDestinationsResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 404:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetDestinationsResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 409:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetDestinationsResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 413:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetDestinationsResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 415:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetDestinationsResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 429:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetDestinationsResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 500:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetDestinationsResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 503:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetDestinationsResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
+        return $this->sendRequest($request, GetDestinationsResponse::class);
     }
 
     /**
@@ -1837,35 +684,9 @@ class NotificationsApi
      */
     public function getDestinationsAsyncWithHttpInfo()
     {
-        $returnType = '\Swagger\Client\Models\GetDestinationsResponse';
         $request = $this->getDestinationsRequest();
 
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    $responseBody = $response->getBody();
-                    if ('\SplFileObject' === $returnType) {
-                        $content = $responseBody; //stream goes to serializer
-                    } else {
-                        $content = $responseBody->getContents();
-                        if ('string' !== $returnType) {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders(),
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $exception->getRequest()->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
-                }
-            );
+        return $this->sendRequestAsync($request, GetDestinationsResponse::class);
     }
 
     /**
@@ -1884,74 +705,7 @@ class NotificationsApi
         $httpBody = '';
         $multipart = false;
 
-        // body params
-        $_tempBody = null;
-
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/json', 'Successful Response']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/json', 'Successful Response'],
-                []
-            );
-        }
-
-        // for model (json/xml)
-        if (isset($_tempBody)) {
-            // $_tempBody is the method argument, if present
-            $httpBody = $_tempBody;
-            // \stdClass has no __toString(), so we should encode it manually
-            if ($httpBody instanceof \stdClass && 'application/json' === $headers['Content-Type']) {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
-            }
-        } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $multipartContents[] = [
-                        'name' => $formParamName,
-                        'contents' => $formParamValue,
-                    ];
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-            } elseif ('application/json' === $headers['Content-Type']) {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
-            }
-        }
-
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
-
-        $sign = new SignatureSellingPartner();
-        $headersX = $sign->calculateSignature(
-            $this->config->getApiKey('accessKey'),
-            $this->config->getApiKey('secretKey'),
-            $this->config->getApiKey('region'),
-            $this->config->getAccessToken(),
-            $this->config->getUserAgent(),
-            str_replace('https://', '', $this->config->getHost()),
-            'GET',
-            $resourcePath,
-            $query
-        );
-
-        $headers = array_merge(
-            $headerParams,
-            $headers,
-            $headersX
-        );
-
-        return new Request(
-            'GET',
-            $this->config->getHost().$resourcePath.($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
+        return $this->generateRequest($multipart, $formParams, $queryParams, $resourcePath, $headerParams, 'GET', $httpBody);
     }
 
     /**
@@ -1959,10 +713,10 @@ class NotificationsApi
      *
      * @param string $notification_type The type of notification to which you want to subscribe.   For more information about notification types, see the Notifications API Use Case Guide. (required)
      *
-     * @throws \Swagger\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
+     * @throws \ClouSale\AmazonSellingPartnerAPI\ApiException on non-2xx response
      *
-     * @return \Swagger\Client\Models\GetSubscriptionResponse
+     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Notifications\GetSubscriptionResponse
      */
     public function getSubscription($notification_type)
     {
@@ -1976,122 +730,16 @@ class NotificationsApi
      *
      * @param string $notification_type The type of notification to which you want to subscribe.   For more information about notification types, see the Notifications API Use Case Guide. (required)
      *
-     * @throws \Swagger\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
+     * @throws \ClouSale\AmazonSellingPartnerAPI\ApiException on non-2xx response
      *
-     * @return array of \Swagger\Client\Models\GetSubscriptionResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \ClouSale\AmazonSellingPartnerAPI\Models\Notifications\GetSubscriptionResponse, HTTP status code, HTTP response headers (array of strings)
      */
     public function getSubscriptionWithHttpInfo($notification_type)
     {
-        $returnType = '\Swagger\Client\Models\GetSubscriptionResponse';
         $request = $this->getSubscriptionRequest($notification_type);
 
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException("[{$e->getCode()}] {$e->getMessage()}", $e->getCode(), $e->getResponse() ? $e->getResponse()->getHeaders() : null, $e->getResponse() ? $e->getResponse()->getBody()->getContents() : null);
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $request->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
-            }
-
-            $responseBody = $response->getBody();
-            if ('\SplFileObject' === $returnType) {
-                $content = $responseBody; //stream goes to serializer
-            } else {
-                $content = $responseBody->getContents();
-                if (!in_array($returnType, ['string', 'integer', 'bool'])) {
-                    $content = json_decode($content);
-                }
-            }
-
-            return [
-                ObjectSerializer::deserialize($content, $returnType, []),
-                $response->getStatusCode(),
-                $response->getHeaders(),
-            ];
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetSubscriptionResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 400:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetSubscriptionResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 403:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetSubscriptionResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 404:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetSubscriptionResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 413:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetSubscriptionResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 415:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetSubscriptionResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 429:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetSubscriptionResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 500:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetSubscriptionResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 503:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetSubscriptionResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
+        return $this->sendRequest($request, GetSubscriptionResponse::class);
     }
 
     /**
@@ -2124,35 +772,9 @@ class NotificationsApi
      */
     public function getSubscriptionAsyncWithHttpInfo($notification_type)
     {
-        $returnType = '\Swagger\Client\Models\GetSubscriptionResponse';
         $request = $this->getSubscriptionRequest($notification_type);
 
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    $responseBody = $response->getBody();
-                    if ('\SplFileObject' === $returnType) {
-                        $content = $responseBody; //stream goes to serializer
-                    } else {
-                        $content = $responseBody->getContents();
-                        if ('string' !== $returnType) {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders(),
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $exception->getRequest()->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
-                }
-            );
+        return $this->sendRequestAsync($request, GetSubscriptionResponse::class);
     }
 
     /**
@@ -2187,74 +809,7 @@ class NotificationsApi
             );
         }
 
-        // body params
-        $_tempBody = null;
-
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/json', 'Successful Response']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/json', 'Successful Response'],
-                []
-            );
-        }
-
-        // for model (json/xml)
-        if (isset($_tempBody)) {
-            // $_tempBody is the method argument, if present
-            $httpBody = $_tempBody;
-            // \stdClass has no __toString(), so we should encode it manually
-            if ($httpBody instanceof \stdClass && 'application/json' === $headers['Content-Type']) {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
-            }
-        } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $multipartContents[] = [
-                        'name' => $formParamName,
-                        'contents' => $formParamValue,
-                    ];
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-            } elseif ('application/json' === $headers['Content-Type']) {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
-            }
-        }
-
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
-
-        $sign = new SignatureSellingPartner();
-        $headersX = $sign->calculateSignature(
-            $this->config->getApiKey('accessKey'),
-            $this->config->getApiKey('secretKey'),
-            $this->config->getApiKey('region'),
-            $this->config->getAccessToken(),
-            $this->config->getUserAgent(),
-            str_replace('https://', '', $this->config->getHost()),
-            'GET',
-            $resourcePath,
-            $query
-        );
-
-        $headers = array_merge(
-            $headerParams,
-            $headers,
-            $headersX
-        );
-
-        return new Request(
-            'GET',
-            $this->config->getHost().$resourcePath.($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
+        return $this->generateRequest($multipart, $formParams, $queryParams, $resourcePath, $headerParams, 'GET', $httpBody);
     }
 
     /**
@@ -2263,10 +818,10 @@ class NotificationsApi
      * @param string $subscription_id   The identifier for the subscription that you want to get. (required)
      * @param string $notification_type The type of notification to which you want to subscribe.   For more information about notification types, see the Notifications API Use Case Guide. (required)
      *
-     * @throws \Swagger\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
+     * @throws \ClouSale\AmazonSellingPartnerAPI\ApiException on non-2xx response
      *
-     * @return \Swagger\Client\Models\GetSubscriptionByIdResponse
+     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Notifications\GetSubscriptionByIdResponse
      */
     public function getSubscriptionById($subscription_id, $notification_type)
     {
@@ -2281,130 +836,16 @@ class NotificationsApi
      * @param string $subscription_id   The identifier for the subscription that you want to get. (required)
      * @param string $notification_type The type of notification to which you want to subscribe.   For more information about notification types, see the Notifications API Use Case Guide. (required)
      *
-     * @throws \Swagger\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
+     * @throws \ClouSale\AmazonSellingPartnerAPI\ApiException on non-2xx response
      *
-     * @return array of \Swagger\Client\Models\GetSubscriptionByIdResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \ClouSale\AmazonSellingPartnerAPI\Models\Notifications\GetSubscriptionByIdResponse, HTTP status code, HTTP response headers (array of strings)
      */
     public function getSubscriptionByIdWithHttpInfo($subscription_id, $notification_type)
     {
-        $returnType = '\Swagger\Client\Models\GetSubscriptionByIdResponse';
         $request = $this->getSubscriptionByIdRequest($subscription_id, $notification_type);
 
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException("[{$e->getCode()}] {$e->getMessage()}", $e->getCode(), $e->getResponse() ? $e->getResponse()->getHeaders() : null, $e->getResponse() ? $e->getResponse()->getBody()->getContents() : null);
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $request->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
-            }
-
-            $responseBody = $response->getBody();
-            if ('\SplFileObject' === $returnType) {
-                $content = $responseBody; //stream goes to serializer
-            } else {
-                $content = $responseBody->getContents();
-                if (!in_array($returnType, ['string', 'integer', 'bool'])) {
-                    $content = json_decode($content);
-                }
-            }
-
-            return [
-                ObjectSerializer::deserialize($content, $returnType, []),
-                $response->getStatusCode(),
-                $response->getHeaders(),
-            ];
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetSubscriptionByIdResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 400:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetSubscriptionByIdResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 403:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetSubscriptionByIdResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 404:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetSubscriptionResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 409:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetSubscriptionByIdResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 413:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetSubscriptionByIdResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 415:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetSubscriptionByIdResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 429:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetSubscriptionByIdResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 500:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetSubscriptionByIdResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 503:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetSubscriptionByIdResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
+        return $this->sendRequest($request, GetSubscriptionByIdResponse::class);
     }
 
     /**
@@ -2439,35 +880,9 @@ class NotificationsApi
      */
     public function getSubscriptionByIdAsyncWithHttpInfo($subscription_id, $notification_type)
     {
-        $returnType = '\Swagger\Client\Models\GetSubscriptionByIdResponse';
         $request = $this->getSubscriptionByIdRequest($subscription_id, $notification_type);
 
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    $responseBody = $response->getBody();
-                    if ('\SplFileObject' === $returnType) {
-                        $content = $responseBody; //stream goes to serializer
-                    } else {
-                        $content = $responseBody->getContents();
-                        if ('string' !== $returnType) {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders(),
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $exception->getRequest()->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
-                }
-            );
+        return $this->sendRequestAsync($request, GetSubscriptionByIdResponse::class);
     }
 
     /**
@@ -2515,93 +930,6 @@ class NotificationsApi
             );
         }
 
-        // body params
-        $_tempBody = null;
-
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/json', 'Successful Response']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/json', 'Successful Response'],
-                []
-            );
-        }
-
-        // for model (json/xml)
-        if (isset($_tempBody)) {
-            // $_tempBody is the method argument, if present
-            $httpBody = $_tempBody;
-            // \stdClass has no __toString(), so we should encode it manually
-            if ($httpBody instanceof \stdClass && 'application/json' === $headers['Content-Type']) {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
-            }
-        } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $multipartContents[] = [
-                        'name' => $formParamName,
-                        'contents' => $formParamValue,
-                    ];
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-            } elseif ('application/json' === $headers['Content-Type']) {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
-            }
-        }
-
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
-
-        $sign = new SignatureSellingPartner();
-        $headersX = $sign->calculateSignature(
-            $this->config->getApiKey('accessKey'),
-            $this->config->getApiKey('secretKey'),
-            $this->config->getApiKey('region'),
-            $this->config->getAccessToken(),
-            $this->config->getUserAgent(),
-            str_replace('https://', '', $this->config->getHost()),
-            'GET',
-            $resourcePath,
-            $query
-        );
-
-        $headers = array_merge(
-            $headerParams,
-            $headers,
-            $headersX
-        );
-
-        return new Request(
-            'GET',
-            $this->config->getHost().$resourcePath.($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Create http client option.
-     *
-     * @throws \RuntimeException on file opening failure
-     *
-     * @return array of http client options
-     */
-    protected function createHttpClientOption()
-    {
-        $options = [];
-        if ($this->config->getDebug()) {
-            $options[RequestOptions::DEBUG] = fopen($this->config->getDebugFile(), 'a');
-            if (!$options[RequestOptions::DEBUG]) {
-                throw new \RuntimeException('Failed to open the debug file: '.$this->config->getDebugFile());
-            }
-        }
-
-        return $options;
+        return $this->generateRequest($multipart, $formParams, $queryParams, $resourcePath, $headerParams, 'GET', $httpBody);
     }
 }

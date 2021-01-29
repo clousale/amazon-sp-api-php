@@ -26,19 +26,20 @@
  * Do not edit the class manually.
  */
 
-namespace Swagger\Client\Api;
+namespace ClouSale\AmazonSellingPartnerAPI\Api;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
-use GuzzleHttp\Exception\RequestException;
-use GuzzleHttp\Psr7\MultipartStream;
 use GuzzleHttp\Psr7\Request;
-use GuzzleHttp\RequestOptions;
-use Swagger\Client\ApiException;
-use Swagger\Client\Configuration;
-use Swagger\Client\HeaderSelector;
-use Swagger\Client\ObjectSerializer;
-use Swagger\Client\SignatureSellingPartner;
+use InvalidArgumentException;
+use ClouSale\AmazonSellingPartnerAPI\ApiException;
+use ClouSale\AmazonSellingPartnerAPI\Configuration;
+use ClouSale\AmazonSellingPartnerAPI\HeaderSelector;
+use ClouSale\AmazonSellingPartnerAPI\Helpers\SellingPartnerApiRequest;
+use ClouSale\AmazonSellingPartnerAPI\Models\Catalog\GetCatalogItemResponse;
+use ClouSale\AmazonSellingPartnerAPI\Models\Catalog\ListCatalogCategoriesResponse;
+use ClouSale\AmazonSellingPartnerAPI\Models\Catalog\ListCatalogItemsResponse;
+use ClouSale\AmazonSellingPartnerAPI\ObjectSerializer;
 
 /**
  * CatalogApi Class Doc Comment.
@@ -51,6 +52,8 @@ use Swagger\Client\SignatureSellingPartner;
  */
 class CatalogApi
 {
+    use SellingPartnerApiRequest;
+
     /**
      * @var ClientInterface
      */
@@ -71,14 +74,10 @@ class CatalogApi
      * @param Configuration   $config
      * @param HeaderSelector  $selector
      */
-    public function __construct(
-        ClientInterface $client = null,
-        Configuration $config = null,
-        HeaderSelector $selector = null
-    ) {
-        $this->client = $client ?: new Client();
-        $this->config = $config ?: new Configuration();
-        $this->headerSelector = $selector ?: new HeaderSelector();
+    public function __construct(Configuration $config) {
+        $this->client = new Client();
+        $this->config = $config;
+        $this->headerSelector = new HeaderSelector();
     }
 
     /**
@@ -95,10 +94,10 @@ class CatalogApi
      * @param string $marketplace_id A marketplace identifier. Specifies the marketplace for the item. (required)
      * @param string $asin           The Amazon Standard Identification Number (ASIN) of the item. (required)
      *
-     * @throws \Swagger\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
+     * @throws ApiException             on non-2xx response
+     * @throws InvalidArgumentException
      *
-     * @return \Swagger\Client\Models\GetCatalogItemResponse
+     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Catalog\GetCatalogItemResponse
      */
     public function getCatalogItem($marketplace_id, $asin)
     {
@@ -113,114 +112,16 @@ class CatalogApi
      * @param string $marketplace_id A marketplace identifier. Specifies the marketplace for the item. (required)
      * @param string $asin           The Amazon Standard Identification Number (ASIN) of the item. (required)
      *
-     * @throws \Swagger\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
+     * @throws ApiException             on non-2xx response
+     * @throws InvalidArgumentException
      *
-     * @return array of \Swagger\Client\Models\GetCatalogItemResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \ClouSale\AmazonSellingPartnerAPI\Models\Catalog\GetCatalogItemResponse, HTTP status code, HTTP response headers (array of strings)
      */
     public function getCatalogItemWithHttpInfo($marketplace_id, $asin)
     {
-        $returnType = '\Swagger\Client\Models\GetCatalogItemResponse';
         $request = $this->getCatalogItemRequest($marketplace_id, $asin);
 
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException("[{$e->getCode()}] {$e->getMessage()}", $e->getCode(), $e->getResponse() ? $e->getResponse()->getHeaders() : null, $e->getResponse() ? $e->getResponse()->getBody()->getContents() : null);
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $request->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
-            }
-
-            $responseBody = $response->getBody();
-            if ('\SplFileObject' === $returnType) {
-                $content = $responseBody; //stream goes to serializer
-            } else {
-                $content = $responseBody->getContents();
-                if (!in_array($returnType, ['string', 'integer', 'bool'])) {
-                    $content = json_decode($content);
-                }
-            }
-
-            return [
-                ObjectSerializer::deserialize($content, $returnType, []),
-                $response->getStatusCode(),
-                $response->getHeaders(),
-            ];
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetCatalogItemResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 400:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetCatalogItemResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 401:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetCatalogItemResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 403:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetCatalogItemResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 404:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetCatalogItemResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 429:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetCatalogItemResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 500:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetCatalogItemResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 503:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetCatalogItemResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
+        return $this->sendRequest($request, GetCatalogItemResponse::class);
     }
 
     /**
@@ -229,7 +130,7 @@ class CatalogApi
      * @param string $marketplace_id A marketplace identifier. Specifies the marketplace for the item. (required)
      * @param string $asin           The Amazon Standard Identification Number (ASIN) of the item. (required)
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      *
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
@@ -249,41 +150,15 @@ class CatalogApi
      * @param string $marketplace_id A marketplace identifier. Specifies the marketplace for the item. (required)
      * @param string $asin           The Amazon Standard Identification Number (ASIN) of the item. (required)
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      *
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
     public function getCatalogItemAsyncWithHttpInfo($marketplace_id, $asin)
     {
-        $returnType = '\Swagger\Client\Models\GetCatalogItemResponse';
         $request = $this->getCatalogItemRequest($marketplace_id, $asin);
 
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    $responseBody = $response->getBody();
-                    if ('\SplFileObject' === $returnType) {
-                        $content = $responseBody; //stream goes to serializer
-                    } else {
-                        $content = $responseBody->getContents();
-                        if ('string' !== $returnType) {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders(),
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $exception->getRequest()->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
-                }
-            );
+        return $this->sendRequestAsync($request, GetCatalogItemResponse::class);
     }
 
     /**
@@ -292,7 +167,7 @@ class CatalogApi
      * @param string $marketplace_id A marketplace identifier. Specifies the marketplace for the item. (required)
      * @param string $asin           The Amazon Standard Identification Number (ASIN) of the item. (required)
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      *
      * @return \GuzzleHttp\Psr7\Request
      */
@@ -300,11 +175,11 @@ class CatalogApi
     {
         // verify the required parameter 'marketplace_id' is set
         if (null === $marketplace_id || (is_array($marketplace_id) && 0 === count($marketplace_id))) {
-            throw new \InvalidArgumentException('Missing the required parameter $marketplace_id when calling getCatalogItem');
+            throw new InvalidArgumentException('Missing the required parameter $marketplace_id when calling getCatalogItem');
         }
         // verify the required parameter 'asin' is set
         if (null === $asin || (is_array($asin) && 0 === count($asin))) {
-            throw new \InvalidArgumentException('Missing the required parameter $asin when calling getCatalogItem');
+            throw new InvalidArgumentException('Missing the required parameter $asin when calling getCatalogItem');
         }
 
         $resourcePath = '/catalog/v0/items/{asin}';
@@ -328,67 +203,7 @@ class CatalogApi
             );
         }
 
-        // body params
-        $_tempBody = null;
-
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/json'],
-                []
-            );
-        }
-
-        // for model (json/xml)
-        if (isset($_tempBody)) {
-            // $_tempBody is the method argument, if present
-            $httpBody = $_tempBody;
-            // \stdClass has no __toString(), so we should encode it manually
-            if ($httpBody instanceof \stdClass && 'application/json' === $headers['Content-Type']) {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
-            }
-        } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $multipartContents[] = [
-                        'name' => $formParamName,
-                        'contents' => $formParamValue,
-                    ];
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-            } elseif ('application/json' === $headers['Content-Type']) {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
-            }
-        }
-
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
-
-        $sign = new SignatureSellingPartner();
-        $headersX = $sign->calculateSignature(
-            $this->config->getApiKey('accessKey'),
-            $this->config->getApiKey('secretKey'),
-            $this->config->getApiKey('region'),
-            $this->config->getAccessToken(),
-            $this->config->getUserAgent(),
-            str_replace('https://', '', $this->config->getHost()),
-            'GET',
-            $resourcePath,
-            $query
-        );
-
-        $headers = array_merge(
-            $headerParams,
-            $headers,
-            $headersX
-        );
+        return $this->generateRequest($multipart, $formParams, $queryParams, $resourcePath, $headerParams, 'GET', $httpBody);
     }
 
     /**
@@ -398,10 +213,10 @@ class CatalogApi
      * @param string $asin           The Amazon Standard Identification Number (ASIN) of the item. (optional)
      * @param string $seller_sku     Used to identify items in the given marketplace. SellerSKU is qualified by the seller&#x27;s SellerId, which is included with every operation that you submit. (optional)
      *
-     * @throws \Swagger\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
+     * @throws ApiException             on non-2xx response
+     * @throws InvalidArgumentException
      *
-     * @return \Swagger\Client\Models\ListCatalogCategoriesResponse
+     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Catalog\ListCatalogCategoriesResponse
      */
     public function listCatalogCategories($marketplace_id, $asin = null, $seller_sku = null)
     {
@@ -417,114 +232,16 @@ class CatalogApi
      * @param string $asin           The Amazon Standard Identification Number (ASIN) of the item. (optional)
      * @param string $seller_sku     Used to identify items in the given marketplace. SellerSKU is qualified by the seller&#x27;s SellerId, which is included with every operation that you submit. (optional)
      *
-     * @throws \Swagger\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
+     * @throws ApiException             on non-2xx response
+     * @throws InvalidArgumentException
      *
-     * @return array of \Swagger\Client\Models\ListCatalogCategoriesResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \ClouSale\AmazonSellingPartnerAPI\Models\Catalog\ListCatalogCategoriesResponse, HTTP status code, HTTP response headers (array of strings)
      */
     public function listCatalogCategoriesWithHttpInfo($marketplace_id, $asin = null, $seller_sku = null)
     {
-        $returnType = '\Swagger\Client\Models\ListCatalogCategoriesResponse';
         $request = $this->listCatalogCategoriesRequest($marketplace_id, $asin, $seller_sku);
 
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException("[{$e->getCode()}] {$e->getMessage()}", $e->getCode(), $e->getResponse() ? $e->getResponse()->getHeaders() : null, $e->getResponse() ? $e->getResponse()->getBody()->getContents() : null);
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $request->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
-            }
-
-            $responseBody = $response->getBody();
-            if ('\SplFileObject' === $returnType) {
-                $content = $responseBody; //stream goes to serializer
-            } else {
-                $content = $responseBody->getContents();
-                if (!in_array($returnType, ['string', 'integer', 'bool'])) {
-                    $content = json_decode($content);
-                }
-            }
-
-            return [
-                ObjectSerializer::deserialize($content, $returnType, []),
-                $response->getStatusCode(),
-                $response->getHeaders(),
-            ];
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\ListCatalogCategoriesResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 400:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\ListCatalogCategoriesResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 401:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\ListCatalogCategoriesResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 403:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\ListCatalogCategoriesResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 404:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\ListCatalogCategoriesResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 429:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\ListCatalogCategoriesResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 500:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\ListCatalogCategoriesResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 503:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\ListCatalogCategoriesResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
+        return $this->sendRequest($request, ListCatalogCategoriesResponse::class);
     }
 
     /**
@@ -534,7 +251,7 @@ class CatalogApi
      * @param string $asin           The Amazon Standard Identification Number (ASIN) of the item. (optional)
      * @param string $seller_sku     Used to identify items in the given marketplace. SellerSKU is qualified by the seller&#x27;s SellerId, which is included with every operation that you submit. (optional)
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      *
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
@@ -555,41 +272,15 @@ class CatalogApi
      * @param string $asin           The Amazon Standard Identification Number (ASIN) of the item. (optional)
      * @param string $seller_sku     Used to identify items in the given marketplace. SellerSKU is qualified by the seller&#x27;s SellerId, which is included with every operation that you submit. (optional)
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      *
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
     public function listCatalogCategoriesAsyncWithHttpInfo($marketplace_id, $asin = null, $seller_sku = null)
     {
-        $returnType = '\Swagger\Client\Models\ListCatalogCategoriesResponse';
         $request = $this->listCatalogCategoriesRequest($marketplace_id, $asin, $seller_sku);
 
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    $responseBody = $response->getBody();
-                    if ('\SplFileObject' === $returnType) {
-                        $content = $responseBody; //stream goes to serializer
-                    } else {
-                        $content = $responseBody->getContents();
-                        if ('string' !== $returnType) {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders(),
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $exception->getRequest()->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
-                }
-            );
+        return $this->sendRequestAsync($request, ListCatalogCategoriesResponse::class);
     }
 
     /**
@@ -599,7 +290,7 @@ class CatalogApi
      * @param string $asin           The Amazon Standard Identification Number (ASIN) of the item. (optional)
      * @param string $seller_sku     Used to identify items in the given marketplace. SellerSKU is qualified by the seller&#x27;s SellerId, which is included with every operation that you submit. (optional)
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      *
      * @return \GuzzleHttp\Psr7\Request
      */
@@ -607,7 +298,7 @@ class CatalogApi
     {
         // verify the required parameter 'marketplace_id' is set
         if (null === $marketplace_id || (is_array($marketplace_id) && 0 === count($marketplace_id))) {
-            throw new \InvalidArgumentException('Missing the required parameter $marketplace_id when calling listCatalogCategories');
+            throw new InvalidArgumentException('Missing the required parameter $marketplace_id when calling listCatalogCategories');
         }
 
         $resourcePath = '/catalog/v0/categories';
@@ -630,74 +321,7 @@ class CatalogApi
             $queryParams['SellerSKU'] = ObjectSerializer::toQueryValue($seller_sku);
         }
 
-        // body params
-        $_tempBody = null;
-
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/json'],
-                []
-            );
-        }
-
-        // for model (json/xml)
-        if (isset($_tempBody)) {
-            // $_tempBody is the method argument, if present
-            $httpBody = $_tempBody;
-            // \stdClass has no __toString(), so we should encode it manually
-            if ($httpBody instanceof \stdClass && 'application/json' === $headers['Content-Type']) {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
-            }
-        } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $multipartContents[] = [
-                        'name' => $formParamName,
-                        'contents' => $formParamValue,
-                    ];
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-            } elseif ('application/json' === $headers['Content-Type']) {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
-            }
-        }
-
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
-
-        $sign = new SignatureSellingPartner();
-        $headersX = $sign->calculateSignature(
-            $this->config->getApiKey('accessKey'),
-            $this->config->getApiKey('secretKey'),
-            $this->config->getApiKey('region'),
-            $this->config->getAccessToken(),
-            $this->config->getUserAgent(),
-            str_replace('https://', '', $this->config->getHost()),
-            'GET',
-            $resourcePath,
-            $query
-        );
-
-        $headers = array_merge(
-            $headerParams,
-            $headers,
-            $headersX
-        );
-
-        return new Request(
-            'GET',
-            $this->config->getHost().$resourcePath.($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
+        return $this->generateRequest($multipart, $formParams, $queryParams, $resourcePath, $headerParams, 'GET', $httpBody);
     }
 
     /**
@@ -712,10 +336,10 @@ class CatalogApi
      * @param string $isbn             The unique commercial book identifier used to identify books internationally. (optional)
      * @param string $jan              A Japanese article number that uniquely identifies the product, manufacturer, and its attributes. (optional)
      *
-     * @throws \Swagger\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
+     * @throws ApiException             on non-2xx response
+     * @throws InvalidArgumentException
      *
-     * @return \Swagger\Client\Models\ListCatalogItemsResponse
+     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Catalog\ListCatalogItemsResponse
      */
     public function listCatalogItems($marketplace_id, $query = null, $query_context_id = null, $seller_sku = null, $upc = null, $ean = null, $isbn = null, $jan = null)
     {
@@ -736,114 +360,16 @@ class CatalogApi
      * @param string $isbn             The unique commercial book identifier used to identify books internationally. (optional)
      * @param string $jan              A Japanese article number that uniquely identifies the product, manufacturer, and its attributes. (optional)
      *
-     * @throws \Swagger\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
+     * @throws ApiException             on non-2xx response
+     * @throws InvalidArgumentException
      *
-     * @return array of \Swagger\Client\Models\ListCatalogItemsResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \ClouSale\AmazonSellingPartnerAPI\Models\Catalog\ListCatalogItemsResponse, HTTP status code, HTTP response headers (array of strings)
      */
     public function listCatalogItemsWithHttpInfo($marketplace_id, $query = null, $query_context_id = null, $seller_sku = null, $upc = null, $ean = null, $isbn = null, $jan = null)
     {
-        $returnType = '\Swagger\Client\Models\ListCatalogItemsResponse';
         $request = $this->listCatalogItemsRequest($marketplace_id, $query, $query_context_id, $seller_sku, $upc, $ean, $isbn, $jan);
 
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException("[{$e->getCode()}] {$e->getMessage()}", $e->getCode(), $e->getResponse() ? $e->getResponse()->getHeaders() : null, $e->getResponse() ? $e->getResponse()->getBody()->getContents() : null);
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $request->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
-            }
-
-            $responseBody = $response->getBody();
-            if ('\SplFileObject' === $returnType) {
-                $content = $responseBody; //stream goes to serializer
-            } else {
-                $content = $responseBody->getContents();
-                if (!in_array($returnType, ['string', 'integer', 'bool'])) {
-                    $content = json_decode($content);
-                }
-            }
-
-            return [
-                ObjectSerializer::deserialize($content, $returnType, []),
-                $response->getStatusCode(),
-                $response->getHeaders(),
-            ];
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\ListCatalogItemsResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 400:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\ListCatalogItemsResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 401:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\ListCatalogItemsResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 403:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\ListCatalogItemsResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 404:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\ListCatalogItemsResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 429:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\ListCatalogItemsResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 500:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\ListCatalogItemsResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 503:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\ListCatalogItemsResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
+        return $this->sendRequest($request, ListCatalogItemsResponse::class);
     }
 
     /**
@@ -858,7 +384,7 @@ class CatalogApi
      * @param string $isbn             The unique commercial book identifier used to identify books internationally. (optional)
      * @param string $jan              A Japanese article number that uniquely identifies the product, manufacturer, and its attributes. (optional)
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      *
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
@@ -884,41 +410,15 @@ class CatalogApi
      * @param string $isbn             The unique commercial book identifier used to identify books internationally. (optional)
      * @param string $jan              A Japanese article number that uniquely identifies the product, manufacturer, and its attributes. (optional)
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      *
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
     public function listCatalogItemsAsyncWithHttpInfo($marketplace_id, $query = null, $query_context_id = null, $seller_sku = null, $upc = null, $ean = null, $isbn = null, $jan = null)
     {
-        $returnType = '\Swagger\Client\Models\ListCatalogItemsResponse';
         $request = $this->listCatalogItemsRequest($marketplace_id, $query, $query_context_id, $seller_sku, $upc, $ean, $isbn, $jan);
 
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    $responseBody = $response->getBody();
-                    if ('\SplFileObject' === $returnType) {
-                        $content = $responseBody; //stream goes to serializer
-                    } else {
-                        $content = $responseBody->getContents();
-                        if ('string' !== $returnType) {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders(),
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $exception->getRequest()->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
-                }
-            );
+        return $this->sendRequestAsync($request, ListCatalogItemsResponse::class);
     }
 
     /**
@@ -933,7 +433,7 @@ class CatalogApi
      * @param string $isbn             The unique commercial book identifier used to identify books internationally. (optional)
      * @param string $jan              A Japanese article number that uniquely identifies the product, manufacturer, and its attributes. (optional)
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      *
      * @return \GuzzleHttp\Psr7\Request
      */
@@ -941,7 +441,7 @@ class CatalogApi
     {
         // verify the required parameter 'marketplace_id' is set
         if (null === $marketplace_id || (is_array($marketplace_id) && 0 === count($marketplace_id))) {
-            throw new \InvalidArgumentException('Missing the required parameter $marketplace_id when calling listCatalogItems');
+            throw new InvalidArgumentException('Missing the required parameter $marketplace_id when calling listCatalogItems');
         }
 
         $resourcePath = '/catalog/v0/items';
@@ -984,93 +484,6 @@ class CatalogApi
             $queryParams['JAN'] = ObjectSerializer::toQueryValue($jan);
         }
 
-        // body params
-        $_tempBody = null;
-
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/json'],
-                []
-            );
-        }
-
-        // for model (json/xml)
-        if (isset($_tempBody)) {
-            // $_tempBody is the method argument, if present
-            $httpBody = $_tempBody;
-            // \stdClass has no __toString(), so we should encode it manually
-            if ($httpBody instanceof \stdClass && 'application/json' === $headers['Content-Type']) {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
-            }
-        } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $multipartContents[] = [
-                        'name' => $formParamName,
-                        'contents' => $formParamValue,
-                    ];
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-            } elseif ('application/json' === $headers['Content-Type']) {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
-            }
-        }
-
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
-
-        $sign = new SignatureSellingPartner();
-        $headersX = $sign->calculateSignature(
-            $this->config->getApiKey('accessKey'),
-            $this->config->getApiKey('secretKey'),
-            $this->config->getApiKey('region'),
-            $this->config->getAccessToken(),
-            $this->config->getUserAgent(),
-            str_replace('https://', '', $this->config->getHost()),
-            'GET',
-            $resourcePath,
-            $query
-        );
-
-        $headers = array_merge(
-            $headerParams,
-            $headers,
-            $headersX
-        );
-
-        return new Request(
-            'GET',
-            $this->config->getHost().$resourcePath.($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Create http client option.
-     *
-     * @throws \RuntimeException on file opening failure
-     *
-     * @return array of http client options
-     */
-    protected function createHttpClientOption()
-    {
-        $options = [];
-        if ($this->config->getDebug()) {
-            $options[RequestOptions::DEBUG] = fopen($this->config->getDebugFile(), 'a');
-            if (!$options[RequestOptions::DEBUG]) {
-                throw new \RuntimeException('Failed to open the debug file: '.$this->config->getDebugFile());
-            }
-        }
-
-        return $options;
+        return $this->generateRequest($multipart, $formParams, $queryParams, $resourcePath, $headerParams, 'GET', $httpBody);
     }
 }

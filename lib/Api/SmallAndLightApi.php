@@ -1,17 +1,16 @@
 <?php
 /**
  * SmallAndLightApi
- * PHP version 5.
+ * PHP version 5
  *
  * @category Class
- *
+ * @package  ClouSale\AmazonSellingPartnerAPI
  * @author   Swagger Codegen team
- *
- * @see     https://github.com/swagger-api/swagger-codegen
+ * @link     https://github.com/swagger-api/swagger-codegen
  */
 
 /**
- * Selling Partner API for FBA Small And Light.
+ * Selling Partner API for FBA Small And Light
  *
  * The Selling Partner API for FBA Small and Light lets you help sellers manage their listings in the Small and Light program. The program reduces the cost of fulfilling orders for small and lightweight FBA inventory. You can enroll or remove items from the program and check item eligibility and enrollment status. You can also preview the estimated program fees charged to a seller for items sold while enrolled in the program.
  *
@@ -26,31 +25,31 @@
  * Do not edit the class manually.
  */
 
-namespace Swagger\Client\Api;
+namespace ClouSale\AmazonSellingPartnerAPI\Api;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
-use GuzzleHttp\Psr7\MultipartStream;
-use GuzzleHttp\Psr7\Request;
-use GuzzleHttp\RequestOptions;
-use Swagger\Client\ApiException;
-use Swagger\Client\Configuration;
-use Swagger\Client\HeaderSelector;
-use Swagger\Client\ObjectSerializer;
-use Swagger\Client\SignatureSellingPartner;
+use ClouSale\AmazonSellingPartnerAPI\ApiException;
+use ClouSale\AmazonSellingPartnerAPI\Configuration;
+use ClouSale\AmazonSellingPartnerAPI\HeaderSelector;
+use ClouSale\AmazonSellingPartnerAPI\Helpers\SellingPartnerApiRequest;
+use ClouSale\AmazonSellingPartnerAPI\Models\FbaSmallAndLight\SmallAndLightEligibility;
+use ClouSale\AmazonSellingPartnerAPI\Models\FbaSmallAndLight\SmallAndLightEnrollment;
+use ClouSale\AmazonSellingPartnerAPI\Models\FbaSmallAndLight\SmallAndLightFeePreviews;
+use ClouSale\AmazonSellingPartnerAPI\ObjectSerializer;
 
 /**
- * SmallAndLightApi Class Doc Comment.
+ * SmallAndLightApi Class Doc Comment
  *
  * @category Class
- *
+ * @package  ClouSale\AmazonSellingPartnerAPI
  * @author   Swagger Codegen team
- *
- * @see     https://github.com/swagger-api/swagger-codegen
+ * @link     https://github.com/swagger-api/swagger-codegen
  */
-class SmallAndLightApi
-{
+class SmallAndLightApi {
+    use SellingPartnerApiRequest;
+
     /**
      * @var ClientInterface
      */
@@ -68,8 +67,8 @@ class SmallAndLightApi
 
     /**
      * @param ClientInterface $client
-     * @param Configuration   $config
-     * @param HeaderSelector  $selector
+     * @param Configuration $config
+     * @param HeaderSelector $selector
      */
     public function __construct(
         ClientInterface $client = null,
@@ -84,141 +83,52 @@ class SmallAndLightApi
     /**
      * @return Configuration
      */
-    public function getConfig()
-    {
+    public function getConfig() {
         return $this->config;
     }
 
     /**
-     * Operation deleteSmallAndLightEnrollmentBySellerSKU.
+     * Operation deleteSmallAndLightEnrollmentBySellerSKU
      *
-     * @param string   $seller_sku      The seller SKU that identifies the item. (required)
+     * @param string $seller_sku The seller SKU that identifies the item. (required)
      * @param string[] $marketplace_ids The marketplace in which to remove the item from the Small and Light program. Note: Accepts a single marketplace only. (required)
      *
-     * @throws \Swagger\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     *
      * @return void
+     * @throws \InvalidArgumentException
+     * @throws \ClouSale\AmazonSellingPartnerAPI\ApiException on non-2xx response
      */
-    public function deleteSmallAndLightEnrollmentBySellerSKU($seller_sku, $marketplace_ids)
-    {
+    public function deleteSmallAndLightEnrollmentBySellerSKU($seller_sku, $marketplace_ids) {
         $this->deleteSmallAndLightEnrollmentBySellerSKUWithHttpInfo($seller_sku, $marketplace_ids);
     }
 
     /**
-     * Operation deleteSmallAndLightEnrollmentBySellerSKUWithHttpInfo.
+     * Operation deleteSmallAndLightEnrollmentBySellerSKUWithHttpInfo
      *
-     * @param string   $seller_sku      The seller SKU that identifies the item. (required)
+     * @param string $seller_sku The seller SKU that identifies the item. (required)
      * @param string[] $marketplace_ids The marketplace in which to remove the item from the Small and Light program. Note: Accepts a single marketplace only. (required)
      *
-     * @throws \Swagger\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     *
      * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     * @throws \InvalidArgumentException
+     * @throws \ClouSale\AmazonSellingPartnerAPI\ApiException on non-2xx response
      */
-    public function deleteSmallAndLightEnrollmentBySellerSKUWithHttpInfo($seller_sku, $marketplace_ids)
-    {
+    public function deleteSmallAndLightEnrollmentBySellerSKUWithHttpInfo($seller_sku, $marketplace_ids) {
         $returnType = '';
         $request = $this->deleteSmallAndLightEnrollmentBySellerSKURequest($seller_sku, $marketplace_ids);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException("[{$e->getCode()}] {$e->getMessage()}", $e->getCode(), $e->getResponse() ? $e->getResponse()->getHeaders() : null, $e->getResponse() ? $e->getResponse()->getBody()->getContents() : null);
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $request->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
-            }
-
-            return [null, $statusCode, $response->getHeaders()];
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 400:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\ErrorList',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 403:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\ErrorList',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 404:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\ErrorList',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 413:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\ErrorList',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 415:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\ErrorList',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 429:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\ErrorList',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 500:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\ErrorList',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 503:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\ErrorList',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
+        return $this->sendRequest($request, SmallAndLightEnrollment::class);
     }
 
     /**
-     * Operation deleteSmallAndLightEnrollmentBySellerSKUAsync.
+     * Operation deleteSmallAndLightEnrollmentBySellerSKUAsync
      *
-     * @param string   $seller_sku      The seller SKU that identifies the item. (required)
+     *
+     *
+     * @param string $seller_sku The seller SKU that identifies the item. (required)
      * @param string[] $marketplace_ids The marketplace in which to remove the item from the Small and Light program. Note: Accepts a single marketplace only. (required)
      *
-     * @throws \InvalidArgumentException
-     *
      * @return \GuzzleHttp\Promise\PromiseInterface
+     * @throws \InvalidArgumentException
      */
-    public function deleteSmallAndLightEnrollmentBySellerSKUAsync($seller_sku, $marketplace_ids)
-    {
+    public function deleteSmallAndLightEnrollmentBySellerSKUAsync($seller_sku, $marketplace_ids) {
         return $this->deleteSmallAndLightEnrollmentBySellerSKUAsyncWithHttpInfo($seller_sku, $marketplace_ids)
             ->then(
                 function ($response) {
@@ -228,53 +138,42 @@ class SmallAndLightApi
     }
 
     /**
-     * Operation deleteSmallAndLightEnrollmentBySellerSKUAsyncWithHttpInfo.
+     * Operation deleteSmallAndLightEnrollmentBySellerSKUAsyncWithHttpInfo
      *
-     * @param string   $seller_sku      The seller SKU that identifies the item. (required)
+     *
+     *
+     * @param string $seller_sku The seller SKU that identifies the item. (required)
      * @param string[] $marketplace_ids The marketplace in which to remove the item from the Small and Light program. Note: Accepts a single marketplace only. (required)
      *
-     * @throws \InvalidArgumentException
-     *
      * @return \GuzzleHttp\Promise\PromiseInterface
+     * @throws \InvalidArgumentException
      */
-    public function deleteSmallAndLightEnrollmentBySellerSKUAsyncWithHttpInfo($seller_sku, $marketplace_ids)
-    {
-        $returnType = '';
+    public function deleteSmallAndLightEnrollmentBySellerSKUAsyncWithHttpInfo($seller_sku, $marketplace_ids) {
         $request = $this->deleteSmallAndLightEnrollmentBySellerSKURequest($seller_sku, $marketplace_ids);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $exception->getRequest()->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
-                }
-            );
+        return $this->sendRequestAsync($request, SmallAndLightEnrollment::class);
     }
 
     /**
-     * Create request for operation 'deleteSmallAndLightEnrollmentBySellerSKU'.
+     * Create request for operation 'deleteSmallAndLightEnrollmentBySellerSKU'
      *
-     * @param string   $seller_sku      The seller SKU that identifies the item. (required)
+     * @param string $seller_sku The seller SKU that identifies the item. (required)
      * @param string[] $marketplace_ids The marketplace in which to remove the item from the Small and Light program. Note: Accepts a single marketplace only. (required)
      *
-     * @throws \InvalidArgumentException
-     *
      * @return \GuzzleHttp\Psr7\Request
+     * @throws \InvalidArgumentException
      */
-    protected function deleteSmallAndLightEnrollmentBySellerSKURequest($seller_sku, $marketplace_ids)
-    {
+    protected function deleteSmallAndLightEnrollmentBySellerSKURequest($seller_sku, $marketplace_ids) {
         // verify the required parameter 'seller_sku' is set
-        if (null === $seller_sku || (is_array($seller_sku) && 0 === count($seller_sku))) {
-            throw new \InvalidArgumentException('Missing the required parameter $seller_sku when calling deleteSmallAndLightEnrollmentBySellerSKU');
+        if ($seller_sku === null || (is_array($seller_sku) && count($seller_sku) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $seller_sku when calling deleteSmallAndLightEnrollmentBySellerSKU'
+            );
         }
         // verify the required parameter 'marketplace_ids' is set
-        if (null === $marketplace_ids || (is_array($marketplace_ids) && 0 === count($marketplace_ids))) {
-            throw new \InvalidArgumentException('Missing the required parameter $marketplace_ids when calling deleteSmallAndLightEnrollmentBySellerSKU');
+        if ($marketplace_ids === null || (is_array($marketplace_ids) && count($marketplace_ids) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $marketplace_ids when calling deleteSmallAndLightEnrollmentBySellerSKU'
+            );
         }
 
         $resourcePath = '/fba/smallAndLight/v1/enrollments/{sellerSKU}';
@@ -288,243 +187,63 @@ class SmallAndLightApi
         if (is_array($marketplace_ids)) {
             $marketplace_ids = ObjectSerializer::serializeCollection($marketplace_ids, 'csv', true);
         }
-        if (null !== $marketplace_ids) {
+        if ($marketplace_ids !== null) {
             $queryParams['marketplaceIds'] = ObjectSerializer::toQueryValue($marketplace_ids);
         }
 
         // path params
-        if (null !== $seller_sku) {
+        if ($seller_sku !== null) {
             $resourcePath = str_replace(
-                '{'.'sellerSKU'.'}',
+                '{' . 'sellerSKU' . '}',
                 ObjectSerializer::toPathValue($seller_sku),
                 $resourcePath
             );
         }
-
-        // body params
-        $_tempBody = null;
-
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/json'],
-                []
-            );
-        }
-
-        // for model (json/xml)
-        if (isset($_tempBody)) {
-            // $_tempBody is the method argument, if present
-            $httpBody = $_tempBody;
-            // \stdClass has no __toString(), so we should encode it manually
-            if ($httpBody instanceof \stdClass && 'application/json' === $headers['Content-Type']) {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
-            }
-        } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $multipartContents[] = [
-                        'name' => $formParamName,
-                        'contents' => $formParamValue,
-                    ];
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-            } elseif ('application/json' === $headers['Content-Type']) {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
-            }
-        }
-
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
-
-        $sign = new SignatureSellingPartner();
-        $headersX = $sign->calculateSignature(
-            $this->config->getApiKey('accessKey'),
-            $this->config->getApiKey('secretKey'),
-            $this->config->getApiKey('region'),
-            $this->config->getAccessToken(),
-            $this->config->getUserAgent(),
-            str_replace('https://', '', $this->config->getHost()),
-            'DELETE',
-            $resourcePath,
-            $query
-        );
-
-        $headers = array_merge(
-            $headerParams,
-            $headers,
-            $headersX
-        );
-
-        return new Request(
-            'DELETE',
-            $this->config->getHost().$resourcePath.($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
+        return $this->generateRequest($multipart, $formParams, $queryParams, $resourcePath, $headerParams, 'DELETE', $httpBody);
     }
 
     /**
-     * Operation getSmallAndLightEligibilityBySellerSKU.
+     * Operation getSmallAndLightEligibilityBySellerSKU
      *
-     * @param string   $seller_sku      The seller SKU that identifies the item. (required)
+     * @param string $seller_sku The seller SKU that identifies the item. (required)
      * @param string[] $marketplace_ids The marketplace for which the eligibility status is retrieved. NOTE: Accepts a single marketplace only. (required)
      *
-     * @throws \Swagger\Client\ApiException on non-2xx response
+     * @return \ClouSale\AmazonSellingPartnerAPI\Models\FbaSmallAndLight\SmallAndLightEligibility
      * @throws \InvalidArgumentException
-     *
-     * @return \Swagger\Client\Models\SmallAndLightEligibility
+     * @throws \ClouSale\AmazonSellingPartnerAPI\ApiException on non-2xx response
      */
-    public function getSmallAndLightEligibilityBySellerSKU($seller_sku, $marketplace_ids)
-    {
+    public function getSmallAndLightEligibilityBySellerSKU($seller_sku, $marketplace_ids) {
         list($response) = $this->getSmallAndLightEligibilityBySellerSKUWithHttpInfo($seller_sku, $marketplace_ids);
-
         return $response;
     }
 
     /**
-     * Operation getSmallAndLightEligibilityBySellerSKUWithHttpInfo.
+     * Operation getSmallAndLightEligibilityBySellerSKUWithHttpInfo
      *
-     * @param string   $seller_sku      The seller SKU that identifies the item. (required)
+     * @param string $seller_sku The seller SKU that identifies the item. (required)
      * @param string[] $marketplace_ids The marketplace for which the eligibility status is retrieved. NOTE: Accepts a single marketplace only. (required)
      *
-     * @throws \Swagger\Client\ApiException on non-2xx response
+     * @return array of \ClouSale\AmazonSellingPartnerAPI\Models\FbaSmallAndLight\SmallAndLightEligibility, HTTP status code, HTTP response headers (array of strings)
      * @throws \InvalidArgumentException
-     *
-     * @return array of \Swagger\Client\Models\SmallAndLightEligibility, HTTP status code, HTTP response headers (array of strings)
+     * @throws \ClouSale\AmazonSellingPartnerAPI\ApiException on non-2xx response
      */
-    public function getSmallAndLightEligibilityBySellerSKUWithHttpInfo($seller_sku, $marketplace_ids)
-    {
-        $returnType = '\Swagger\Client\Models\SmallAndLightEligibility';
+    public function getSmallAndLightEligibilityBySellerSKUWithHttpInfo($seller_sku, $marketplace_ids) {
         $request = $this->getSmallAndLightEligibilityBySellerSKURequest($seller_sku, $marketplace_ids);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException("[{$e->getCode()}] {$e->getMessage()}", $e->getCode(), $e->getResponse() ? $e->getResponse()->getHeaders() : null, $e->getResponse() ? $e->getResponse()->getBody()->getContents() : null);
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $request->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
-            }
-
-            $responseBody = $response->getBody();
-            if ('\SplFileObject' === $returnType) {
-                $content = $responseBody; //stream goes to serializer
-            } else {
-                $content = $responseBody->getContents();
-                if (!in_array($returnType, ['string', 'integer', 'bool'])) {
-                    $content = json_decode($content);
-                }
-            }
-
-            return [
-                ObjectSerializer::deserialize($content, $returnType, []),
-                $response->getStatusCode(),
-                $response->getHeaders(),
-            ];
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\SmallAndLightEligibility',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 400:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\ErrorList',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 403:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\ErrorList',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 404:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\ErrorList',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 413:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\ErrorList',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 415:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\ErrorList',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 429:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\ErrorList',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 500:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\ErrorList',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 503:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\ErrorList',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
+        return $this->sendRequest($request, SmallAndLightEligibility::class);
     }
 
     /**
-     * Operation getSmallAndLightEligibilityBySellerSKUAsync.
+     * Operation getSmallAndLightEligibilityBySellerSKUAsync
      *
-     * @param string   $seller_sku      The seller SKU that identifies the item. (required)
+     *
+     *
+     * @param string $seller_sku The seller SKU that identifies the item. (required)
      * @param string[] $marketplace_ids The marketplace for which the eligibility status is retrieved. NOTE: Accepts a single marketplace only. (required)
      *
-     * @throws \InvalidArgumentException
-     *
      * @return \GuzzleHttp\Promise\PromiseInterface
+     * @throws \InvalidArgumentException
      */
-    public function getSmallAndLightEligibilityBySellerSKUAsync($seller_sku, $marketplace_ids)
-    {
+    public function getSmallAndLightEligibilityBySellerSKUAsync($seller_sku, $marketplace_ids) {
         return $this->getSmallAndLightEligibilityBySellerSKUAsyncWithHttpInfo($seller_sku, $marketplace_ids)
             ->then(
                 function ($response) {
@@ -534,67 +253,42 @@ class SmallAndLightApi
     }
 
     /**
-     * Operation getSmallAndLightEligibilityBySellerSKUAsyncWithHttpInfo.
+     * Operation getSmallAndLightEligibilityBySellerSKUAsyncWithHttpInfo
      *
-     * @param string   $seller_sku      The seller SKU that identifies the item. (required)
+     *
+     *
+     * @param string $seller_sku The seller SKU that identifies the item. (required)
      * @param string[] $marketplace_ids The marketplace for which the eligibility status is retrieved. NOTE: Accepts a single marketplace only. (required)
      *
-     * @throws \InvalidArgumentException
-     *
      * @return \GuzzleHttp\Promise\PromiseInterface
+     * @throws \InvalidArgumentException
      */
-    public function getSmallAndLightEligibilityBySellerSKUAsyncWithHttpInfo($seller_sku, $marketplace_ids)
-    {
-        $returnType = '\Swagger\Client\Models\SmallAndLightEligibility';
+    public function getSmallAndLightEligibilityBySellerSKUAsyncWithHttpInfo($seller_sku, $marketplace_ids) {
         $request = $this->getSmallAndLightEligibilityBySellerSKURequest($seller_sku, $marketplace_ids);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    $responseBody = $response->getBody();
-                    if ('\SplFileObject' === $returnType) {
-                        $content = $responseBody; //stream goes to serializer
-                    } else {
-                        $content = $responseBody->getContents();
-                        if ('string' !== $returnType) {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders(),
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $exception->getRequest()->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
-                }
-            );
+        return $this->sendRequestAsync($request, SmallAndLightEligibility::class);
     }
 
     /**
-     * Create request for operation 'getSmallAndLightEligibilityBySellerSKU'.
+     * Create request for operation 'getSmallAndLightEligibilityBySellerSKU'
      *
-     * @param string   $seller_sku      The seller SKU that identifies the item. (required)
+     * @param string $seller_sku The seller SKU that identifies the item. (required)
      * @param string[] $marketplace_ids The marketplace for which the eligibility status is retrieved. NOTE: Accepts a single marketplace only. (required)
      *
-     * @throws \InvalidArgumentException
-     *
      * @return \GuzzleHttp\Psr7\Request
+     * @throws \InvalidArgumentException
      */
-    protected function getSmallAndLightEligibilityBySellerSKURequest($seller_sku, $marketplace_ids)
-    {
+    protected function getSmallAndLightEligibilityBySellerSKURequest($seller_sku, $marketplace_ids) {
         // verify the required parameter 'seller_sku' is set
-        if (null === $seller_sku || (is_array($seller_sku) && 0 === count($seller_sku))) {
-            throw new \InvalidArgumentException('Missing the required parameter $seller_sku when calling getSmallAndLightEligibilityBySellerSKU');
+        if ($seller_sku === null || (is_array($seller_sku) && count($seller_sku) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $seller_sku when calling getSmallAndLightEligibilityBySellerSKU'
+            );
         }
         // verify the required parameter 'marketplace_ids' is set
-        if (null === $marketplace_ids || (is_array($marketplace_ids) && 0 === count($marketplace_ids))) {
-            throw new \InvalidArgumentException('Missing the required parameter $marketplace_ids when calling getSmallAndLightEligibilityBySellerSKU');
+        if ($marketplace_ids === null || (is_array($marketplace_ids) && count($marketplace_ids) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $marketplace_ids when calling getSmallAndLightEligibilityBySellerSKU'
+            );
         }
 
         $resourcePath = '/fba/smallAndLight/v1/eligibilities/{sellerSKU}';
@@ -608,243 +302,63 @@ class SmallAndLightApi
         if (is_array($marketplace_ids)) {
             $marketplace_ids = ObjectSerializer::serializeCollection($marketplace_ids, 'csv', true);
         }
-        if (null !== $marketplace_ids) {
+        if ($marketplace_ids !== null) {
             $queryParams['marketplaceIds'] = ObjectSerializer::toQueryValue($marketplace_ids);
         }
 
         // path params
-        if (null !== $seller_sku) {
+        if ($seller_sku !== null) {
             $resourcePath = str_replace(
-                '{'.'sellerSKU'.'}',
+                '{' . 'sellerSKU' . '}',
                 ObjectSerializer::toPathValue($seller_sku),
                 $resourcePath
             );
         }
-
-        // body params
-        $_tempBody = null;
-
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/json'],
-                []
-            );
-        }
-
-        // for model (json/xml)
-        if (isset($_tempBody)) {
-            // $_tempBody is the method argument, if present
-            $httpBody = $_tempBody;
-            // \stdClass has no __toString(), so we should encode it manually
-            if ($httpBody instanceof \stdClass && 'application/json' === $headers['Content-Type']) {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
-            }
-        } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $multipartContents[] = [
-                        'name' => $formParamName,
-                        'contents' => $formParamValue,
-                    ];
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-            } elseif ('application/json' === $headers['Content-Type']) {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
-            }
-        }
-
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
-
-        $sign = new SignatureSellingPartner();
-        $headersX = $sign->calculateSignature(
-            $this->config->getApiKey('accessKey'),
-            $this->config->getApiKey('secretKey'),
-            $this->config->getApiKey('region'),
-            $this->config->getAccessToken(),
-            $this->config->getUserAgent(),
-            str_replace('https://', '', $this->config->getHost()),
-            'GET',
-            $resourcePath,
-            $query
-        );
-
-        $headers = array_merge(
-            $headerParams,
-            $headers,
-            $headersX
-        );
-
-        return new Request(
-            'GET',
-            $this->config->getHost().$resourcePath.($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
+        return $this->generateRequest($multipart, $formParams, $queryParams, $resourcePath, $headerParams, 'GET', $httpBody);
     }
 
     /**
-     * Operation getSmallAndLightEnrollmentBySellerSKU.
+     * Operation getSmallAndLightEnrollmentBySellerSKU
      *
-     * @param string   $seller_sku      The seller SKU that identifies the item. (required)
+     * @param string $seller_sku The seller SKU that identifies the item. (required)
      * @param string[] $marketplace_ids The marketplace for which the enrollment status is retrieved. Note: Accepts a single marketplace only. (required)
      *
-     * @throws \Swagger\Client\ApiException on non-2xx response
+     * @return \ClouSale\AmazonSellingPartnerAPI\Models\FbaSmallAndLight\SmallAndLightEnrollment
      * @throws \InvalidArgumentException
-     *
-     * @return \Swagger\Client\Models\SmallAndLightEnrollment
+     * @throws \ClouSale\AmazonSellingPartnerAPI\ApiException on non-2xx response
      */
-    public function getSmallAndLightEnrollmentBySellerSKU($seller_sku, $marketplace_ids)
-    {
+    public function getSmallAndLightEnrollmentBySellerSKU($seller_sku, $marketplace_ids) {
         list($response) = $this->getSmallAndLightEnrollmentBySellerSKUWithHttpInfo($seller_sku, $marketplace_ids);
-
         return $response;
     }
 
     /**
-     * Operation getSmallAndLightEnrollmentBySellerSKUWithHttpInfo.
+     * Operation getSmallAndLightEnrollmentBySellerSKUWithHttpInfo
      *
-     * @param string   $seller_sku      The seller SKU that identifies the item. (required)
+     * @param string $seller_sku The seller SKU that identifies the item. (required)
      * @param string[] $marketplace_ids The marketplace for which the enrollment status is retrieved. Note: Accepts a single marketplace only. (required)
      *
-     * @throws \Swagger\Client\ApiException on non-2xx response
+     * @return array of \ClouSale\AmazonSellingPartnerAPI\Models\FbaSmallAndLight\SmallAndLightEnrollment, HTTP status code, HTTP response headers (array of strings)
      * @throws \InvalidArgumentException
-     *
-     * @return array of \Swagger\Client\Models\SmallAndLightEnrollment, HTTP status code, HTTP response headers (array of strings)
+     * @throws \ClouSale\AmazonSellingPartnerAPI\ApiException on non-2xx response
      */
-    public function getSmallAndLightEnrollmentBySellerSKUWithHttpInfo($seller_sku, $marketplace_ids)
-    {
-        $returnType = '\Swagger\Client\Models\SmallAndLightEnrollment';
+    public function getSmallAndLightEnrollmentBySellerSKUWithHttpInfo($seller_sku, $marketplace_ids) {
         $request = $this->getSmallAndLightEnrollmentBySellerSKURequest($seller_sku, $marketplace_ids);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException("[{$e->getCode()}] {$e->getMessage()}", $e->getCode(), $e->getResponse() ? $e->getResponse()->getHeaders() : null, $e->getResponse() ? $e->getResponse()->getBody()->getContents() : null);
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $request->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
-            }
-
-            $responseBody = $response->getBody();
-            if ('\SplFileObject' === $returnType) {
-                $content = $responseBody; //stream goes to serializer
-            } else {
-                $content = $responseBody->getContents();
-                if (!in_array($returnType, ['string', 'integer', 'bool'])) {
-                    $content = json_decode($content);
-                }
-            }
-
-            return [
-                ObjectSerializer::deserialize($content, $returnType, []),
-                $response->getStatusCode(),
-                $response->getHeaders(),
-            ];
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\SmallAndLightEnrollment',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 400:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\ErrorList',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 403:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\ErrorList',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 404:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\ErrorList',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 413:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\ErrorList',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 415:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\ErrorList',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 429:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\ErrorList',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 500:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\ErrorList',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 503:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\ErrorList',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
+        return $this->sendRequest($request, SmallAndLightEnrollment::class);
     }
 
     /**
-     * Operation getSmallAndLightEnrollmentBySellerSKUAsync.
+     * Operation getSmallAndLightEnrollmentBySellerSKUAsync
      *
-     * @param string   $seller_sku      The seller SKU that identifies the item. (required)
+     *
+     *
+     * @param string $seller_sku The seller SKU that identifies the item. (required)
      * @param string[] $marketplace_ids The marketplace for which the enrollment status is retrieved. Note: Accepts a single marketplace only. (required)
      *
-     * @throws \InvalidArgumentException
-     *
      * @return \GuzzleHttp\Promise\PromiseInterface
+     * @throws \InvalidArgumentException
      */
-    public function getSmallAndLightEnrollmentBySellerSKUAsync($seller_sku, $marketplace_ids)
-    {
+    public function getSmallAndLightEnrollmentBySellerSKUAsync($seller_sku, $marketplace_ids) {
         return $this->getSmallAndLightEnrollmentBySellerSKUAsyncWithHttpInfo($seller_sku, $marketplace_ids)
             ->then(
                 function ($response) {
@@ -854,67 +368,43 @@ class SmallAndLightApi
     }
 
     /**
-     * Operation getSmallAndLightEnrollmentBySellerSKUAsyncWithHttpInfo.
+     * Operation getSmallAndLightEnrollmentBySellerSKUAsyncWithHttpInfo
      *
-     * @param string   $seller_sku      The seller SKU that identifies the item. (required)
+     *
+     *
+     * @param string $seller_sku The seller SKU that identifies the item. (required)
      * @param string[] $marketplace_ids The marketplace for which the enrollment status is retrieved. Note: Accepts a single marketplace only. (required)
      *
-     * @throws \InvalidArgumentException
-     *
      * @return \GuzzleHttp\Promise\PromiseInterface
+     * @throws \InvalidArgumentException
      */
-    public function getSmallAndLightEnrollmentBySellerSKUAsyncWithHttpInfo($seller_sku, $marketplace_ids)
-    {
-        $returnType = '\Swagger\Client\Models\SmallAndLightEnrollment';
+    public function getSmallAndLightEnrollmentBySellerSKUAsyncWithHttpInfo($seller_sku, $marketplace_ids) {
+        $returnType = '\ClouSale\AmazonSellingPartnerAPI\Models\FbaSmallAndLight\SmallAndLightEnrollment';
         $request = $this->getSmallAndLightEnrollmentBySellerSKURequest($seller_sku, $marketplace_ids);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    $responseBody = $response->getBody();
-                    if ('\SplFileObject' === $returnType) {
-                        $content = $responseBody; //stream goes to serializer
-                    } else {
-                        $content = $responseBody->getContents();
-                        if ('string' !== $returnType) {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders(),
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $exception->getRequest()->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
-                }
-            );
+        return $this->sendRequestAsync($request, SmallAndLightEnrollment::class);
     }
 
     /**
-     * Create request for operation 'getSmallAndLightEnrollmentBySellerSKU'.
+     * Create request for operation 'getSmallAndLightEnrollmentBySellerSKU'
      *
-     * @param string   $seller_sku      The seller SKU that identifies the item. (required)
+     * @param string $seller_sku The seller SKU that identifies the item. (required)
      * @param string[] $marketplace_ids The marketplace for which the enrollment status is retrieved. Note: Accepts a single marketplace only. (required)
      *
-     * @throws \InvalidArgumentException
-     *
      * @return \GuzzleHttp\Psr7\Request
+     * @throws \InvalidArgumentException
      */
-    protected function getSmallAndLightEnrollmentBySellerSKURequest($seller_sku, $marketplace_ids)
-    {
+    protected function getSmallAndLightEnrollmentBySellerSKURequest($seller_sku, $marketplace_ids) {
         // verify the required parameter 'seller_sku' is set
-        if (null === $seller_sku || (is_array($seller_sku) && 0 === count($seller_sku))) {
-            throw new \InvalidArgumentException('Missing the required parameter $seller_sku when calling getSmallAndLightEnrollmentBySellerSKU');
+        if ($seller_sku === null || (is_array($seller_sku) && count($seller_sku) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $seller_sku when calling getSmallAndLightEnrollmentBySellerSKU'
+            );
         }
         // verify the required parameter 'marketplace_ids' is set
-        if (null === $marketplace_ids || (is_array($marketplace_ids) && 0 === count($marketplace_ids))) {
-            throw new \InvalidArgumentException('Missing the required parameter $marketplace_ids when calling getSmallAndLightEnrollmentBySellerSKU');
+        if ($marketplace_ids === null || (is_array($marketplace_ids) && count($marketplace_ids) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $marketplace_ids when calling getSmallAndLightEnrollmentBySellerSKU'
+            );
         }
 
         $resourcePath = '/fba/smallAndLight/v1/enrollments/{sellerSKU}';
@@ -928,232 +418,60 @@ class SmallAndLightApi
         if (is_array($marketplace_ids)) {
             $marketplace_ids = ObjectSerializer::serializeCollection($marketplace_ids, 'csv', true);
         }
-        if (null !== $marketplace_ids) {
+        if ($marketplace_ids !== null) {
             $queryParams['marketplaceIds'] = ObjectSerializer::toQueryValue($marketplace_ids);
         }
 
         // path params
-        if (null !== $seller_sku) {
+        if ($seller_sku !== null) {
             $resourcePath = str_replace(
-                '{'.'sellerSKU'.'}',
+                '{' . 'sellerSKU' . '}',
                 ObjectSerializer::toPathValue($seller_sku),
                 $resourcePath
             );
         }
-
-        // body params
-        $_tempBody = null;
-
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/json'],
-                []
-            );
-        }
-
-        // for model (json/xml)
-        if (isset($_tempBody)) {
-            // $_tempBody is the method argument, if present
-            $httpBody = $_tempBody;
-            // \stdClass has no __toString(), so we should encode it manually
-            if ($httpBody instanceof \stdClass && 'application/json' === $headers['Content-Type']) {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
-            }
-        } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $multipartContents[] = [
-                        'name' => $formParamName,
-                        'contents' => $formParamValue,
-                    ];
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-            } elseif ('application/json' === $headers['Content-Type']) {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
-            }
-        }
-
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
-
-        $sign = new SignatureSellingPartner();
-        $headersX = $sign->calculateSignature(
-            $this->config->getApiKey('accessKey'),
-            $this->config->getApiKey('secretKey'),
-            $this->config->getApiKey('region'),
-            $this->config->getAccessToken(),
-            $this->config->getUserAgent(),
-            str_replace('https://', '', $this->config->getHost()),
-            'GET',
-            $resourcePath,
-            $query
-        );
-
-        $headers = array_merge(
-            $headerParams,
-            $headers,
-            $headersX
-        );
-
-        return new Request(
-            'GET',
-            $this->config->getHost().$resourcePath.($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
+        return $this->generateRequest($multipart, $formParams, $queryParams, $resourcePath, $headerParams, 'GET', $httpBody);
     }
 
     /**
-     * Operation getSmallAndLightFeePreview.
+     * Operation getSmallAndLightFeePreview
      *
-     * @param \Swagger\Client\Models\SmallAndLightFeePreviewRequest $body body (required)
+     * @param \ClouSale\AmazonSellingPartnerAPI\Models\FbaSmallAndLight\SmallAndLightFeePreviewRequest $body body (required)
      *
-     * @throws \Swagger\Client\ApiException on non-2xx response
+     * @return \ClouSale\AmazonSellingPartnerAPI\Models\FbaSmallAndLight\SmallAndLightFeePreviews
      * @throws \InvalidArgumentException
-     *
-     * @return \Swagger\Client\Models\SmallAndLightFeePreviews
+     * @throws \ClouSale\AmazonSellingPartnerAPI\ApiException on non-2xx response
      */
-    public function getSmallAndLightFeePreview($body)
-    {
+    public function getSmallAndLightFeePreview($body) {
         list($response) = $this->getSmallAndLightFeePreviewWithHttpInfo($body);
-
         return $response;
     }
 
     /**
-     * Operation getSmallAndLightFeePreviewWithHttpInfo.
+     * Operation getSmallAndLightFeePreviewWithHttpInfo
      *
-     * @param \Swagger\Client\Models\SmallAndLightFeePreviewRequest $body (required)
+     * @param \ClouSale\AmazonSellingPartnerAPI\Models\FbaSmallAndLight\SmallAndLightFeePreviewRequest $body (required)
      *
-     * @throws \Swagger\Client\ApiException on non-2xx response
+     * @return array of \ClouSale\AmazonSellingPartnerAPI\Models\FbaSmallAndLight\SmallAndLightFeePreviews, HTTP status code, HTTP response headers (array of strings)
      * @throws \InvalidArgumentException
-     *
-     * @return array of \Swagger\Client\Models\SmallAndLightFeePreviews, HTTP status code, HTTP response headers (array of strings)
+     * @throws \ClouSale\AmazonSellingPartnerAPI\ApiException on non-2xx response
      */
-    public function getSmallAndLightFeePreviewWithHttpInfo($body)
-    {
-        $returnType = '\Swagger\Client\Models\SmallAndLightFeePreviews';
+    public function getSmallAndLightFeePreviewWithHttpInfo($body) {
         $request = $this->getSmallAndLightFeePreviewRequest($body);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException("[{$e->getCode()}] {$e->getMessage()}", $e->getCode(), $e->getResponse() ? $e->getResponse()->getHeaders() : null, $e->getResponse() ? $e->getResponse()->getBody()->getContents() : null);
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $request->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
-            }
-
-            $responseBody = $response->getBody();
-            if ('\SplFileObject' === $returnType) {
-                $content = $responseBody; //stream goes to serializer
-            } else {
-                $content = $responseBody->getContents();
-                if (!in_array($returnType, ['string', 'integer', 'bool'])) {
-                    $content = json_decode($content);
-                }
-            }
-
-            return [
-                ObjectSerializer::deserialize($content, $returnType, []),
-                $response->getStatusCode(),
-                $response->getHeaders(),
-            ];
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\SmallAndLightFeePreviews',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 400:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\ErrorList',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 401:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\ErrorList',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 403:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\ErrorList',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 404:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\ErrorList',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 429:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\ErrorList',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 500:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\ErrorList',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 503:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\ErrorList',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
+        return $this->sendRequest($request, SmallAndLightFeePreviews::class);
     }
 
     /**
-     * Operation getSmallAndLightFeePreviewAsync.
+     * Operation getSmallAndLightFeePreviewAsync
      *
-     * @param \Swagger\Client\Models\SmallAndLightFeePreviewRequest $body (required)
      *
-     * @throws \InvalidArgumentException
+     *
+     * @param \ClouSale\AmazonSellingPartnerAPI\Models\FbaSmallAndLight\SmallAndLightFeePreviewRequest $body (required)
      *
      * @return \GuzzleHttp\Promise\PromiseInterface
+     * @throws \InvalidArgumentException
      */
-    public function getSmallAndLightFeePreviewAsync($body)
-    {
+    public function getSmallAndLightFeePreviewAsync($body) {
         return $this->getSmallAndLightFeePreviewAsyncWithHttpInfo($body)
             ->then(
                 function ($response) {
@@ -1163,297 +481,88 @@ class SmallAndLightApi
     }
 
     /**
-     * Operation getSmallAndLightFeePreviewAsyncWithHttpInfo.
+     * Operation getSmallAndLightFeePreviewAsyncWithHttpInfo
      *
-     * @param \Swagger\Client\Models\SmallAndLightFeePreviewRequest $body (required)
      *
-     * @throws \InvalidArgumentException
+     *
+     * @param \ClouSale\AmazonSellingPartnerAPI\Models\FbaSmallAndLight\SmallAndLightFeePreviewRequest $body (required)
      *
      * @return \GuzzleHttp\Promise\PromiseInterface
+     * @throws \InvalidArgumentException
      */
-    public function getSmallAndLightFeePreviewAsyncWithHttpInfo($body)
-    {
-        $returnType = '\Swagger\Client\Models\SmallAndLightFeePreviews';
+    public function getSmallAndLightFeePreviewAsyncWithHttpInfo($body) {
         $request = $this->getSmallAndLightFeePreviewRequest($body);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    $responseBody = $response->getBody();
-                    if ('\SplFileObject' === $returnType) {
-                        $content = $responseBody; //stream goes to serializer
-                    } else {
-                        $content = $responseBody->getContents();
-                        if ('string' !== $returnType) {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders(),
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $exception->getRequest()->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
-                }
-            );
+        return $this->sendRequestAsync($request, SmallAndLightFeePreviews::class);
     }
 
     /**
-     * Create request for operation 'getSmallAndLightFeePreview'.
+     * Create request for operation 'getSmallAndLightFeePreview'
      *
-     * @param \Swagger\Client\Models\SmallAndLightFeePreviewRequest $body (required)
-     *
-     * @throws \InvalidArgumentException
+     * @param \ClouSale\AmazonSellingPartnerAPI\Models\FbaSmallAndLight\SmallAndLightFeePreviewRequest $body (required)
      *
      * @return \GuzzleHttp\Psr7\Request
+     * @throws \InvalidArgumentException
      */
-    protected function getSmallAndLightFeePreviewRequest($body)
-    {
+    protected function getSmallAndLightFeePreviewRequest($body) {
         // verify the required parameter 'body' is set
-        if (null === $body || (is_array($body) && 0 === count($body))) {
-            throw new \InvalidArgumentException('Missing the required parameter $body when calling getSmallAndLightFeePreview');
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling getSmallAndLightFeePreview'
+            );
         }
 
         $resourcePath = '/fba/smallAndLight/v1/feePreviews';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
-        $httpBody = '';
+        $httpBody = $body;
         $multipart = false;
 
-        // body params
-        $_tempBody = null;
-        if (isset($body)) {
-            $_tempBody = $body;
-        }
-
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/json'],
-                ['application/json']
-            );
-        }
-
-        // for model (json/xml)
-        if (isset($_tempBody)) {
-            // $_tempBody is the method argument, if present
-            $httpBody = $_tempBody;
-            // \stdClass has no __toString(), so we should encode it manually
-            if ($httpBody instanceof \stdClass && 'application/json' === $headers['Content-Type']) {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
-            }
-        } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $multipartContents[] = [
-                        'name' => $formParamName,
-                        'contents' => $formParamValue,
-                    ];
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-            } elseif ('application/json' === $headers['Content-Type']) {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
-            }
-        }
-
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
-
-        $sign = new SignatureSellingPartner();
-        $headersX = $sign->calculateSignature(
-            $this->config->getApiKey('accessKey'),
-            $this->config->getApiKey('secretKey'),
-            $this->config->getApiKey('region'),
-            $this->config->getAccessToken(),
-            $this->config->getUserAgent(),
-            str_replace('https://', '', $this->config->getHost()),
-            'POST',
-            $resourcePath,
-            $query
-        );
-
-        $headers = array_merge(
-            $headerParams,
-            $headers,
-            $headersX
-        );
-
-        return new Request(
-            'POST',
-            $this->config->getHost().$resourcePath.($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
+        return $this->generateRequest($multipart, $formParams, $queryParams, $resourcePath, $headerParams, 'POST', $httpBody);
     }
 
     /**
-     * Operation putSmallAndLightEnrollmentBySellerSKU.
+     * Operation putSmallAndLightEnrollmentBySellerSKU
      *
-     * @param string   $seller_sku      The seller SKU that identifies the item. (required)
+     * @param string $seller_sku The seller SKU that identifies the item. (required)
      * @param string[] $marketplace_ids The marketplace in which to enroll the item. Note: Accepts a single marketplace only. (required)
      *
-     * @throws \Swagger\Client\ApiException on non-2xx response
+     * @return \ClouSale\AmazonSellingPartnerAPI\Models\FbaSmallAndLight\SmallAndLightEnrollment
      * @throws \InvalidArgumentException
-     *
-     * @return \Swagger\Client\Models\SmallAndLightEnrollment
+     * @throws \ClouSale\AmazonSellingPartnerAPI\ApiException on non-2xx response
      */
-    public function putSmallAndLightEnrollmentBySellerSKU($seller_sku, $marketplace_ids)
-    {
+    public function putSmallAndLightEnrollmentBySellerSKU($seller_sku, $marketplace_ids) {
         list($response) = $this->putSmallAndLightEnrollmentBySellerSKUWithHttpInfo($seller_sku, $marketplace_ids);
-
         return $response;
     }
 
     /**
-     * Operation putSmallAndLightEnrollmentBySellerSKUWithHttpInfo.
+     * Operation putSmallAndLightEnrollmentBySellerSKUWithHttpInfo
      *
-     * @param string   $seller_sku      The seller SKU that identifies the item. (required)
+     * @param string $seller_sku The seller SKU that identifies the item. (required)
      * @param string[] $marketplace_ids The marketplace in which to enroll the item. Note: Accepts a single marketplace only. (required)
      *
-     * @throws \Swagger\Client\ApiException on non-2xx response
+     * @return array of \ClouSale\AmazonSellingPartnerAPI\Models\FbaSmallAndLight\SmallAndLightEnrollment, HTTP status code, HTTP response headers (array of strings)
      * @throws \InvalidArgumentException
-     *
-     * @return array of \Swagger\Client\Models\SmallAndLightEnrollment, HTTP status code, HTTP response headers (array of strings)
+     * @throws \ClouSale\AmazonSellingPartnerAPI\ApiException on non-2xx response
      */
-    public function putSmallAndLightEnrollmentBySellerSKUWithHttpInfo($seller_sku, $marketplace_ids)
-    {
-        $returnType = '\Swagger\Client\Models\SmallAndLightEnrollment';
+    public function putSmallAndLightEnrollmentBySellerSKUWithHttpInfo($seller_sku, $marketplace_ids) {
         $request = $this->putSmallAndLightEnrollmentBySellerSKURequest($seller_sku, $marketplace_ids);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException("[{$e->getCode()}] {$e->getMessage()}", $e->getCode(), $e->getResponse() ? $e->getResponse()->getHeaders() : null, $e->getResponse() ? $e->getResponse()->getBody()->getContents() : null);
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $request->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
-            }
-
-            $responseBody = $response->getBody();
-            if ('\SplFileObject' === $returnType) {
-                $content = $responseBody; //stream goes to serializer
-            } else {
-                $content = $responseBody->getContents();
-                if (!in_array($returnType, ['string', 'integer', 'bool'])) {
-                    $content = json_decode($content);
-                }
-            }
-
-            return [
-                ObjectSerializer::deserialize($content, $returnType, []),
-                $response->getStatusCode(),
-                $response->getHeaders(),
-            ];
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\SmallAndLightEnrollment',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 400:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\ErrorList',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 403:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\ErrorList',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 404:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\ErrorList',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 413:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\ErrorList',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 415:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\ErrorList',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 429:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\ErrorList',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 500:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\ErrorList',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 503:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\ErrorList',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
+        return $this->sendRequest($request, SmallAndLightEnrollment::class);
     }
 
     /**
-     * Operation putSmallAndLightEnrollmentBySellerSKUAsync.
+     * Operation putSmallAndLightEnrollmentBySellerSKUAsync
      *
-     * @param string   $seller_sku      The seller SKU that identifies the item. (required)
+     *
+     *
+     * @param string $seller_sku The seller SKU that identifies the item. (required)
      * @param string[] $marketplace_ids The marketplace in which to enroll the item. Note: Accepts a single marketplace only. (required)
      *
-     * @throws \InvalidArgumentException
-     *
      * @return \GuzzleHttp\Promise\PromiseInterface
+     * @throws \InvalidArgumentException
      */
-    public function putSmallAndLightEnrollmentBySellerSKUAsync($seller_sku, $marketplace_ids)
-    {
+    public function putSmallAndLightEnrollmentBySellerSKUAsync($seller_sku, $marketplace_ids) {
         return $this->putSmallAndLightEnrollmentBySellerSKUAsyncWithHttpInfo($seller_sku, $marketplace_ids)
             ->then(
                 function ($response) {
@@ -1463,67 +572,42 @@ class SmallAndLightApi
     }
 
     /**
-     * Operation putSmallAndLightEnrollmentBySellerSKUAsyncWithHttpInfo.
+     * Operation putSmallAndLightEnrollmentBySellerSKUAsyncWithHttpInfo
      *
-     * @param string   $seller_sku      The seller SKU that identifies the item. (required)
+     *
+     *
+     * @param string $seller_sku The seller SKU that identifies the item. (required)
      * @param string[] $marketplace_ids The marketplace in which to enroll the item. Note: Accepts a single marketplace only. (required)
      *
-     * @throws \InvalidArgumentException
-     *
      * @return \GuzzleHttp\Promise\PromiseInterface
+     * @throws \InvalidArgumentException
      */
-    public function putSmallAndLightEnrollmentBySellerSKUAsyncWithHttpInfo($seller_sku, $marketplace_ids)
-    {
-        $returnType = '\Swagger\Client\Models\SmallAndLightEnrollment';
+    public function putSmallAndLightEnrollmentBySellerSKUAsyncWithHttpInfo($seller_sku, $marketplace_ids) {
         $request = $this->putSmallAndLightEnrollmentBySellerSKURequest($seller_sku, $marketplace_ids);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    $responseBody = $response->getBody();
-                    if ('\SplFileObject' === $returnType) {
-                        $content = $responseBody; //stream goes to serializer
-                    } else {
-                        $content = $responseBody->getContents();
-                        if ('string' !== $returnType) {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders(),
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $exception->getRequest()->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
-                }
-            );
+        return $this->sendRequestAsync($request, SmallAndLightEnrollment::class);
     }
 
     /**
-     * Create request for operation 'putSmallAndLightEnrollmentBySellerSKU'.
+     * Create request for operation 'putSmallAndLightEnrollmentBySellerSKU'
      *
-     * @param string   $seller_sku      The seller SKU that identifies the item. (required)
+     * @param string $seller_sku The seller SKU that identifies the item. (required)
      * @param string[] $marketplace_ids The marketplace in which to enroll the item. Note: Accepts a single marketplace only. (required)
      *
-     * @throws \InvalidArgumentException
-     *
      * @return \GuzzleHttp\Psr7\Request
+     * @throws \InvalidArgumentException
      */
-    protected function putSmallAndLightEnrollmentBySellerSKURequest($seller_sku, $marketplace_ids)
-    {
+    protected function putSmallAndLightEnrollmentBySellerSKURequest($seller_sku, $marketplace_ids) {
         // verify the required parameter 'seller_sku' is set
-        if (null === $seller_sku || (is_array($seller_sku) && 0 === count($seller_sku))) {
-            throw new \InvalidArgumentException('Missing the required parameter $seller_sku when calling putSmallAndLightEnrollmentBySellerSKU');
+        if ($seller_sku === null || (is_array($seller_sku) && count($seller_sku) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $seller_sku when calling putSmallAndLightEnrollmentBySellerSKU'
+            );
         }
         // verify the required parameter 'marketplace_ids' is set
-        if (null === $marketplace_ids || (is_array($marketplace_ids) && 0 === count($marketplace_ids))) {
-            throw new \InvalidArgumentException('Missing the required parameter $marketplace_ids when calling putSmallAndLightEnrollmentBySellerSKU');
+        if ($marketplace_ids === null || (is_array($marketplace_ids) && count($marketplace_ids) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $marketplace_ids when calling putSmallAndLightEnrollmentBySellerSKU'
+            );
         }
 
         $resourcePath = '/fba/smallAndLight/v1/enrollments/{sellerSKU}';
@@ -1537,106 +621,18 @@ class SmallAndLightApi
         if (is_array($marketplace_ids)) {
             $marketplace_ids = ObjectSerializer::serializeCollection($marketplace_ids, 'csv', true);
         }
-        if (null !== $marketplace_ids) {
+        if ($marketplace_ids !== null) {
             $queryParams['marketplaceIds'] = ObjectSerializer::toQueryValue($marketplace_ids);
         }
 
         // path params
-        if (null !== $seller_sku) {
+        if ($seller_sku !== null) {
             $resourcePath = str_replace(
-                '{'.'sellerSKU'.'}',
+                '{' . 'sellerSKU' . '}',
                 ObjectSerializer::toPathValue($seller_sku),
                 $resourcePath
             );
         }
-
-        // body params
-        $_tempBody = null;
-
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/json'],
-                []
-            );
-        }
-
-        // for model (json/xml)
-        if (isset($_tempBody)) {
-            // $_tempBody is the method argument, if present
-            $httpBody = $_tempBody;
-            // \stdClass has no __toString(), so we should encode it manually
-            if ($httpBody instanceof \stdClass && 'application/json' === $headers['Content-Type']) {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
-            }
-        } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $multipartContents[] = [
-                        'name' => $formParamName,
-                        'contents' => $formParamValue,
-                    ];
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-            } elseif ('application/json' === $headers['Content-Type']) {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
-            }
-        }
-
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
-
-        $sign = new SignatureSellingPartner();
-        $headersX = $sign->calculateSignature(
-            $this->config->getApiKey('accessKey'),
-            $this->config->getApiKey('secretKey'),
-            $this->config->getApiKey('region'),
-            $this->config->getAccessToken(),
-            $this->config->getUserAgent(),
-            str_replace('https://', '', $this->config->getHost()),
-            'PUT',
-            $resourcePath,
-            $query
-        );
-
-        $headers = array_merge(
-            $headerParams,
-            $headers,
-            $headersX
-        );
-
-        return new Request(
-            'PUT',
-            $this->config->getHost().$resourcePath.($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Create http client option.
-     *
-     * @throws \RuntimeException on file opening failure
-     *
-     * @return array of http client options
-     */
-    protected function createHttpClientOption()
-    {
-        $options = [];
-        if ($this->config->getDebug()) {
-            $options[RequestOptions::DEBUG] = fopen($this->config->getDebugFile(), 'a');
-            if (!$options[RequestOptions::DEBUG]) {
-                throw new \RuntimeException('Failed to open the debug file: '.$this->config->getDebugFile());
-            }
-        }
-
-        return $options;
+        return $this->generateRequest($multipart, $formParams, $queryParams, $resourcePath, $headerParams, 'PUT', $httpBody);
     }
 }

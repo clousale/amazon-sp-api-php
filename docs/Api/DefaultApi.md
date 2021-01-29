@@ -23,6 +23,7 @@ Returns financial event groups for a given date range.
 | 0.5 | 30 |  For more information, see \"Usage Plans and Rate Limits\" in the Selling Partner API documentation.
 
 ### Example
+
 ```php
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
@@ -33,7 +34,7 @@ $config->setApiKey("accessKey", 'AKIA2xxxxxxxxxxxxx'); // Access Key of IAM
 $config->setApiKey("secretKey", '94U4Gi81Tpxxxxxxxxxxxxxxx'); // Secret Key of IAM
 $config->setApiKey("region", 'us-east-1'); //region of MarketPlace country
 
-$apiInstance = new Swagger\Client\Api\DefaultApi(
+$apiInstance = new Swagger\Client\Api\FinancesApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client(),
@@ -91,6 +92,7 @@ Returns financial events for the specified data range.
 | 0.5 | 30 |  For more information, see \"Usage Plans and Rate Limits\" in the Selling Partner API documentation.
 
 ### Example
+
 ```php
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
@@ -101,7 +103,7 @@ $config->setApiKey("accessKey", 'AKIA2xxxxxxxxxxxxx'); // Access Key of IAM
 $config->setApiKey("secretKey", '94U4Gi81Tpxxxxxxxxxxxxxxx'); // Secret Key of IAM
 $config->setApiKey("region", 'us-east-1'); //region of MarketPlace country
 
-$apiInstance = new Swagger\Client\Api\DefaultApi(
+$apiInstance = new Swagger\Client\Api\FinancesApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client(),
@@ -159,6 +161,7 @@ Returns all financial events for the specified financial event group.
 | 0.5 | 30 |  For more information, see \"Usage Plans and Rate Limits\" in the Selling Partner API documentation.
 
 ### Example
+
 ```php
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
@@ -169,7 +172,7 @@ $config->setApiKey("accessKey", 'AKIA2xxxxxxxxxxxxx'); // Access Key of IAM
 $config->setApiKey("secretKey", '94U4Gi81Tpxxxxxxxxxxxxxxx'); // Secret Key of IAM
 $config->setApiKey("region", 'us-east-1'); //region of MarketPlace country
 
-$apiInstance = new Swagger\Client\Api\DefaultApi(
+$apiInstance = new Swagger\Client\Api\FinancesApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client(),
@@ -225,6 +228,7 @@ Returns all financial events for the specified order.
 | 0.5 | 30 |  For more information, see \"Usage Plans and Rate Limits\" in the Selling Partner API documentation.
 
 ### Example
+
 ```php
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
@@ -235,7 +239,7 @@ $config->setApiKey("accessKey", 'AKIA2xxxxxxxxxxxxx'); // Access Key of IAM
 $config->setApiKey("secretKey", '94U4Gi81Tpxxxxxxxxxxxxxxx'); // Secret Key of IAM
 $config->setApiKey("region", 'us-east-1'); //region of MarketPlace country
 
-$apiInstance = new Swagger\Client\Api\DefaultApi(
+$apiInstance = new Swagger\Client\Api\FinancesApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client(),

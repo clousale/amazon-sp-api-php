@@ -26,19 +26,22 @@
  * Do not edit the class manually.
  */
 
-namespace Swagger\Client\Api;
+namespace ClouSale\AmazonSellingPartnerAPI\Api;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
-use GuzzleHttp\Exception\RequestException;
-use GuzzleHttp\Psr7\MultipartStream;
-use GuzzleHttp\Psr7\Request;
-use GuzzleHttp\RequestOptions;
-use Swagger\Client\ApiException;
-use Swagger\Client\Configuration;
-use Swagger\Client\HeaderSelector;
-use Swagger\Client\ObjectSerializer;
-use Swagger\Client\SignatureSellingPartner;
+use GuzzleHttp\Promise\PromiseInterface;
+use InvalidArgumentException;
+use ClouSale\AmazonSellingPartnerAPI\ApiException;
+use ClouSale\AmazonSellingPartnerAPI\Configuration;
+use ClouSale\AmazonSellingPartnerAPI\HeaderSelector;
+use ClouSale\AmazonSellingPartnerAPI\Helpers\SellingPartnerApiRequest;
+use ClouSale\AmazonSellingPartnerAPI\Models\FulfillmentInbound\GetShipmentsResponse;
+use ClouSale\AmazonSellingPartnerAPI\Models\MerchantFulfillment\GetAdditionalSellerInputsResponse;
+use ClouSale\AmazonSellingPartnerAPI\Models\MerchantFulfillment\GetEligibleShipmentServicesResponse;
+use ClouSale\AmazonSellingPartnerAPI\Models\Shipping\CancelShipmentResponse;
+use ClouSale\AmazonSellingPartnerAPI\Models\Shipping\CreateShipmentResponse;
+use ClouSale\AmazonSellingPartnerAPI\ObjectSerializer;
 
 /**
  * MerchantFulfillmentApi Class Doc Comment.
@@ -51,6 +54,8 @@ use Swagger\Client\SignatureSellingPartner;
  */
 class MerchantFulfillmentApi
 {
+    use SellingPartnerApiRequest;
+
     /**
      * @var ClientInterface
      */
@@ -71,14 +76,10 @@ class MerchantFulfillmentApi
      * @param Configuration   $config
      * @param HeaderSelector  $selector
      */
-    public function __construct(
-        ClientInterface $client = null,
-        Configuration $config = null,
-        HeaderSelector $selector = null
-    ) {
-        $this->client = $client ?: new Client();
-        $this->config = $config ?: new Configuration();
-        $this->headerSelector = $selector ?: new HeaderSelector();
+    public function __construct(Configuration $config) {
+        $this->client = new Client();
+        $this->config = $config;
+        $this->headerSelector = new HeaderSelector();
     }
 
     /**
@@ -94,10 +95,10 @@ class MerchantFulfillmentApi
      *
      * @param string $shipment_id The Amazon-defined shipment identifier for the shipment to cancel. (required)
      *
-     * @throws \Swagger\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
+     * @throws ApiException             on non-2xx response
+     * @throws InvalidArgumentException
      *
-     * @return \Swagger\Client\Models\CancelShipmentResponse
+     * @return \ClouSale\AmazonSellingPartnerAPI\Models\MerchantFulfillment\CancelShipmentResponse
      */
     public function cancelShipment($shipment_id)
     {
@@ -111,114 +112,16 @@ class MerchantFulfillmentApi
      *
      * @param string $shipment_id The Amazon-defined shipment identifier for the shipment to cancel. (required)
      *
-     * @throws \Swagger\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
+     * @throws ApiException             on non-2xx response
+     * @throws InvalidArgumentException
      *
-     * @return array of \Swagger\Client\Models\CancelShipmentResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \ClouSale\AmazonSellingPartnerAPI\Models\MerchantFulfillment\CancelShipmentResponse, HTTP status code, HTTP response headers (array of strings)
      */
     public function cancelShipmentWithHttpInfo($shipment_id)
     {
-        $returnType = '\Swagger\Client\Models\CancelShipmentResponse';
         $request = $this->cancelShipmentRequest($shipment_id);
 
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException("[{$e->getCode()}] {$e->getMessage()}", $e->getCode(), $e->getResponse() ? $e->getResponse()->getHeaders() : null, $e->getResponse() ? $e->getResponse()->getBody()->getContents() : null);
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $request->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
-            }
-
-            $responseBody = $response->getBody();
-            if ('\SplFileObject' === $returnType) {
-                $content = $responseBody; //stream goes to serializer
-            } else {
-                $content = $responseBody->getContents();
-                if (!in_array($returnType, ['string', 'integer', 'bool'])) {
-                    $content = json_decode($content);
-                }
-            }
-
-            return [
-                ObjectSerializer::deserialize($content, $returnType, []),
-                $response->getStatusCode(),
-                $response->getHeaders(),
-            ];
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CancelShipmentResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 400:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CancelShipmentResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 401:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CancelShipmentResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 403:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CancelShipmentResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 404:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CancelShipmentResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 429:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CancelShipmentResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 500:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CancelShipmentResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 503:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CancelShipmentResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
+        return $this->sendRequest($request, CancelShipmentResponse::class);
     }
 
     /**
@@ -226,9 +129,9 @@ class MerchantFulfillmentApi
      *
      * @param string $shipment_id The Amazon-defined shipment identifier for the shipment to cancel. (required)
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      *
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return PromiseInterface
      */
     public function cancelShipmentAsync($shipment_id)
     {
@@ -245,41 +148,16 @@ class MerchantFulfillmentApi
      *
      * @param string $shipment_id The Amazon-defined shipment identifier for the shipment to cancel. (required)
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      *
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return PromiseInterface
      */
     public function cancelShipmentAsyncWithHttpInfo($shipment_id)
     {
-        $returnType = '\Swagger\Client\Models\CancelShipmentResponse';
+        $returnType = '\ClouSale\AmazonSellingPartnerAPI\Models\MerchantFulfillment\CancelShipmentResponse';
         $request = $this->cancelShipmentRequest($shipment_id);
 
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    $responseBody = $response->getBody();
-                    if ('\SplFileObject' === $returnType) {
-                        $content = $responseBody; //stream goes to serializer
-                    } else {
-                        $content = $responseBody->getContents();
-                        if ('string' !== $returnType) {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders(),
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $exception->getRequest()->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
-                }
-            );
+        return $this->sendRequestAsync($request, CancelShipmentResponse::class);
     }
 
     /**
@@ -287,7 +165,7 @@ class MerchantFulfillmentApi
      *
      * @param string $shipment_id The Amazon-defined shipment identifier for the shipment to cancel. (required)
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      *
      * @return \GuzzleHttp\Psr7\Request
      */
@@ -295,7 +173,7 @@ class MerchantFulfillmentApi
     {
         // verify the required parameter 'shipment_id' is set
         if (null === $shipment_id || (is_array($shipment_id) && 0 === count($shipment_id))) {
-            throw new \InvalidArgumentException('Missing the required parameter $shipment_id when calling cancelShipment');
+            throw new InvalidArgumentException('Missing the required parameter $shipment_id when calling cancelShipment');
         }
 
         $resourcePath = '/mfn/v0/shipments/{shipmentId}';
@@ -314,74 +192,7 @@ class MerchantFulfillmentApi
             );
         }
 
-        // body params
-        $_tempBody = null;
-
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/json'],
-                []
-            );
-        }
-
-        // for model (json/xml)
-        if (isset($_tempBody)) {
-            // $_tempBody is the method argument, if present
-            $httpBody = $_tempBody;
-            // \stdClass has no __toString(), so we should encode it manually
-            if ($httpBody instanceof \stdClass && 'application/json' === $headers['Content-Type']) {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
-            }
-        } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $multipartContents[] = [
-                        'name' => $formParamName,
-                        'contents' => $formParamValue,
-                    ];
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-            } elseif ('application/json' === $headers['Content-Type']) {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
-            }
-        }
-
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
-
-        $sign = new SignatureSellingPartner();
-        $headersX = $sign->calculateSignature(
-            $this->config->getApiKey('accessKey'),
-            $this->config->getApiKey('secretKey'),
-            $this->config->getApiKey('region'),
-            $this->config->getAccessToken(),
-            $this->config->getUserAgent(),
-            str_replace('https://', '', $this->config->getHost()),
-            'DELETE',
-            $resourcePath,
-            $query
-        );
-
-        $headers = array_merge(
-            $headerParams,
-            $headers,
-            $headersX
-        );
-
-        return new Request(
-            'DELETE',
-            $this->config->getHost().$resourcePath.($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
+        return $this->generateRequest($multipart, $formParams, $queryParams, $resourcePath, $headerParams, 'DELETE', $httpBody);
     }
 
     /**
@@ -389,10 +200,10 @@ class MerchantFulfillmentApi
      *
      * @param string $shipment_id The Amazon-defined shipment identifier for the shipment to cancel. (required)
      *
-     * @throws \Swagger\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
+     * @throws ApiException             on non-2xx response
+     * @throws InvalidArgumentException
      *
-     * @return \Swagger\Client\Models\CancelShipmentResponse
+     * @return \ClouSale\AmazonSellingPartnerAPI\Models\MerchantFulfillment\CancelShipmentResponse
      */
     public function cancelShipmentOld($shipment_id)
     {
@@ -406,114 +217,17 @@ class MerchantFulfillmentApi
      *
      * @param string $shipment_id The Amazon-defined shipment identifier for the shipment to cancel. (required)
      *
-     * @throws \Swagger\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
+     * @throws ApiException             on non-2xx response
+     * @throws InvalidArgumentException
      *
-     * @return array of \Swagger\Client\Models\CancelShipmentResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \ClouSale\AmazonSellingPartnerAPI\Models\MerchantFulfillment\CancelShipmentResponse, HTTP status code, HTTP response headers (array of strings)
      */
     public function cancelShipmentOldWithHttpInfo($shipment_id)
     {
-        $returnType = '\Swagger\Client\Models\CancelShipmentResponse';
+        $returnType = '\ClouSale\AmazonSellingPartnerAPI\Models\MerchantFulfillment\CancelShipmentResponse';
         $request = $this->cancelShipmentOldRequest($shipment_id);
 
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException("[{$e->getCode()}] {$e->getMessage()}", $e->getCode(), $e->getResponse() ? $e->getResponse()->getHeaders() : null, $e->getResponse() ? $e->getResponse()->getBody()->getContents() : null);
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $request->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
-            }
-
-            $responseBody = $response->getBody();
-            if ('\SplFileObject' === $returnType) {
-                $content = $responseBody; //stream goes to serializer
-            } else {
-                $content = $responseBody->getContents();
-                if (!in_array($returnType, ['string', 'integer', 'bool'])) {
-                    $content = json_decode($content);
-                }
-            }
-
-            return [
-                ObjectSerializer::deserialize($content, $returnType, []),
-                $response->getStatusCode(),
-                $response->getHeaders(),
-            ];
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CancelShipmentResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 400:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CancelShipmentResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 401:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CancelShipmentResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 403:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CancelShipmentResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 404:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CancelShipmentResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 429:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CancelShipmentResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 500:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CancelShipmentResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 503:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CancelShipmentResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
+        return $this->sendRequest($request, CancelShipmentResponse::class);
     }
 
     /**
@@ -521,9 +235,9 @@ class MerchantFulfillmentApi
      *
      * @param string $shipment_id The Amazon-defined shipment identifier for the shipment to cancel. (required)
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      *
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return PromiseInterface
      */
     public function cancelShipmentOldAsync($shipment_id)
     {
@@ -540,41 +254,16 @@ class MerchantFulfillmentApi
      *
      * @param string $shipment_id The Amazon-defined shipment identifier for the shipment to cancel. (required)
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      *
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return PromiseInterface
      */
     public function cancelShipmentOldAsyncWithHttpInfo($shipment_id)
     {
-        $returnType = '\Swagger\Client\Models\CancelShipmentResponse';
+        $returnType = '\ClouSale\AmazonSellingPartnerAPI\Models\MerchantFulfillment\CancelShipmentResponse';
         $request = $this->cancelShipmentOldRequest($shipment_id);
 
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    $responseBody = $response->getBody();
-                    if ('\SplFileObject' === $returnType) {
-                        $content = $responseBody; //stream goes to serializer
-                    } else {
-                        $content = $responseBody->getContents();
-                        if ('string' !== $returnType) {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders(),
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $exception->getRequest()->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
-                }
-            );
+        return $this->sendRequestAsync($request, CancelShipmentResponse::class);
     }
 
     /**
@@ -582,7 +271,7 @@ class MerchantFulfillmentApi
      *
      * @param string $shipment_id The Amazon-defined shipment identifier for the shipment to cancel. (required)
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      *
      * @return \GuzzleHttp\Psr7\Request
      */
@@ -590,7 +279,7 @@ class MerchantFulfillmentApi
     {
         // verify the required parameter 'shipment_id' is set
         if (null === $shipment_id || (is_array($shipment_id) && 0 === count($shipment_id))) {
-            throw new \InvalidArgumentException('Missing the required parameter $shipment_id when calling cancelShipmentOld');
+            throw new InvalidArgumentException('Missing the required parameter $shipment_id when calling cancelShipmentOld');
         }
 
         $resourcePath = '/mfn/v0/shipments/{shipmentId}/cancel';
@@ -609,85 +298,18 @@ class MerchantFulfillmentApi
             );
         }
 
-        // body params
-        $_tempBody = null;
-
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/json'],
-                []
-            );
-        }
-
-        // for model (json/xml)
-        if (isset($_tempBody)) {
-            // $_tempBody is the method argument, if present
-            $httpBody = $_tempBody;
-            // \stdClass has no __toString(), so we should encode it manually
-            if ($httpBody instanceof \stdClass && 'application/json' === $headers['Content-Type']) {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
-            }
-        } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $multipartContents[] = [
-                        'name' => $formParamName,
-                        'contents' => $formParamValue,
-                    ];
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-            } elseif ('application/json' === $headers['Content-Type']) {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
-            }
-        }
-
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
-
-        $sign = new SignatureSellingPartner();
-        $headersX = $sign->calculateSignature(
-            $this->config->getApiKey('accessKey'),
-            $this->config->getApiKey('secretKey'),
-            $this->config->getApiKey('region'),
-            $this->config->getAccessToken(),
-            $this->config->getUserAgent(),
-            str_replace('https://', '', $this->config->getHost()),
-            'PUT',
-            $resourcePath,
-            $query
-        );
-
-        $headers = array_merge(
-            $headerParams,
-            $headers,
-            $headersX
-        );
-
-        return new Request(
-            'PUT',
-            $this->config->getHost().$resourcePath.($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
+        return $this->generateRequest($multipart, $formParams, $queryParams, $resourcePath, $headerParams, 'PUT', $httpBody);
     }
 
     /**
      * Operation createShipment.
      *
-     * @param \Swagger\Client\Models\CreateShipmentRequest $body body (required)
+     * @param \ClouSale\AmazonSellingPartnerAPI\Models\MerchantFulfillment\CreateShipmentRequest $body body (required)
      *
-     * @throws \Swagger\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
+     * @throws ApiException             on non-2xx response
+     * @throws InvalidArgumentException
      *
-     * @return \Swagger\Client\Models\CreateShipmentResponse
+     * @return \ClouSale\AmazonSellingPartnerAPI\Models\MerchantFulfillment\CreateShipmentResponse
      */
     public function createShipment($body)
     {
@@ -699,126 +321,28 @@ class MerchantFulfillmentApi
     /**
      * Operation createShipmentWithHttpInfo.
      *
-     * @param \Swagger\Client\Models\CreateShipmentRequest $body (required)
+     * @param \ClouSale\AmazonSellingPartnerAPI\Models\MerchantFulfillment\CreateShipmentRequest $body (required)
      *
-     * @throws \Swagger\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
+     * @throws ApiException             on non-2xx response
+     * @throws InvalidArgumentException
      *
-     * @return array of \Swagger\Client\Models\CreateShipmentResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \ClouSale\AmazonSellingPartnerAPI\Models\MerchantFulfillment\CreateShipmentResponse, HTTP status code, HTTP response headers (array of strings)
      */
     public function createShipmentWithHttpInfo($body)
     {
-        $returnType = '\Swagger\Client\Models\CreateShipmentResponse';
         $request = $this->createShipmentRequest($body);
 
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException("[{$e->getCode()}] {$e->getMessage()}", $e->getCode(), $e->getResponse() ? $e->getResponse()->getHeaders() : null, $e->getResponse() ? $e->getResponse()->getBody()->getContents() : null);
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $request->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
-            }
-
-            $responseBody = $response->getBody();
-            if ('\SplFileObject' === $returnType) {
-                $content = $responseBody; //stream goes to serializer
-            } else {
-                $content = $responseBody->getContents();
-                if (!in_array($returnType, ['string', 'integer', 'bool'])) {
-                    $content = json_decode($content);
-                }
-            }
-
-            return [
-                ObjectSerializer::deserialize($content, $returnType, []),
-                $response->getStatusCode(),
-                $response->getHeaders(),
-            ];
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CreateShipmentResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 400:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CreateShipmentResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 401:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CreateShipmentResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 403:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CreateShipmentResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 404:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CreateShipmentResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 429:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CreateShipmentResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 500:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CreateShipmentResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 503:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CreateShipmentResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
+        return $this->sendRequest($request, CreateShipmentResponse::class);
     }
 
     /**
      * Operation createShipmentAsync.
      *
-     * @param \Swagger\Client\Models\CreateShipmentRequest $body (required)
+     * @param \ClouSale\AmazonSellingPartnerAPI\Models\MerchantFulfillment\CreateShipmentRequest $body (required)
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      *
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return PromiseInterface
      */
     public function createShipmentAsync($body)
     {
@@ -833,51 +357,26 @@ class MerchantFulfillmentApi
     /**
      * Operation createShipmentAsyncWithHttpInfo.
      *
-     * @param \Swagger\Client\Models\CreateShipmentRequest $body (required)
+     * @param \ClouSale\AmazonSellingPartnerAPI\Models\MerchantFulfillment\CreateShipmentRequest $body (required)
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      *
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return PromiseInterface
      */
     public function createShipmentAsyncWithHttpInfo($body)
     {
-        $returnType = '\Swagger\Client\Models\CreateShipmentResponse';
+        $returnType = '\ClouSale\AmazonSellingPartnerAPI\Models\MerchantFulfillment\CreateShipmentResponse';
         $request = $this->createShipmentRequest($body);
 
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    $responseBody = $response->getBody();
-                    if ('\SplFileObject' === $returnType) {
-                        $content = $responseBody; //stream goes to serializer
-                    } else {
-                        $content = $responseBody->getContents();
-                        if ('string' !== $returnType) {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders(),
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $exception->getRequest()->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
-                }
-            );
+        return $this->sendRequestAsync($request, CreateShipmentResponse::class);
     }
 
     /**
      * Create request for operation 'createShipment'.
      *
-     * @param \Swagger\Client\Models\CreateShipmentRequest $body (required)
+     * @param \ClouSale\AmazonSellingPartnerAPI\Models\MerchantFulfillment\CreateShipmentRequest $body (required)
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      *
      * @return \GuzzleHttp\Psr7\Request
      */
@@ -885,98 +384,28 @@ class MerchantFulfillmentApi
     {
         // verify the required parameter 'body' is set
         if (null === $body || (is_array($body) && 0 === count($body))) {
-            throw new \InvalidArgumentException('Missing the required parameter $body when calling createShipment');
+            throw new InvalidArgumentException('Missing the required parameter $body when calling createShipment');
         }
 
         $resourcePath = '/mfn/v0/shipments';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
-        $httpBody = '';
+        $httpBody = $body;
         $multipart = false;
 
-        // body params
-        $_tempBody = null;
-        if (isset($body)) {
-            $_tempBody = $body;
-        }
-
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/json'],
-                ['application/json']
-            );
-        }
-
-        // for model (json/xml)
-        if (isset($_tempBody)) {
-            // $_tempBody is the method argument, if present
-            $httpBody = $_tempBody;
-            // \stdClass has no __toString(), so we should encode it manually
-            if ($httpBody instanceof \stdClass && 'application/json' === $headers['Content-Type']) {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
-            }
-        } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $multipartContents[] = [
-                        'name' => $formParamName,
-                        'contents' => $formParamValue,
-                    ];
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-            } elseif ('application/json' === $headers['Content-Type']) {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
-            }
-        }
-
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
-
-        $sign = new SignatureSellingPartner();
-        $headersX = $sign->calculateSignature(
-            $this->config->getApiKey('accessKey'),
-            $this->config->getApiKey('secretKey'),
-            $this->config->getApiKey('region'),
-            $this->config->getAccessToken(),
-            $this->config->getUserAgent(),
-            str_replace('https://', '', $this->config->getHost()),
-            'POST',
-            $resourcePath,
-            $query
-        );
-
-        $headers = array_merge(
-            $headerParams,
-            $headers,
-            $headersX
-        );
-
-        return new Request(
-            'POST',
-            $this->config->getHost().$resourcePath.($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
+        return $this->generateRequest($multipart, $formParams, $queryParams, $resourcePath, $headerParams, 'POST', $httpBody);
     }
 
     /**
      * Operation getAdditionalSellerInputs.
      *
-     * @param \Swagger\Client\Models\GetAdditionalSellerInputsRequest $body body (required)
+     * @param \ClouSale\AmazonSellingPartnerAPI\Models\MerchantFulfillment\GetAdditionalSellerInputsRequest $body body (required)
      *
-     * @throws \Swagger\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
+     * @throws ApiException             on non-2xx response
+     * @throws InvalidArgumentException
      *
-     * @return \Swagger\Client\Models\GetAdditionalSellerInputsResponse
+     * @return \ClouSale\AmazonSellingPartnerAPI\Models\MerchantFulfillment\GetAdditionalSellerInputsResponse
      */
     public function getAdditionalSellerInputs($body)
     {
@@ -988,126 +417,28 @@ class MerchantFulfillmentApi
     /**
      * Operation getAdditionalSellerInputsWithHttpInfo.
      *
-     * @param \Swagger\Client\Models\GetAdditionalSellerInputsRequest $body (required)
+     * @param \ClouSale\AmazonSellingPartnerAPI\Models\MerchantFulfillment\GetAdditionalSellerInputsRequest $body (required)
      *
-     * @throws \Swagger\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
+     * @throws ApiException             on non-2xx response
+     * @throws InvalidArgumentException
      *
-     * @return array of \Swagger\Client\Models\GetAdditionalSellerInputsResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \ClouSale\AmazonSellingPartnerAPI\Models\MerchantFulfillment\GetAdditionalSellerInputsResponse, HTTP status code, HTTP response headers (array of strings)
      */
     public function getAdditionalSellerInputsWithHttpInfo($body)
     {
-        $returnType = '\Swagger\Client\Models\GetAdditionalSellerInputsResponse';
         $request = $this->getAdditionalSellerInputsRequest($body);
 
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException("[{$e->getCode()}] {$e->getMessage()}", $e->getCode(), $e->getResponse() ? $e->getResponse()->getHeaders() : null, $e->getResponse() ? $e->getResponse()->getBody()->getContents() : null);
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $request->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
-            }
-
-            $responseBody = $response->getBody();
-            if ('\SplFileObject' === $returnType) {
-                $content = $responseBody; //stream goes to serializer
-            } else {
-                $content = $responseBody->getContents();
-                if (!in_array($returnType, ['string', 'integer', 'bool'])) {
-                    $content = json_decode($content);
-                }
-            }
-
-            return [
-                ObjectSerializer::deserialize($content, $returnType, []),
-                $response->getStatusCode(),
-                $response->getHeaders(),
-            ];
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetAdditionalSellerInputsResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 400:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetAdditionalSellerInputsResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 401:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetAdditionalSellerInputsResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 403:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetAdditionalSellerInputsResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 404:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetAdditionalSellerInputsResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 429:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetAdditionalSellerInputsResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 500:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetAdditionalSellerInputsResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 503:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetAdditionalSellerInputsResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
+        return $this->sendRequest($request, GetAdditionalSellerInputsResponse::class);
     }
 
     /**
      * Operation getAdditionalSellerInputsAsync.
      *
-     * @param \Swagger\Client\Models\GetAdditionalSellerInputsRequest $body (required)
+     * @param \ClouSale\AmazonSellingPartnerAPI\Models\MerchantFulfillment\GetAdditionalSellerInputsRequest $body (required)
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      *
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return PromiseInterface
      */
     public function getAdditionalSellerInputsAsync($body)
     {
@@ -1122,51 +453,26 @@ class MerchantFulfillmentApi
     /**
      * Operation getAdditionalSellerInputsAsyncWithHttpInfo.
      *
-     * @param \Swagger\Client\Models\GetAdditionalSellerInputsRequest $body (required)
+     * @param \ClouSale\AmazonSellingPartnerAPI\Models\MerchantFulfillment\GetAdditionalSellerInputsRequest $body (required)
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      *
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return PromiseInterface
      */
     public function getAdditionalSellerInputsAsyncWithHttpInfo($body)
     {
-        $returnType = '\Swagger\Client\Models\GetAdditionalSellerInputsResponse';
+        $returnType = '\ClouSale\AmazonSellingPartnerAPI\Models\MerchantFulfillment\GetAdditionalSellerInputsResponse';
         $request = $this->getAdditionalSellerInputsRequest($body);
 
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    $responseBody = $response->getBody();
-                    if ('\SplFileObject' === $returnType) {
-                        $content = $responseBody; //stream goes to serializer
-                    } else {
-                        $content = $responseBody->getContents();
-                        if ('string' !== $returnType) {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders(),
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $exception->getRequest()->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
-                }
-            );
+        return $this->sendRequestAsync($request, GetAdditionalSellerInputsResponse::class);
     }
 
     /**
      * Create request for operation 'getAdditionalSellerInputs'.
      *
-     * @param \Swagger\Client\Models\GetAdditionalSellerInputsRequest $body (required)
+     * @param \ClouSale\AmazonSellingPartnerAPI\Models\MerchantFulfillment\GetAdditionalSellerInputsRequest $body (required)
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      *
      * @return \GuzzleHttp\Psr7\Request
      */
@@ -1174,98 +480,28 @@ class MerchantFulfillmentApi
     {
         // verify the required parameter 'body' is set
         if (null === $body || (is_array($body) && 0 === count($body))) {
-            throw new \InvalidArgumentException('Missing the required parameter $body when calling getAdditionalSellerInputs');
+            throw new InvalidArgumentException('Missing the required parameter $body when calling getAdditionalSellerInputs');
         }
 
         $resourcePath = '/mfn/v0/additionalSellerInputs';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
-        $httpBody = '';
+        $httpBody = $body;
         $multipart = false;
 
-        // body params
-        $_tempBody = null;
-        if (isset($body)) {
-            $_tempBody = $body;
-        }
-
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/json'],
-                ['application/json']
-            );
-        }
-
-        // for model (json/xml)
-        if (isset($_tempBody)) {
-            // $_tempBody is the method argument, if present
-            $httpBody = $_tempBody;
-            // \stdClass has no __toString(), so we should encode it manually
-            if ($httpBody instanceof \stdClass && 'application/json' === $headers['Content-Type']) {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
-            }
-        } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $multipartContents[] = [
-                        'name' => $formParamName,
-                        'contents' => $formParamValue,
-                    ];
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-            } elseif ('application/json' === $headers['Content-Type']) {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
-            }
-        }
-
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
-
-        $sign = new SignatureSellingPartner();
-        $headersX = $sign->calculateSignature(
-            $this->config->getApiKey('accessKey'),
-            $this->config->getApiKey('secretKey'),
-            $this->config->getApiKey('region'),
-            $this->config->getAccessToken(),
-            $this->config->getUserAgent(),
-            str_replace('https://', '', $this->config->getHost()),
-            'POST',
-            $resourcePath,
-            $query
-        );
-
-        $headers = array_merge(
-            $headerParams,
-            $headers,
-            $headersX
-        );
-
-        return new Request(
-            'POST',
-            $this->config->getHost().$resourcePath.($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
+        return $this->generateRequest($multipart, $formParams, $queryParams, $resourcePath, $headerParams, 'POST', $httpBody);
     }
 
     /**
      * Operation getAdditionalSellerInputsOld.
      *
-     * @param \Swagger\Client\Models\GetAdditionalSellerInputsRequest $body body (required)
+     * @param \ClouSale\AmazonSellingPartnerAPI\Models\MerchantFulfillment\GetAdditionalSellerInputsRequest $body body (required)
      *
-     * @throws \Swagger\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
+     * @throws ApiException             on non-2xx response
+     * @throws InvalidArgumentException
      *
-     * @return \Swagger\Client\Models\GetAdditionalSellerInputsResponse
+     * @return \ClouSale\AmazonSellingPartnerAPI\Models\MerchantFulfillment\GetAdditionalSellerInputsResponse
      */
     public function getAdditionalSellerInputsOld($body)
     {
@@ -1277,126 +513,28 @@ class MerchantFulfillmentApi
     /**
      * Operation getAdditionalSellerInputsOldWithHttpInfo.
      *
-     * @param \Swagger\Client\Models\GetAdditionalSellerInputsRequest $body (required)
+     * @param \ClouSale\AmazonSellingPartnerAPI\Models\MerchantFulfillment\GetAdditionalSellerInputsRequest $body (required)
      *
-     * @throws \Swagger\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
+     * @throws ApiException             on non-2xx response
+     * @throws InvalidArgumentException
      *
-     * @return array of \Swagger\Client\Models\GetAdditionalSellerInputsResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \ClouSale\AmazonSellingPartnerAPI\Models\MerchantFulfillment\GetAdditionalSellerInputsResponse, HTTP status code, HTTP response headers (array of strings)
      */
     public function getAdditionalSellerInputsOldWithHttpInfo($body)
     {
-        $returnType = '\Swagger\Client\Models\GetAdditionalSellerInputsResponse';
         $request = $this->getAdditionalSellerInputsOldRequest($body);
 
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException("[{$e->getCode()}] {$e->getMessage()}", $e->getCode(), $e->getResponse() ? $e->getResponse()->getHeaders() : null, $e->getResponse() ? $e->getResponse()->getBody()->getContents() : null);
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $request->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
-            }
-
-            $responseBody = $response->getBody();
-            if ('\SplFileObject' === $returnType) {
-                $content = $responseBody; //stream goes to serializer
-            } else {
-                $content = $responseBody->getContents();
-                if (!in_array($returnType, ['string', 'integer', 'bool'])) {
-                    $content = json_decode($content);
-                }
-            }
-
-            return [
-                ObjectSerializer::deserialize($content, $returnType, []),
-                $response->getStatusCode(),
-                $response->getHeaders(),
-            ];
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetAdditionalSellerInputsResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 400:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetAdditionalSellerInputsResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 401:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetAdditionalSellerInputsResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 403:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetAdditionalSellerInputsResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 404:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetAdditionalSellerInputsResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 429:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetAdditionalSellerInputsResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 500:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetAdditionalSellerInputsResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 503:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetAdditionalSellerInputsResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
+        return $this->sendRequest($request, GetAdditionalSellerInputsResponse::class);
     }
 
     /**
      * Operation getAdditionalSellerInputsOldAsync.
      *
-     * @param \Swagger\Client\Models\GetAdditionalSellerInputsRequest $body (required)
+     * @param \ClouSale\AmazonSellingPartnerAPI\Models\MerchantFulfillment\GetAdditionalSellerInputsRequest $body (required)
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      *
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return PromiseInterface
      */
     public function getAdditionalSellerInputsOldAsync($body)
     {
@@ -1411,51 +549,25 @@ class MerchantFulfillmentApi
     /**
      * Operation getAdditionalSellerInputsOldAsyncWithHttpInfo.
      *
-     * @param \Swagger\Client\Models\GetAdditionalSellerInputsRequest $body (required)
+     * @param \ClouSale\AmazonSellingPartnerAPI\Models\MerchantFulfillment\GetAdditionalSellerInputsRequest $body (required)
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      *
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return PromiseInterface
      */
     public function getAdditionalSellerInputsOldAsyncWithHttpInfo($body)
     {
-        $returnType = '\Swagger\Client\Models\GetAdditionalSellerInputsResponse';
         $request = $this->getAdditionalSellerInputsOldRequest($body);
 
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    $responseBody = $response->getBody();
-                    if ('\SplFileObject' === $returnType) {
-                        $content = $responseBody; //stream goes to serializer
-                    } else {
-                        $content = $responseBody->getContents();
-                        if ('string' !== $returnType) {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders(),
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $exception->getRequest()->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
-                }
-            );
+        return $this->sendRequestAsync($request, GetAdditionalSellerInputsResponse::class);
     }
 
     /**
      * Create request for operation 'getAdditionalSellerInputsOld'.
      *
-     * @param \Swagger\Client\Models\GetAdditionalSellerInputsRequest $body (required)
+     * @param \ClouSale\AmazonSellingPartnerAPI\Models\MerchantFulfillment\GetAdditionalSellerInputsRequest $body (required)
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      *
      * @return \GuzzleHttp\Psr7\Request
      */
@@ -1463,98 +575,28 @@ class MerchantFulfillmentApi
     {
         // verify the required parameter 'body' is set
         if (null === $body || (is_array($body) && 0 === count($body))) {
-            throw new \InvalidArgumentException('Missing the required parameter $body when calling getAdditionalSellerInputsOld');
+            throw new InvalidArgumentException('Missing the required parameter $body when calling getAdditionalSellerInputsOld');
         }
 
         $resourcePath = '/mfn/v0/sellerInputs';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
-        $httpBody = '';
+        $httpBody = $body;
         $multipart = false;
 
-        // body params
-        $_tempBody = null;
-        if (isset($body)) {
-            $_tempBody = $body;
-        }
-
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/json'],
-                ['application/json']
-            );
-        }
-
-        // for model (json/xml)
-        if (isset($_tempBody)) {
-            // $_tempBody is the method argument, if present
-            $httpBody = $_tempBody;
-            // \stdClass has no __toString(), so we should encode it manually
-            if ($httpBody instanceof \stdClass && 'application/json' === $headers['Content-Type']) {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
-            }
-        } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $multipartContents[] = [
-                        'name' => $formParamName,
-                        'contents' => $formParamValue,
-                    ];
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-            } elseif ('application/json' === $headers['Content-Type']) {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
-            }
-        }
-
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
-
-        $sign = new SignatureSellingPartner();
-        $headersX = $sign->calculateSignature(
-            $this->config->getApiKey('accessKey'),
-            $this->config->getApiKey('secretKey'),
-            $this->config->getApiKey('region'),
-            $this->config->getAccessToken(),
-            $this->config->getUserAgent(),
-            str_replace('https://', '', $this->config->getHost()),
-            'POST',
-            $resourcePath,
-            $query
-        );
-
-        $headers = array_merge(
-            $headerParams,
-            $headers,
-            $headersX
-        );
-
-        return new Request(
-            'POST',
-            $this->config->getHost().$resourcePath.($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
+        return $this->generateRequest($multipart, $formParams, $queryParams, $resourcePath, $headerParams, 'GET', $httpBody);
     }
 
     /**
      * Operation getEligibleShipmentServices.
      *
-     * @param \Swagger\Client\Models\GetEligibleShipmentServicesRequest $body body (required)
+     * @param \ClouSale\AmazonSellingPartnerAPI\Models\MerchantFulfillment\GetEligibleShipmentServicesRequest $body body (required)
      *
-     * @throws \Swagger\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
+     * @throws ApiException             on non-2xx response
+     * @throws InvalidArgumentException
      *
-     * @return \Swagger\Client\Models\GetEligibleShipmentServicesResponse
+     * @return \ClouSale\AmazonSellingPartnerAPI\Models\MerchantFulfillment\GetEligibleShipmentServicesResponse
      */
     public function getEligibleShipmentServices($body)
     {
@@ -1566,126 +608,28 @@ class MerchantFulfillmentApi
     /**
      * Operation getEligibleShipmentServicesWithHttpInfo.
      *
-     * @param \Swagger\Client\Models\GetEligibleShipmentServicesRequest $body (required)
+     * @param \ClouSale\AmazonSellingPartnerAPI\Models\MerchantFulfillment\GetEligibleShipmentServicesRequest $body (required)
      *
-     * @throws \Swagger\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
+     * @throws ApiException             on non-2xx response
+     * @throws InvalidArgumentException
      *
-     * @return array of \Swagger\Client\Models\GetEligibleShipmentServicesResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \ClouSale\AmazonSellingPartnerAPI\Models\MerchantFulfillment\GetEligibleShipmentServicesResponse, HTTP status code, HTTP response headers (array of strings)
      */
     public function getEligibleShipmentServicesWithHttpInfo($body)
     {
-        $returnType = '\Swagger\Client\Models\GetEligibleShipmentServicesResponse';
         $request = $this->getEligibleShipmentServicesRequest($body);
 
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException("[{$e->getCode()}] {$e->getMessage()}", $e->getCode(), $e->getResponse() ? $e->getResponse()->getHeaders() : null, $e->getResponse() ? $e->getResponse()->getBody()->getContents() : null);
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $request->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
-            }
-
-            $responseBody = $response->getBody();
-            if ('\SplFileObject' === $returnType) {
-                $content = $responseBody; //stream goes to serializer
-            } else {
-                $content = $responseBody->getContents();
-                if (!in_array($returnType, ['string', 'integer', 'bool'])) {
-                    $content = json_decode($content);
-                }
-            }
-
-            return [
-                ObjectSerializer::deserialize($content, $returnType, []),
-                $response->getStatusCode(),
-                $response->getHeaders(),
-            ];
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetEligibleShipmentServicesResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 400:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetEligibleShipmentServicesResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 401:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetEligibleShipmentServicesResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 403:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetEligibleShipmentServicesResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 404:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetEligibleShipmentServicesResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 429:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetEligibleShipmentServicesResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 500:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetEligibleShipmentServicesResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 503:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetEligibleShipmentServicesResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
+        return $this->sendRequest($request, GetEligibleShipmentServicesResponse::class);
     }
 
     /**
      * Operation getEligibleShipmentServicesAsync.
      *
-     * @param \Swagger\Client\Models\GetEligibleShipmentServicesRequest $body (required)
+     * @param \ClouSale\AmazonSellingPartnerAPI\Models\MerchantFulfillment\GetEligibleShipmentServicesRequest $body (required)
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      *
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return PromiseInterface
      */
     public function getEligibleShipmentServicesAsync($body)
     {
@@ -1700,51 +644,26 @@ class MerchantFulfillmentApi
     /**
      * Operation getEligibleShipmentServicesAsyncWithHttpInfo.
      *
-     * @param \Swagger\Client\Models\GetEligibleShipmentServicesRequest $body (required)
+     * @param \ClouSale\AmazonSellingPartnerAPI\Models\MerchantFulfillment\GetEligibleShipmentServicesRequest $body (required)
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      *
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return PromiseInterface
      */
     public function getEligibleShipmentServicesAsyncWithHttpInfo($body)
     {
-        $returnType = '\Swagger\Client\Models\GetEligibleShipmentServicesResponse';
+        $returnType = '\ClouSale\AmazonSellingPartnerAPI\Models\MerchantFulfillment\GetEligibleShipmentServicesResponse';
         $request = $this->getEligibleShipmentServicesRequest($body);
 
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    $responseBody = $response->getBody();
-                    if ('\SplFileObject' === $returnType) {
-                        $content = $responseBody; //stream goes to serializer
-                    } else {
-                        $content = $responseBody->getContents();
-                        if ('string' !== $returnType) {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders(),
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $exception->getRequest()->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
-                }
-            );
+        return $this->sendRequestAsync($request, GetEligibleShipmentServicesResponse::class);
     }
 
     /**
      * Create request for operation 'getEligibleShipmentServices'.
      *
-     * @param \Swagger\Client\Models\GetEligibleShipmentServicesRequest $body (required)
+     * @param \ClouSale\AmazonSellingPartnerAPI\Models\MerchantFulfillment\GetEligibleShipmentServicesRequest $body (required)
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      *
      * @return \GuzzleHttp\Psr7\Request
      */
@@ -1752,98 +671,28 @@ class MerchantFulfillmentApi
     {
         // verify the required parameter 'body' is set
         if (null === $body || (is_array($body) && 0 === count($body))) {
-            throw new \InvalidArgumentException('Missing the required parameter $body when calling getEligibleShipmentServices');
+            throw new InvalidArgumentException('Missing the required parameter $body when calling getEligibleShipmentServices');
         }
 
         $resourcePath = '/mfn/v0/eligibleShippingServices';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
-        $httpBody = '';
+        $httpBody = $body;
         $multipart = false;
 
-        // body params
-        $_tempBody = null;
-        if (isset($body)) {
-            $_tempBody = $body;
-        }
-
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/json'],
-                ['application/json']
-            );
-        }
-
-        // for model (json/xml)
-        if (isset($_tempBody)) {
-            // $_tempBody is the method argument, if present
-            $httpBody = $_tempBody;
-            // \stdClass has no __toString(), so we should encode it manually
-            if ($httpBody instanceof \stdClass && 'application/json' === $headers['Content-Type']) {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
-            }
-        } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $multipartContents[] = [
-                        'name' => $formParamName,
-                        'contents' => $formParamValue,
-                    ];
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-            } elseif ('application/json' === $headers['Content-Type']) {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
-            }
-        }
-
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
-
-        $sign = new SignatureSellingPartner();
-        $headersX = $sign->calculateSignature(
-            $this->config->getApiKey('accessKey'),
-            $this->config->getApiKey('secretKey'),
-            $this->config->getApiKey('region'),
-            $this->config->getAccessToken(),
-            $this->config->getUserAgent(),
-            str_replace('https://', '', $this->config->getHost()),
-            'POST',
-            $resourcePath,
-            $query
-        );
-
-        $headers = array_merge(
-            $headerParams,
-            $headers,
-            $headersX
-        );
-
-        return new Request(
-            'POST',
-            $this->config->getHost().$resourcePath.($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
+        return $this->generateRequest($multipart, $formParams, $queryParams, $resourcePath, $headerParams, 'POST', $httpBody);
     }
 
     /**
      * Operation getEligibleShipmentServicesOld.
      *
-     * @param \Swagger\Client\Models\GetEligibleShipmentServicesRequest $body body (required)
+     * @param \ClouSale\AmazonSellingPartnerAPI\Models\MerchantFulfillment\GetEligibleShipmentServicesRequest $body body (required)
      *
-     * @throws \Swagger\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
+     * @throws ApiException             on non-2xx response
+     * @throws InvalidArgumentException
      *
-     * @return \Swagger\Client\Models\GetEligibleShipmentServicesResponse
+     * @return \ClouSale\AmazonSellingPartnerAPI\Models\MerchantFulfillment\GetEligibleShipmentServicesResponse
      */
     public function getEligibleShipmentServicesOld($body)
     {
@@ -1855,126 +704,29 @@ class MerchantFulfillmentApi
     /**
      * Operation getEligibleShipmentServicesOldWithHttpInfo.
      *
-     * @param \Swagger\Client\Models\GetEligibleShipmentServicesRequest $body (required)
+     * @param \ClouSale\AmazonSellingPartnerAPI\Models\MerchantFulfillment\GetEligibleShipmentServicesRequest $body (required)
      *
-     * @throws \Swagger\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
+     * @throws ApiException             on non-2xx response
+     * @throws InvalidArgumentException
      *
-     * @return array of \Swagger\Client\Models\GetEligibleShipmentServicesResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \ClouSale\AmazonSellingPartnerAPI\Models\MerchantFulfillment\GetEligibleShipmentServicesResponse, HTTP status code, HTTP response headers (array of strings)
      */
     public function getEligibleShipmentServicesOldWithHttpInfo($body)
     {
-        $returnType = '\Swagger\Client\Models\GetEligibleShipmentServicesResponse';
+        $returnType = '\ClouSale\AmazonSellingPartnerAPI\Models\MerchantFulfillment\GetEligibleShipmentServicesResponse';
         $request = $this->getEligibleShipmentServicesOldRequest($body);
 
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException("[{$e->getCode()}] {$e->getMessage()}", $e->getCode(), $e->getResponse() ? $e->getResponse()->getHeaders() : null, $e->getResponse() ? $e->getResponse()->getBody()->getContents() : null);
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $request->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
-            }
-
-            $responseBody = $response->getBody();
-            if ('\SplFileObject' === $returnType) {
-                $content = $responseBody; //stream goes to serializer
-            } else {
-                $content = $responseBody->getContents();
-                if (!in_array($returnType, ['string', 'integer', 'bool'])) {
-                    $content = json_decode($content);
-                }
-            }
-
-            return [
-                ObjectSerializer::deserialize($content, $returnType, []),
-                $response->getStatusCode(),
-                $response->getHeaders(),
-            ];
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetEligibleShipmentServicesResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 400:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetEligibleShipmentServicesResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 401:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetEligibleShipmentServicesResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 403:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetEligibleShipmentServicesResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 404:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetEligibleShipmentServicesResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 429:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetEligibleShipmentServicesResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 500:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetEligibleShipmentServicesResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 503:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetEligibleShipmentServicesResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
+        return $this->sendRequest($request, GetEligibleShipmentServicesResponse::class);
     }
 
     /**
      * Operation getEligibleShipmentServicesOldAsync.
      *
-     * @param \Swagger\Client\Models\GetEligibleShipmentServicesRequest $body (required)
+     * @param \ClouSale\AmazonSellingPartnerAPI\Models\MerchantFulfillment\GetEligibleShipmentServicesRequest $body (required)
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      *
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return PromiseInterface
      */
     public function getEligibleShipmentServicesOldAsync($body)
     {
@@ -1989,51 +741,26 @@ class MerchantFulfillmentApi
     /**
      * Operation getEligibleShipmentServicesOldAsyncWithHttpInfo.
      *
-     * @param \Swagger\Client\Models\GetEligibleShipmentServicesRequest $body (required)
+     * @param \ClouSale\AmazonSellingPartnerAPI\Models\MerchantFulfillment\GetEligibleShipmentServicesRequest $body (required)
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      *
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return PromiseInterface
      */
     public function getEligibleShipmentServicesOldAsyncWithHttpInfo($body)
     {
-        $returnType = '\Swagger\Client\Models\GetEligibleShipmentServicesResponse';
+        $returnType = '\ClouSale\AmazonSellingPartnerAPI\Models\MerchantFulfillment\GetEligibleShipmentServicesResponse';
         $request = $this->getEligibleShipmentServicesOldRequest($body);
 
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    $responseBody = $response->getBody();
-                    if ('\SplFileObject' === $returnType) {
-                        $content = $responseBody; //stream goes to serializer
-                    } else {
-                        $content = $responseBody->getContents();
-                        if ('string' !== $returnType) {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders(),
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $exception->getRequest()->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
-                }
-            );
+        return $this->sendRequest($request, GetEligibleShipmentServicesResponse::class);
     }
 
     /**
      * Create request for operation 'getEligibleShipmentServicesOld'.
      *
-     * @param \Swagger\Client\Models\GetEligibleShipmentServicesRequest $body (required)
+     * @param \ClouSale\AmazonSellingPartnerAPI\Models\MerchantFulfillment\GetEligibleShipmentServicesRequest $body (required)
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      *
      * @return \GuzzleHttp\Psr7\Request
      */
@@ -2041,87 +768,17 @@ class MerchantFulfillmentApi
     {
         // verify the required parameter 'body' is set
         if (null === $body || (is_array($body) && 0 === count($body))) {
-            throw new \InvalidArgumentException('Missing the required parameter $body when calling getEligibleShipmentServicesOld');
+            throw new InvalidArgumentException('Missing the required parameter $body when calling getEligibleShipmentServicesOld');
         }
 
         $resourcePath = '/mfn/v0/eligibleServices';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
-        $httpBody = '';
+        $httpBody = $body;
         $multipart = false;
 
-        // body params
-        $_tempBody = null;
-        if (isset($body)) {
-            $_tempBody = $body;
-        }
-
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/json'],
-                ['application/json']
-            );
-        }
-
-        // for model (json/xml)
-        if (isset($_tempBody)) {
-            // $_tempBody is the method argument, if present
-            $httpBody = $_tempBody;
-            // \stdClass has no __toString(), so we should encode it manually
-            if ($httpBody instanceof \stdClass && 'application/json' === $headers['Content-Type']) {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
-            }
-        } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $multipartContents[] = [
-                        'name' => $formParamName,
-                        'contents' => $formParamValue,
-                    ];
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-            } elseif ('application/json' === $headers['Content-Type']) {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
-            }
-        }
-
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
-
-        $sign = new SignatureSellingPartner();
-        $headersX = $sign->calculateSignature(
-            $this->config->getApiKey('accessKey'),
-            $this->config->getApiKey('secretKey'),
-            $this->config->getApiKey('region'),
-            $this->config->getAccessToken(),
-            $this->config->getUserAgent(),
-            str_replace('https://', '', $this->config->getHost()),
-            'POST',
-            $resourcePath,
-            $query
-        );
-
-        $headers = array_merge(
-            $headerParams,
-            $headers,
-            $headersX
-        );
-
-        return new Request(
-            'POST',
-            $this->config->getHost().$resourcePath.($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
+        return $this->generateRequest($multipart, $formParams, $queryParams, $resourcePath, $headerParams, 'POST', $httpBody);
     }
 
     /**
@@ -2129,10 +786,10 @@ class MerchantFulfillmentApi
      *
      * @param string $shipment_id The Amazon-defined shipment identifier for the shipment. (required)
      *
-     * @throws \Swagger\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
+     * @throws ApiException             on non-2xx response
+     * @throws InvalidArgumentException
      *
-     * @return \Swagger\Client\Models\GetShipmentResponse
+     * @return \ClouSale\AmazonSellingPartnerAPI\Models\MerchantFulfillment\GetShipmentResponse
      */
     public function getShipment($shipment_id)
     {
@@ -2146,114 +803,16 @@ class MerchantFulfillmentApi
      *
      * @param string $shipment_id The Amazon-defined shipment identifier for the shipment. (required)
      *
-     * @throws \Swagger\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
+     * @throws ApiException             on non-2xx response
+     * @throws InvalidArgumentException
      *
-     * @return array of \Swagger\Client\Models\GetShipmentResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \ClouSale\AmazonSellingPartnerAPI\Models\MerchantFulfillment\GetShipmentResponse, HTTP status code, HTTP response headers (array of strings)
      */
     public function getShipmentWithHttpInfo($shipment_id)
     {
-        $returnType = '\Swagger\Client\Models\GetShipmentResponse';
         $request = $this->getShipmentRequest($shipment_id);
 
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException("[{$e->getCode()}] {$e->getMessage()}", $e->getCode(), $e->getResponse() ? $e->getResponse()->getHeaders() : null, $e->getResponse() ? $e->getResponse()->getBody()->getContents() : null);
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $request->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
-            }
-
-            $responseBody = $response->getBody();
-            if ('\SplFileObject' === $returnType) {
-                $content = $responseBody; //stream goes to serializer
-            } else {
-                $content = $responseBody->getContents();
-                if (!in_array($returnType, ['string', 'integer', 'bool'])) {
-                    $content = json_decode($content);
-                }
-            }
-
-            return [
-                ObjectSerializer::deserialize($content, $returnType, []),
-                $response->getStatusCode(),
-                $response->getHeaders(),
-            ];
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetShipmentResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 400:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetShipmentResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 401:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetShipmentResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 403:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetShipmentResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 404:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetShipmentResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 429:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetShipmentResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 500:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetShipmentResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 503:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetShipmentResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
+        return $this->sendRequest($request, GetShipmentsResponse::class);
     }
 
     /**
@@ -2261,9 +820,9 @@ class MerchantFulfillmentApi
      *
      * @param string $shipment_id The Amazon-defined shipment identifier for the shipment. (required)
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      *
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return PromiseInterface
      */
     public function getShipmentAsync($shipment_id)
     {
@@ -2280,41 +839,15 @@ class MerchantFulfillmentApi
      *
      * @param string $shipment_id The Amazon-defined shipment identifier for the shipment. (required)
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      *
-     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @return PromiseInterface
      */
     public function getShipmentAsyncWithHttpInfo($shipment_id)
     {
-        $returnType = '\Swagger\Client\Models\GetShipmentResponse';
         $request = $this->getShipmentRequest($shipment_id);
 
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    $responseBody = $response->getBody();
-                    if ('\SplFileObject' === $returnType) {
-                        $content = $responseBody; //stream goes to serializer
-                    } else {
-                        $content = $responseBody->getContents();
-                        if ('string' !== $returnType) {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders(),
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $exception->getRequest()->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
-                }
-            );
+        return $this->sendRequestAsync($request, GetShipmentsResponse::class);
     }
 
     /**
@@ -2322,7 +855,7 @@ class MerchantFulfillmentApi
      *
      * @param string $shipment_id The Amazon-defined shipment identifier for the shipment. (required)
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      *
      * @return \GuzzleHttp\Psr7\Request
      */
@@ -2330,7 +863,7 @@ class MerchantFulfillmentApi
     {
         // verify the required parameter 'shipment_id' is set
         if (null === $shipment_id || (is_array($shipment_id) && 0 === count($shipment_id))) {
-            throw new \InvalidArgumentException('Missing the required parameter $shipment_id when calling getShipment');
+            throw new InvalidArgumentException('Missing the required parameter $shipment_id when calling getShipment');
         }
 
         $resourcePath = '/mfn/v0/shipments/{shipmentId}';
@@ -2349,93 +882,6 @@ class MerchantFulfillmentApi
             );
         }
 
-        // body params
-        $_tempBody = null;
-
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/json'],
-                []
-            );
-        }
-
-        // for model (json/xml)
-        if (isset($_tempBody)) {
-            // $_tempBody is the method argument, if present
-            $httpBody = $_tempBody;
-            // \stdClass has no __toString(), so we should encode it manually
-            if ($httpBody instanceof \stdClass && 'application/json' === $headers['Content-Type']) {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
-            }
-        } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $multipartContents[] = [
-                        'name' => $formParamName,
-                        'contents' => $formParamValue,
-                    ];
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-            } elseif ('application/json' === $headers['Content-Type']) {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
-            }
-        }
-
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
-
-        $sign = new SignatureSellingPartner();
-        $headersX = $sign->calculateSignature(
-            $this->config->getApiKey('accessKey'),
-            $this->config->getApiKey('secretKey'),
-            $this->config->getApiKey('region'),
-            $this->config->getAccessToken(),
-            $this->config->getUserAgent(),
-            str_replace('https://', '', $this->config->getHost()),
-            'GET',
-            $resourcePath,
-            $query
-        );
-
-        $headers = array_merge(
-            $headerParams,
-            $headers,
-            $headersX
-        );
-
-        return new Request(
-            'GET',
-            $this->config->getHost().$resourcePath.($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Create http client option.
-     *
-     * @throws \RuntimeException on file opening failure
-     *
-     * @return array of http client options
-     */
-    protected function createHttpClientOption()
-    {
-        $options = [];
-        if ($this->config->getDebug()) {
-            $options[RequestOptions::DEBUG] = fopen($this->config->getDebugFile(), 'a');
-            if (!$options[RequestOptions::DEBUG]) {
-                throw new \RuntimeException('Failed to open the debug file: '.$this->config->getDebugFile());
-            }
-        }
-
-        return $options;
+        return $this->generateRequest($multipart, $formParams, $queryParams, $resourcePath, $headerParams, 'GET', $httpBody);
     }
 }

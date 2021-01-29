@@ -26,19 +26,26 @@
  * Do not edit the class manually.
  */
 
-namespace Swagger\Client\Api;
+namespace ClouSale\AmazonSellingPartnerAPI\Api;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
-use GuzzleHttp\Psr7\MultipartStream;
 use GuzzleHttp\Psr7\Request;
-use GuzzleHttp\RequestOptions;
-use Swagger\Client\ApiException;
-use Swagger\Client\Configuration;
-use Swagger\Client\HeaderSelector;
-use Swagger\Client\ObjectSerializer;
-use Swagger\Client\SignatureSellingPartner;
+use ClouSale\AmazonSellingPartnerAPI\ApiException;
+use ClouSale\AmazonSellingPartnerAPI\Configuration;
+use ClouSale\AmazonSellingPartnerAPI\HeaderSelector;
+use ClouSale\AmazonSellingPartnerAPI\Helpers\SellingPartnerApiRequest;
+use ClouSale\AmazonSellingPartnerAPI\Models\Reports\CancelReportResponse;
+use ClouSale\AmazonSellingPartnerAPI\Models\Reports\CancelReportScheduleResponse;
+use ClouSale\AmazonSellingPartnerAPI\Models\Reports\CreateReportResponse;
+use ClouSale\AmazonSellingPartnerAPI\Models\Reports\CreateReportScheduleResponse;
+use ClouSale\AmazonSellingPartnerAPI\Models\Reports\GetReportDocumentResponse;
+use ClouSale\AmazonSellingPartnerAPI\Models\Reports\GetReportResponse;
+use ClouSale\AmazonSellingPartnerAPI\Models\Reports\GetReportScheduleResponse;
+use ClouSale\AmazonSellingPartnerAPI\Models\Reports\GetReportSchedulesResponse;
+use ClouSale\AmazonSellingPartnerAPI\Models\Reports\GetReportsResponse;
+use ClouSale\AmazonSellingPartnerAPI\ObjectSerializer;
 
 /**
  * ReportsApi Class Doc Comment.
@@ -51,6 +58,7 @@ use Swagger\Client\SignatureSellingPartner;
  */
 class ReportsApi
 {
+    use SellingPartnerApiRequest;
     /**
      * @var ClientInterface
      */
@@ -71,14 +79,10 @@ class ReportsApi
      * @param Configuration   $config
      * @param HeaderSelector  $selector
      */
-    public function __construct(
-        ClientInterface $client = null,
-        Configuration $config = null,
-        HeaderSelector $selector = null
-    ) {
-        $this->client = $client ?: new Client();
-        $this->config = $config ?: new Configuration();
-        $this->headerSelector = $selector ?: new HeaderSelector();
+    public function __construct(Configuration $config) {
+        $this->client = new Client();
+        $this->config = $config;
+        $this->headerSelector = new HeaderSelector();
     }
 
     /**
@@ -94,10 +98,10 @@ class ReportsApi
      *
      * @param string $report_id The identifier for the report. This identifier is unique only in combination with a seller ID. (required)
      *
-     * @throws \Swagger\Client\ApiException on non-2xx response
+     * @throws \ClouSale\AmazonSellingPartnerAPI\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      *
-     * @return \Swagger\Client\Models\CancelReportResponse
+     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Reports\CancelReportResponse
      */
     public function cancelReport($report_id)
     {
@@ -111,122 +115,16 @@ class ReportsApi
      *
      * @param string $report_id The identifier for the report. This identifier is unique only in combination with a seller ID. (required)
      *
-     * @throws \Swagger\Client\ApiException on non-2xx response
+     * @throws \ClouSale\AmazonSellingPartnerAPI\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      *
-     * @return array of \Swagger\Client\Models\CancelReportResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \ClouSale\AmazonSellingPartnerAPI\Models\Reports\CancelReportResponse, HTTP status code, HTTP response headers (array of strings)
      */
     public function cancelReportWithHttpInfo($report_id)
     {
-        $returnType = '\Swagger\Client\Models\CancelReportResponse';
         $request = $this->cancelReportRequest($report_id);
 
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException("[{$e->getCode()}] {$e->getMessage()}", $e->getCode(), $e->getResponse() ? $e->getResponse()->getHeaders() : null, $e->getResponse() ? $e->getResponse()->getBody()->getContents() : null);
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $request->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
-            }
-
-            $responseBody = $response->getBody();
-            if ('\SplFileObject' === $returnType) {
-                $content = $responseBody; //stream goes to serializer
-            } else {
-                $content = $responseBody->getContents();
-                if (!in_array($returnType, ['string', 'integer', 'bool'])) {
-                    $content = json_decode($content);
-                }
-            }
-
-            return [
-                ObjectSerializer::deserialize($content, $returnType, []),
-                $response->getStatusCode(),
-                $response->getHeaders(),
-            ];
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CancelReportResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 400:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CancelReportResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 401:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CancelReportResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 403:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CancelReportResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 404:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CancelReportResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 415:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CancelReportResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 429:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CancelReportResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 500:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CancelReportResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 503:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CancelReportResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
+        return $this->sendRequest($request, CancelReportResponse::class);
     }
 
     /**
@@ -259,35 +157,10 @@ class ReportsApi
      */
     public function cancelReportAsyncWithHttpInfo($report_id)
     {
-        $returnType = '\Swagger\Client\Models\CancelReportResponse';
+        $returnType = '\ClouSale\AmazonSellingPartnerAPI\Models\Reports\CancelReportResponse';
         $request = $this->cancelReportRequest($report_id);
 
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    $responseBody = $response->getBody();
-                    if ('\SplFileObject' === $returnType) {
-                        $content = $responseBody; //stream goes to serializer
-                    } else {
-                        $content = $responseBody->getContents();
-                        if ('string' !== $returnType) {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders(),
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $exception->getRequest()->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
-                }
-            );
+        return $this->sendRequestAsync($request, CancelReportResponse::class);
     }
 
     /**
@@ -322,74 +195,7 @@ class ReportsApi
             );
         }
 
-        // body params
-        $_tempBody = null;
-
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/json'],
-                []
-            );
-        }
-
-        // for model (json/xml)
-        if (isset($_tempBody)) {
-            // $_tempBody is the method argument, if present
-            $httpBody = $_tempBody;
-            // \stdClass has no __toString(), so we should encode it manually
-            if ($httpBody instanceof \stdClass && 'application/json' === $headers['Content-Type']) {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
-            }
-        } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $multipartContents[] = [
-                        'name' => $formParamName,
-                        'contents' => $formParamValue,
-                    ];
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-            } elseif ('application/json' === $headers['Content-Type']) {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
-            }
-        }
-
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
-
-        $sign = new SignatureSellingPartner();
-        $headersX = $sign->calculateSignature(
-            $this->config->getApiKey('accessKey'),
-            $this->config->getApiKey('secretKey'),
-            $this->config->getApiKey('region'),
-            $this->config->getAccessToken(),
-            $this->config->getUserAgent(),
-            str_replace('https://', '', $this->config->getHost()),
-            'DELETE',
-            $resourcePath,
-            $query
-        );
-
-        $headers = array_merge(
-            $headerParams,
-            $headers,
-            $headersX
-        );
-
-        return new Request(
-            'DELETE',
-            $this->config->getHost().$resourcePath.($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
+        return $this->generateRequest($multipart, $formParams, $queryParams, $resourcePath, $headerParams, 'DELETE', $httpBody);
     }
 
     /**
@@ -397,10 +203,10 @@ class ReportsApi
      *
      * @param string $report_schedule_id The identifier for the report schedule. This identifier is unique only in combination with a seller ID. (required)
      *
-     * @throws \Swagger\Client\ApiException on non-2xx response
+     * @throws \ClouSale\AmazonSellingPartnerAPI\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      *
-     * @return \Swagger\Client\Models\CancelReportScheduleResponse
+     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Reports\CancelReportScheduleResponse
      */
     public function cancelReportSchedule($report_schedule_id)
     {
@@ -414,122 +220,16 @@ class ReportsApi
      *
      * @param string $report_schedule_id The identifier for the report schedule. This identifier is unique only in combination with a seller ID. (required)
      *
-     * @throws \Swagger\Client\ApiException on non-2xx response
+     * @throws \ClouSale\AmazonSellingPartnerAPI\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      *
-     * @return array of \Swagger\Client\Models\CancelReportScheduleResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \ClouSale\AmazonSellingPartnerAPI\Models\Reports\CancelReportScheduleResponse, HTTP status code, HTTP response headers (array of strings)
      */
     public function cancelReportScheduleWithHttpInfo($report_schedule_id)
     {
-        $returnType = '\Swagger\Client\Models\CancelReportScheduleResponse';
         $request = $this->cancelReportScheduleRequest($report_schedule_id);
 
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException("[{$e->getCode()}] {$e->getMessage()}", $e->getCode(), $e->getResponse() ? $e->getResponse()->getHeaders() : null, $e->getResponse() ? $e->getResponse()->getBody()->getContents() : null);
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $request->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
-            }
-
-            $responseBody = $response->getBody();
-            if ('\SplFileObject' === $returnType) {
-                $content = $responseBody; //stream goes to serializer
-            } else {
-                $content = $responseBody->getContents();
-                if (!in_array($returnType, ['string', 'integer', 'bool'])) {
-                    $content = json_decode($content);
-                }
-            }
-
-            return [
-                ObjectSerializer::deserialize($content, $returnType, []),
-                $response->getStatusCode(),
-                $response->getHeaders(),
-            ];
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CancelReportScheduleResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 400:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CancelReportScheduleResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 401:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CancelReportScheduleResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 403:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CancelReportScheduleResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 404:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CancelReportScheduleResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 415:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CancelReportScheduleResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 429:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CancelReportScheduleResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 500:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CancelReportScheduleResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 503:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CancelReportScheduleResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
+        return $this->sendRequest($request, CancelReportScheduleResponse::class);
     }
 
     /**
@@ -562,35 +262,9 @@ class ReportsApi
      */
     public function cancelReportScheduleAsyncWithHttpInfo($report_schedule_id)
     {
-        $returnType = '\Swagger\Client\Models\CancelReportScheduleResponse';
         $request = $this->cancelReportScheduleRequest($report_schedule_id);
 
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    $responseBody = $response->getBody();
-                    if ('\SplFileObject' === $returnType) {
-                        $content = $responseBody; //stream goes to serializer
-                    } else {
-                        $content = $responseBody->getContents();
-                        if ('string' !== $returnType) {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders(),
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $exception->getRequest()->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
-                }
-            );
+        return $this->sendRequestAsync($request, CancelReportScheduleResponse::class);
     }
 
     /**
@@ -625,85 +299,18 @@ class ReportsApi
             );
         }
 
-        // body params
-        $_tempBody = null;
-
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/json'],
-                []
-            );
-        }
-
-        // for model (json/xml)
-        if (isset($_tempBody)) {
-            // $_tempBody is the method argument, if present
-            $httpBody = $_tempBody;
-            // \stdClass has no __toString(), so we should encode it manually
-            if ($httpBody instanceof \stdClass && 'application/json' === $headers['Content-Type']) {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
-            }
-        } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $multipartContents[] = [
-                        'name' => $formParamName,
-                        'contents' => $formParamValue,
-                    ];
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-            } elseif ('application/json' === $headers['Content-Type']) {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
-            }
-        }
-
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
-
-        $sign = new SignatureSellingPartner();
-        $headersX = $sign->calculateSignature(
-            $this->config->getApiKey('accessKey'),
-            $this->config->getApiKey('secretKey'),
-            $this->config->getApiKey('region'),
-            $this->config->getAccessToken(),
-            $this->config->getUserAgent(),
-            str_replace('https://', '', $this->config->getHost()),
-            'DELETE',
-            $resourcePath,
-            $query
-        );
-
-        $headers = array_merge(
-            $headerParams,
-            $headers,
-            $headersX
-        );
-
-        return new Request(
-            'DELETE',
-            $this->config->getHost().$resourcePath.($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
+        return $this->generateRequest($multipart, $formParams, $queryParams, $resourcePath, $headerParams, 'DELETE', $httpBody);
     }
 
     /**
      * Operation createReport.
      *
-     * @param \Swagger\Client\Models\CreateReportSpecification $body body (required)
+     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Reports\CreateReportSpecification $body body (required)
      *
-     * @throws \Swagger\Client\ApiException on non-2xx response
+     * @throws \ClouSale\AmazonSellingPartnerAPI\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      *
-     * @return \Swagger\Client\Models\CreateReportResponse
+     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Reports\CreateReportResponse
      */
     public function createReport($body)
     {
@@ -715,130 +322,24 @@ class ReportsApi
     /**
      * Operation createReportWithHttpInfo.
      *
-     * @param \Swagger\Client\Models\CreateReportSpecification $body (required)
+     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Reports\CreateReportSpecification $body (required)
      *
-     * @throws \Swagger\Client\ApiException on non-2xx response
+     * @throws \ClouSale\AmazonSellingPartnerAPI\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      *
-     * @return array of \Swagger\Client\Models\CreateReportResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \ClouSale\AmazonSellingPartnerAPI\Models\Reports\CreateReportResponse, HTTP status code, HTTP response headers (array of strings)
      */
     public function createReportWithHttpInfo($body)
     {
-        $returnType = '\Swagger\Client\Models\CreateReportResponse';
         $request = $this->createReportRequest($body);
 
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException("[{$e->getCode()}] {$e->getMessage()}", $e->getCode(), $e->getResponse() ? $e->getResponse()->getHeaders() : null, $e->getResponse() ? $e->getResponse()->getBody()->getContents() : null);
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $request->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
-            }
-
-            $responseBody = $response->getBody();
-            if ('\SplFileObject' === $returnType) {
-                $content = $responseBody; //stream goes to serializer
-            } else {
-                $content = $responseBody->getContents();
-                if (!in_array($returnType, ['string', 'integer', 'bool'])) {
-                    $content = json_decode($content);
-                }
-            }
-
-            return [
-                ObjectSerializer::deserialize($content, $returnType, []),
-                $response->getStatusCode(),
-                $response->getHeaders(),
-            ];
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 202:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CreateReportResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 400:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CreateReportResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 401:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CreateReportResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 403:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CreateReportResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 404:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CreateReportResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 415:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CreateReportResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 429:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CreateReportResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 500:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CreateReportResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 503:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CreateReportResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
+        return $this->sendRequest($request, CreateReportResponse::class);
     }
 
     /**
      * Operation createReportAsync.
      *
-     * @param \Swagger\Client\Models\CreateReportSpecification $body (required)
+     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Reports\CreateReportSpecification $body (required)
      *
      * @throws \InvalidArgumentException
      *
@@ -857,7 +358,7 @@ class ReportsApi
     /**
      * Operation createReportAsyncWithHttpInfo.
      *
-     * @param \Swagger\Client\Models\CreateReportSpecification $body (required)
+     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Reports\CreateReportSpecification $body (required)
      *
      * @throws \InvalidArgumentException
      *
@@ -865,41 +366,16 @@ class ReportsApi
      */
     public function createReportAsyncWithHttpInfo($body)
     {
-        $returnType = '\Swagger\Client\Models\CreateReportResponse';
+        $returnType = '\ClouSale\AmazonSellingPartnerAPI\Models\Reports\CreateReportResponse';
         $request = $this->createReportRequest($body);
 
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    $responseBody = $response->getBody();
-                    if ('\SplFileObject' === $returnType) {
-                        $content = $responseBody; //stream goes to serializer
-                    } else {
-                        $content = $responseBody->getContents();
-                        if ('string' !== $returnType) {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders(),
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $exception->getRequest()->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
-                }
-            );
+        return $this->sendRequestAsync($request, CreateReportResponse::class);
     }
 
     /**
      * Create request for operation 'createReport'.
      *
-     * @param \Swagger\Client\Models\CreateReportSpecification $body (required)
+     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Reports\CreateReportSpecification $body (required)
      *
      * @throws \InvalidArgumentException
      *
@@ -916,91 +392,21 @@ class ReportsApi
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
-        $httpBody = '';
+        $httpBody = $body;
         $multipart = false;
 
-        // body params
-        $_tempBody = null;
-        if (isset($body)) {
-            $_tempBody = $body;
-        }
-
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/json'],
-                ['application/json']
-            );
-        }
-
-        // for model (json/xml)
-        if (isset($_tempBody)) {
-            // $_tempBody is the method argument, if present
-            $httpBody = $_tempBody;
-            // \stdClass has no __toString(), so we should encode it manually
-            if ($httpBody instanceof \stdClass && 'application/json' === $headers['Content-Type']) {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
-            }
-        } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $multipartContents[] = [
-                        'name' => $formParamName,
-                        'contents' => $formParamValue,
-                    ];
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-            } elseif ('application/json' === $headers['Content-Type']) {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
-            }
-        }
-
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
-
-        $sign = new SignatureSellingPartner();
-        $headersX = $sign->calculateSignature(
-            $this->config->getApiKey('accessKey'),
-            $this->config->getApiKey('secretKey'),
-            $this->config->getApiKey('region'),
-            $this->config->getAccessToken(),
-            $this->config->getUserAgent(),
-            str_replace('https://', '', $this->config->getHost()),
-            'POST',
-            $resourcePath,
-            $query
-        );
-
-        $headers = array_merge(
-            $headerParams,
-            $headers,
-            $headersX
-        );
-
-        return new Request(
-            'POST',
-            $this->config->getHost().$resourcePath.($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
+        return $this->generateRequest($multipart, $formParams, $queryParams, $resourcePath, $headerParams, 'POST', $httpBody);
     }
 
     /**
      * Operation createReportSchedule.
      *
-     * @param \Swagger\Client\Models\CreateReportScheduleSpecification $body body (required)
+     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Reports\CreateReportScheduleSpecification $body body (required)
      *
-     * @throws \Swagger\Client\ApiException on non-2xx response
+     * @throws \ClouSale\AmazonSellingPartnerAPI\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      *
-     * @return \Swagger\Client\Models\CreateReportScheduleResponse
+     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Reports\CreateReportScheduleResponse
      */
     public function createReportSchedule($body)
     {
@@ -1012,130 +418,24 @@ class ReportsApi
     /**
      * Operation createReportScheduleWithHttpInfo.
      *
-     * @param \Swagger\Client\Models\CreateReportScheduleSpecification $body (required)
+     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Reports\CreateReportScheduleSpecification $body (required)
      *
-     * @throws \Swagger\Client\ApiException on non-2xx response
+     * @throws \ClouSale\AmazonSellingPartnerAPI\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      *
-     * @return array of \Swagger\Client\Models\CreateReportScheduleResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \ClouSale\AmazonSellingPartnerAPI\Models\Reports\CreateReportScheduleResponse, HTTP status code, HTTP response headers (array of strings)
      */
     public function createReportScheduleWithHttpInfo($body)
     {
-        $returnType = '\Swagger\Client\Models\CreateReportScheduleResponse';
         $request = $this->createReportScheduleRequest($body);
 
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException("[{$e->getCode()}] {$e->getMessage()}", $e->getCode(), $e->getResponse() ? $e->getResponse()->getHeaders() : null, $e->getResponse() ? $e->getResponse()->getBody()->getContents() : null);
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $request->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
-            }
-
-            $responseBody = $response->getBody();
-            if ('\SplFileObject' === $returnType) {
-                $content = $responseBody; //stream goes to serializer
-            } else {
-                $content = $responseBody->getContents();
-                if (!in_array($returnType, ['string', 'integer', 'bool'])) {
-                    $content = json_decode($content);
-                }
-            }
-
-            return [
-                ObjectSerializer::deserialize($content, $returnType, []),
-                $response->getStatusCode(),
-                $response->getHeaders(),
-            ];
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 201:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CreateReportScheduleResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 400:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CreateReportScheduleResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 401:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CreateReportScheduleResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 403:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CreateReportScheduleResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 404:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CreateReportScheduleResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 415:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CreateReportScheduleResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 429:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CreateReportScheduleResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 500:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CreateReportScheduleResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 503:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\CreateReportScheduleResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
+        return $this->sendRequest($request, CreateReportScheduleResponse::class);
     }
 
     /**
      * Operation createReportScheduleAsync.
      *
-     * @param \Swagger\Client\Models\CreateReportScheduleSpecification $body (required)
+     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Reports\CreateReportScheduleSpecification $body (required)
      *
      * @throws \InvalidArgumentException
      *
@@ -1154,7 +454,7 @@ class ReportsApi
     /**
      * Operation createReportScheduleAsyncWithHttpInfo.
      *
-     * @param \Swagger\Client\Models\CreateReportScheduleSpecification $body (required)
+     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Reports\CreateReportScheduleSpecification $body (required)
      *
      * @throws \InvalidArgumentException
      *
@@ -1162,41 +462,15 @@ class ReportsApi
      */
     public function createReportScheduleAsyncWithHttpInfo($body)
     {
-        $returnType = '\Swagger\Client\Models\CreateReportScheduleResponse';
         $request = $this->createReportScheduleRequest($body);
 
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    $responseBody = $response->getBody();
-                    if ('\SplFileObject' === $returnType) {
-                        $content = $responseBody; //stream goes to serializer
-                    } else {
-                        $content = $responseBody->getContents();
-                        if ('string' !== $returnType) {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders(),
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $exception->getRequest()->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
-                }
-            );
+        return $this->sendRequestAsync($request, CreateReportScheduleResponse::class);
     }
 
     /**
      * Create request for operation 'createReportSchedule'.
      *
-     * @param \Swagger\Client\Models\CreateReportScheduleSpecification $body (required)
+     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Reports\CreateReportScheduleSpecification $body (required)
      *
      * @throws \InvalidArgumentException
      *
@@ -1213,80 +487,10 @@ class ReportsApi
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
-        $httpBody = '';
+        $httpBody = $body;
         $multipart = false;
 
-        // body params
-        $_tempBody = null;
-        if (isset($body)) {
-            $_tempBody = $body;
-        }
-
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/json'],
-                ['application/json']
-            );
-        }
-
-        // for model (json/xml)
-        if (isset($_tempBody)) {
-            // $_tempBody is the method argument, if present
-            $httpBody = $_tempBody;
-            // \stdClass has no __toString(), so we should encode it manually
-            if ($httpBody instanceof \stdClass && 'application/json' === $headers['Content-Type']) {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
-            }
-        } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $multipartContents[] = [
-                        'name' => $formParamName,
-                        'contents' => $formParamValue,
-                    ];
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-            } elseif ('application/json' === $headers['Content-Type']) {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
-            }
-        }
-
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
-
-        $sign = new SignatureSellingPartner();
-        $headersX = $sign->calculateSignature(
-            $this->config->getApiKey('accessKey'),
-            $this->config->getApiKey('secretKey'),
-            $this->config->getApiKey('region'),
-            $this->config->getAccessToken(),
-            $this->config->getUserAgent(),
-            str_replace('https://', '', $this->config->getHost()),
-            'POST',
-            $resourcePath,
-            $query
-        );
-
-        $headers = array_merge(
-            $headerParams,
-            $headers,
-            $headersX
-        );
-
-        return new Request(
-            'POST',
-            $this->config->getHost().$resourcePath.($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
+        return $this->generateRequest($multipart, $formParams, $queryParams, $resourcePath, $headerParams, 'POST', $httpBody);
     }
 
     /**
@@ -1294,10 +498,10 @@ class ReportsApi
      *
      * @param string $report_id The identifier for the report. This identifier is unique only in combination with a seller ID. (required)
      *
-     * @throws \Swagger\Client\ApiException on non-2xx response
+     * @throws \ClouSale\AmazonSellingPartnerAPI\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      *
-     * @return \Swagger\Client\Models\GetReportResponse
+     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Reports\GetReportResponse
      */
     public function getReport($report_id)
     {
@@ -1311,122 +515,16 @@ class ReportsApi
      *
      * @param string $report_id The identifier for the report. This identifier is unique only in combination with a seller ID. (required)
      *
-     * @throws \Swagger\Client\ApiException on non-2xx response
+     * @throws \ClouSale\AmazonSellingPartnerAPI\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      *
-     * @return array of \Swagger\Client\Models\GetReportResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \ClouSale\AmazonSellingPartnerAPI\Models\Reports\GetReportResponse, HTTP status code, HTTP response headers (array of strings)
      */
     public function getReportWithHttpInfo($report_id)
     {
-        $returnType = '\Swagger\Client\Models\GetReportResponse';
         $request = $this->getReportRequest($report_id);
 
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException("[{$e->getCode()}] {$e->getMessage()}", $e->getCode(), $e->getResponse() ? $e->getResponse()->getHeaders() : null, $e->getResponse() ? $e->getResponse()->getBody()->getContents() : null);
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $request->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
-            }
-
-            $responseBody = $response->getBody();
-            if ('\SplFileObject' === $returnType) {
-                $content = $responseBody; //stream goes to serializer
-            } else {
-                $content = $responseBody->getContents();
-                if (!in_array($returnType, ['string', 'integer', 'bool'])) {
-                    $content = json_decode($content);
-                }
-            }
-
-            return [
-                ObjectSerializer::deserialize($content, $returnType, []),
-                $response->getStatusCode(),
-                $response->getHeaders(),
-            ];
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetReportResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 400:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetReportResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 401:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetReportResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 403:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetReportResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 404:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetReportResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 415:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetReportResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 429:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetReportResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 500:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetReportResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 503:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetReportResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
+        return $this->sendRequest($request, GetReportResponse::class);
     }
 
     /**
@@ -1459,35 +557,9 @@ class ReportsApi
      */
     public function getReportAsyncWithHttpInfo($report_id)
     {
-        $returnType = '\Swagger\Client\Models\GetReportResponse';
         $request = $this->getReportRequest($report_id);
 
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    $responseBody = $response->getBody();
-                    if ('\SplFileObject' === $returnType) {
-                        $content = $responseBody; //stream goes to serializer
-                    } else {
-                        $content = $responseBody->getContents();
-                        if ('string' !== $returnType) {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders(),
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $exception->getRequest()->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
-                }
-            );
+        return $this->sendRequestAsync($request, GetReportResponse::class);
     }
 
     /**
@@ -1522,74 +594,7 @@ class ReportsApi
             );
         }
 
-        // body params
-        $_tempBody = null;
-
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/json'],
-                []
-            );
-        }
-
-        // for model (json/xml)
-        if (isset($_tempBody)) {
-            // $_tempBody is the method argument, if present
-            $httpBody = $_tempBody;
-            // \stdClass has no __toString(), so we should encode it manually
-            if ($httpBody instanceof \stdClass && 'application/json' === $headers['Content-Type']) {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
-            }
-        } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $multipartContents[] = [
-                        'name' => $formParamName,
-                        'contents' => $formParamValue,
-                    ];
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-            } elseif ('application/json' === $headers['Content-Type']) {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
-            }
-        }
-
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
-
-        $sign = new SignatureSellingPartner();
-        $headersX = $sign->calculateSignature(
-            $this->config->getApiKey('accessKey'),
-            $this->config->getApiKey('secretKey'),
-            $this->config->getApiKey('region'),
-            $this->config->getAccessToken(),
-            $this->config->getUserAgent(),
-            str_replace('https://', '', $this->config->getHost()),
-            'GET',
-            $resourcePath,
-            $query
-        );
-
-        $headers = array_merge(
-            $headerParams,
-            $headers,
-            $headersX
-        );
-
-        return new Request(
-            'GET',
-            $this->config->getHost().$resourcePath.($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
+        return $this->generateRequest($multipart, $formParams, $queryParams, $resourcePath, $headerParams, 'GET', $httpBody);
     }
 
     /**
@@ -1597,10 +602,10 @@ class ReportsApi
      *
      * @param string $report_document_id The identifier for the report document. (required)
      *
-     * @throws \Swagger\Client\ApiException on non-2xx response
+     * @throws \ClouSale\AmazonSellingPartnerAPI\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      *
-     * @return \Swagger\Client\Models\GetReportDocumentResponse
+     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Reports\GetReportDocumentResponse
      */
     public function getReportDocument($report_document_id)
     {
@@ -1614,122 +619,16 @@ class ReportsApi
      *
      * @param string $report_document_id The identifier for the report document. (required)
      *
-     * @throws \Swagger\Client\ApiException on non-2xx response
+     * @throws \ClouSale\AmazonSellingPartnerAPI\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      *
-     * @return array of \Swagger\Client\Models\GetReportDocumentResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \ClouSale\AmazonSellingPartnerAPI\Models\Reports\GetReportDocumentResponse, HTTP status code, HTTP response headers (array of strings)
      */
     public function getReportDocumentWithHttpInfo($report_document_id)
     {
-        $returnType = '\Swagger\Client\Models\GetReportDocumentResponse';
         $request = $this->getReportDocumentRequest($report_document_id);
 
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException("[{$e->getCode()}] {$e->getMessage()}", $e->getCode(), $e->getResponse() ? $e->getResponse()->getHeaders() : null, $e->getResponse() ? $e->getResponse()->getBody()->getContents() : null);
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $request->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
-            }
-
-            $responseBody = $response->getBody();
-            if ('\SplFileObject' === $returnType) {
-                $content = $responseBody; //stream goes to serializer
-            } else {
-                $content = $responseBody->getContents();
-                if (!in_array($returnType, ['string', 'integer', 'bool'])) {
-                    $content = json_decode($content);
-                }
-            }
-
-            return [
-                ObjectSerializer::deserialize($content, $returnType, []),
-                $response->getStatusCode(),
-                $response->getHeaders(),
-            ];
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetReportDocumentResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 400:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetReportDocumentResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 401:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetReportDocumentResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 403:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetReportDocumentResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 404:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetReportDocumentResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 415:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetReportDocumentResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 429:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetReportDocumentResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 500:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetReportDocumentResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 503:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetReportDocumentResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
+        return $this->sendRequest($request, GetReportDocumentResponse::class);
     }
 
     /**
@@ -1762,35 +661,9 @@ class ReportsApi
      */
     public function getReportDocumentAsyncWithHttpInfo($report_document_id)
     {
-        $returnType = '\Swagger\Client\Models\GetReportDocumentResponse';
         $request = $this->getReportDocumentRequest($report_document_id);
 
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    $responseBody = $response->getBody();
-                    if ('\SplFileObject' === $returnType) {
-                        $content = $responseBody; //stream goes to serializer
-                    } else {
-                        $content = $responseBody->getContents();
-                        if ('string' !== $returnType) {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders(),
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $exception->getRequest()->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
-                }
-            );
+        return $this->sendRequestAsync($request, GetReportDocumentResponse::class);
     }
 
     /**
@@ -1825,74 +698,7 @@ class ReportsApi
             );
         }
 
-        // body params
-        $_tempBody = null;
-
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/json'],
-                []
-            );
-        }
-
-        // for model (json/xml)
-        if (isset($_tempBody)) {
-            // $_tempBody is the method argument, if present
-            $httpBody = $_tempBody;
-            // \stdClass has no __toString(), so we should encode it manually
-            if ($httpBody instanceof \stdClass && 'application/json' === $headers['Content-Type']) {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
-            }
-        } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $multipartContents[] = [
-                        'name' => $formParamName,
-                        'contents' => $formParamValue,
-                    ];
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-            } elseif ('application/json' === $headers['Content-Type']) {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
-            }
-        }
-
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
-
-        $sign = new SignatureSellingPartner();
-        $headersX = $sign->calculateSignature(
-            $this->config->getApiKey('accessKey'),
-            $this->config->getApiKey('secretKey'),
-            $this->config->getApiKey('region'),
-            $this->config->getAccessToken(),
-            $this->config->getUserAgent(),
-            str_replace('https://', '', $this->config->getHost()),
-            'GET',
-            $resourcePath,
-            $query
-        );
-
-        $headers = array_merge(
-            $headerParams,
-            $headers,
-            $headersX
-        );
-
-        return new Request(
-            'GET',
-            $this->config->getHost().$resourcePath.($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
+        return $this->generateRequest($multipart, $formParams, $queryParams, $resourcePath, $headerParams, 'GET', $httpBody);
     }
 
     /**
@@ -1900,10 +706,10 @@ class ReportsApi
      *
      * @param string $report_schedule_id The identifier for the report schedule. This identifier is unique only in combination with a seller ID. (required)
      *
-     * @throws \Swagger\Client\ApiException on non-2xx response
+     * @throws \ClouSale\AmazonSellingPartnerAPI\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      *
-     * @return \Swagger\Client\Models\GetReportScheduleResponse
+     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Reports\GetReportScheduleResponse
      */
     public function getReportSchedule($report_schedule_id)
     {
@@ -1917,122 +723,16 @@ class ReportsApi
      *
      * @param string $report_schedule_id The identifier for the report schedule. This identifier is unique only in combination with a seller ID. (required)
      *
-     * @throws \Swagger\Client\ApiException on non-2xx response
+     * @throws \ClouSale\AmazonSellingPartnerAPI\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      *
-     * @return array of \Swagger\Client\Models\GetReportScheduleResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \ClouSale\AmazonSellingPartnerAPI\Models\Reports\GetReportScheduleResponse, HTTP status code, HTTP response headers (array of strings)
      */
     public function getReportScheduleWithHttpInfo($report_schedule_id)
     {
-        $returnType = '\Swagger\Client\Models\GetReportScheduleResponse';
         $request = $this->getReportScheduleRequest($report_schedule_id);
 
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException("[{$e->getCode()}] {$e->getMessage()}", $e->getCode(), $e->getResponse() ? $e->getResponse()->getHeaders() : null, $e->getResponse() ? $e->getResponse()->getBody()->getContents() : null);
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $request->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
-            }
-
-            $responseBody = $response->getBody();
-            if ('\SplFileObject' === $returnType) {
-                $content = $responseBody; //stream goes to serializer
-            } else {
-                $content = $responseBody->getContents();
-                if (!in_array($returnType, ['string', 'integer', 'bool'])) {
-                    $content = json_decode($content);
-                }
-            }
-
-            return [
-                ObjectSerializer::deserialize($content, $returnType, []),
-                $response->getStatusCode(),
-                $response->getHeaders(),
-            ];
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetReportScheduleResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 400:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetReportScheduleResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 401:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetReportScheduleResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 403:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetReportScheduleResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 404:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetReportScheduleResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 415:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetReportScheduleResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 429:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetReportScheduleResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 500:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetReportScheduleResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 503:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetReportScheduleResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
+        return $this->sendRequest($request, GetReportScheduleResponse::class);
     }
 
     /**
@@ -2065,35 +765,9 @@ class ReportsApi
      */
     public function getReportScheduleAsyncWithHttpInfo($report_schedule_id)
     {
-        $returnType = '\Swagger\Client\Models\GetReportScheduleResponse';
         $request = $this->getReportScheduleRequest($report_schedule_id);
 
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    $responseBody = $response->getBody();
-                    if ('\SplFileObject' === $returnType) {
-                        $content = $responseBody; //stream goes to serializer
-                    } else {
-                        $content = $responseBody->getContents();
-                        if ('string' !== $returnType) {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders(),
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $exception->getRequest()->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
-                }
-            );
+        return $this->sendRequestAsync($request, GetReportScheduleResponse::class);
     }
 
     /**
@@ -2128,74 +802,7 @@ class ReportsApi
             );
         }
 
-        // body params
-        $_tempBody = null;
-
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/json'],
-                []
-            );
-        }
-
-        // for model (json/xml)
-        if (isset($_tempBody)) {
-            // $_tempBody is the method argument, if present
-            $httpBody = $_tempBody;
-            // \stdClass has no __toString(), so we should encode it manually
-            if ($httpBody instanceof \stdClass && 'application/json' === $headers['Content-Type']) {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
-            }
-        } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $multipartContents[] = [
-                        'name' => $formParamName,
-                        'contents' => $formParamValue,
-                    ];
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-            } elseif ('application/json' === $headers['Content-Type']) {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
-            }
-        }
-
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
-
-        $sign = new SignatureSellingPartner();
-        $headersX = $sign->calculateSignature(
-            $this->config->getApiKey('accessKey'),
-            $this->config->getApiKey('secretKey'),
-            $this->config->getApiKey('region'),
-            $this->config->getAccessToken(),
-            $this->config->getUserAgent(),
-            str_replace('https://', '', $this->config->getHost()),
-            'GET',
-            $resourcePath,
-            $query
-        );
-
-        $headers = array_merge(
-            $headerParams,
-            $headers,
-            $headersX
-        );
-
-        return new Request(
-            'GET',
-            $this->config->getHost().$resourcePath.($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
+        return $this->generateRequest($multipart, $formParams, $queryParams, $resourcePath, $headerParams, 'GET', $httpBody);
     }
 
     /**
@@ -2203,10 +810,10 @@ class ReportsApi
      *
      * @param string[] $report_types A list of report types used to filter report schedules. (required)
      *
-     * @throws \Swagger\Client\ApiException on non-2xx response
+     * @throws \ClouSale\AmazonSellingPartnerAPI\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      *
-     * @return \Swagger\Client\Models\GetReportSchedulesResponse
+     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Reports\GetReportSchedulesResponse
      */
     public function getReportSchedules($report_types)
     {
@@ -2220,15 +827,16 @@ class ReportsApi
      *
      * @param string[] $report_types A list of report types used to filter report schedules. (required)
      *
-     * @throws \Swagger\Client\ApiException on non-2xx response
+     * @throws \ClouSale\AmazonSellingPartnerAPI\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      *
-     * @return array of \Swagger\Client\Models\GetReportSchedulesResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \ClouSale\AmazonSellingPartnerAPI\Models\Reports\GetReportSchedulesResponse, HTTP status code, HTTP response headers (array of strings)
      */
     public function getReportSchedulesWithHttpInfo($report_types)
     {
-        $returnType = '\Swagger\Client\Models\GetReportSchedulesResponse';
         $request = $this->getReportSchedulesRequest($report_types);
+
+        return $this->sendRequest($request, GetReportSchedulesResponse::class);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2264,7 +872,7 @@ class ReportsApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetReportSchedulesResponse',
+                        '\ClouSale\AmazonSellingPartnerAPI\Models\Reports\GetReportSchedulesResponse',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2272,7 +880,7 @@ class ReportsApi
                 case 400:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetReportSchedulesResponse',
+                        '\ClouSale\AmazonSellingPartnerAPI\Models\Reports\GetReportSchedulesResponse',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2280,7 +888,7 @@ class ReportsApi
                 case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetReportSchedulesResponse',
+                        '\ClouSale\AmazonSellingPartnerAPI\Models\Reports\GetReportSchedulesResponse',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2288,7 +896,7 @@ class ReportsApi
                 case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetReportSchedulesResponse',
+                        '\ClouSale\AmazonSellingPartnerAPI\Models\Reports\GetReportSchedulesResponse',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2296,7 +904,7 @@ class ReportsApi
                 case 404:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetReportSchedulesResponse',
+                        '\ClouSale\AmazonSellingPartnerAPI\Models\Reports\GetReportSchedulesResponse',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2304,7 +912,7 @@ class ReportsApi
                 case 415:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetReportSchedulesResponse',
+                        '\ClouSale\AmazonSellingPartnerAPI\Models\Reports\GetReportSchedulesResponse',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2312,7 +920,7 @@ class ReportsApi
                 case 429:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetReportSchedulesResponse',
+                        '\ClouSale\AmazonSellingPartnerAPI\Models\Reports\GetReportSchedulesResponse',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2320,7 +928,7 @@ class ReportsApi
                 case 500:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetReportSchedulesResponse',
+                        '\ClouSale\AmazonSellingPartnerAPI\Models\Reports\GetReportSchedulesResponse',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2328,7 +936,7 @@ class ReportsApi
                 case 503:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetReportSchedulesResponse',
+                        '\ClouSale\AmazonSellingPartnerAPI\Models\Reports\GetReportSchedulesResponse',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2368,35 +976,9 @@ class ReportsApi
      */
     public function getReportSchedulesAsyncWithHttpInfo($report_types)
     {
-        $returnType = '\Swagger\Client\Models\GetReportSchedulesResponse';
         $request = $this->getReportSchedulesRequest($report_types);
 
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    $responseBody = $response->getBody();
-                    if ('\SplFileObject' === $returnType) {
-                        $content = $responseBody; //stream goes to serializer
-                    } else {
-                        $content = $responseBody->getContents();
-                        if ('string' !== $returnType) {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders(),
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $exception->getRequest()->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
-                }
-            );
+        return $this->sendRequestAsync($request, GetReportSchedulesResponse::class);
     }
 
     /**
@@ -2430,74 +1012,7 @@ class ReportsApi
             $queryParams['reportTypes'] = ObjectSerializer::toQueryValue($report_types);
         }
 
-        // body params
-        $_tempBody = null;
-
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/json'],
-                []
-            );
-        }
-
-        // for model (json/xml)
-        if (isset($_tempBody)) {
-            // $_tempBody is the method argument, if present
-            $httpBody = $_tempBody;
-            // \stdClass has no __toString(), so we should encode it manually
-            if ($httpBody instanceof \stdClass && 'application/json' === $headers['Content-Type']) {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
-            }
-        } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $multipartContents[] = [
-                        'name' => $formParamName,
-                        'contents' => $formParamValue,
-                    ];
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-            } elseif ('application/json' === $headers['Content-Type']) {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
-            }
-        }
-
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
-
-        $sign = new SignatureSellingPartner();
-        $headersX = $sign->calculateSignature(
-            $this->config->getApiKey('accessKey'),
-            $this->config->getApiKey('secretKey'),
-            $this->config->getApiKey('region'),
-            $this->config->getAccessToken(),
-            $this->config->getUserAgent(),
-            str_replace('https://', '', $this->config->getHost()),
-            'GET',
-            $resourcePath,
-            $query
-        );
-
-        $headers = array_merge(
-            $headerParams,
-            $headers,
-            $headersX
-        );
-
-        return new Request(
-            'GET',
-            $this->config->getHost().$resourcePath.($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
+        return $this->generateRequest($multipart, $formParams, $queryParams, $resourcePath, $headerParams, 'GET', $httpBody);
     }
 
     /**
@@ -2511,10 +1026,10 @@ class ReportsApi
      * @param \DateTime $created_until       The latest report creation date and time for reports to include in the response, in ISO 8601 date time format. The default is now. (optional)
      * @param string    $next_token          A string token returned in the response to your previous request. nextToken is returned when the number of results exceeds the specified pageSize value. To get the next page of results, call the getReports operation and include this token as the only parameter. Specifying nextToken with any other parameters will cause the request to fail. (optional)
      *
-     * @throws \Swagger\Client\ApiException on non-2xx response
+     * @throws \ClouSale\AmazonSellingPartnerAPI\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      *
-     * @return \Swagger\Client\Models\GetReportsResponse
+     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Reports\GetReportsResponse
      */
     public function getReports($report_types = null, $processing_statuses = null, $marketplace_ids = null, $page_size = '10', $created_since = null, $created_until = null, $next_token = null)
     {
@@ -2534,122 +1049,16 @@ class ReportsApi
      * @param \DateTime $created_until       The latest report creation date and time for reports to include in the response, in ISO 8601 date time format. The default is now. (optional)
      * @param string    $next_token          A string token returned in the response to your previous request. nextToken is returned when the number of results exceeds the specified pageSize value. To get the next page of results, call the getReports operation and include this token as the only parameter. Specifying nextToken with any other parameters will cause the request to fail. (optional)
      *
-     * @throws \Swagger\Client\ApiException on non-2xx response
+     * @throws \ClouSale\AmazonSellingPartnerAPI\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      *
-     * @return array of \Swagger\Client\Models\GetReportsResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \ClouSale\AmazonSellingPartnerAPI\Models\Reports\GetReportsResponse, HTTP status code, HTTP response headers (array of strings)
      */
     public function getReportsWithHttpInfo($report_types = null, $processing_statuses = null, $marketplace_ids = null, $page_size = '10', $created_since = null, $created_until = null, $next_token = null)
     {
-        $returnType = '\Swagger\Client\Models\GetReportsResponse';
         $request = $this->getReportsRequest($report_types, $processing_statuses, $marketplace_ids, $page_size, $created_since, $created_until, $next_token);
 
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException("[{$e->getCode()}] {$e->getMessage()}", $e->getCode(), $e->getResponse() ? $e->getResponse()->getHeaders() : null, $e->getResponse() ? $e->getResponse()->getBody()->getContents() : null);
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $request->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
-            }
-
-            $responseBody = $response->getBody();
-            if ('\SplFileObject' === $returnType) {
-                $content = $responseBody; //stream goes to serializer
-            } else {
-                $content = $responseBody->getContents();
-                if (!in_array($returnType, ['string', 'integer', 'bool'])) {
-                    $content = json_decode($content);
-                }
-            }
-
-            return [
-                ObjectSerializer::deserialize($content, $returnType, []),
-                $response->getStatusCode(),
-                $response->getHeaders(),
-            ];
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetReportsResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 400:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetReportsResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 401:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetReportsResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 403:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetReportsResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 404:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetReportsResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 415:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetReportsResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 429:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetReportsResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 500:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetReportsResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 503:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Models\GetReportsResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
+        return $this->sendRequest($request, GetReportsResponse::class);
     }
 
     /**
@@ -2694,35 +1103,10 @@ class ReportsApi
      */
     public function getReportsAsyncWithHttpInfo($report_types = null, $processing_statuses = null, $marketplace_ids = null, $page_size = '10', $created_since = null, $created_until = null, $next_token = null)
     {
-        $returnType = '\Swagger\Client\Models\GetReportsResponse';
+        $returnType = '\ClouSale\AmazonSellingPartnerAPI\Models\Reports\GetReportsResponse';
         $request = $this->getReportsRequest($report_types, $processing_statuses, $marketplace_ids, $page_size, $created_since, $created_until, $next_token);
 
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    $responseBody = $response->getBody();
-                    if ('\SplFileObject' === $returnType) {
-                        $content = $responseBody; //stream goes to serializer
-                    } else {
-                        $content = $responseBody->getContents();
-                        if ('string' !== $returnType) {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders(),
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $exception->getRequest()->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
-                }
-            );
+        return $this->sendRequestAsync($request, GetReportsResponse::class);
     }
 
     /**
@@ -2787,93 +1171,6 @@ class ReportsApi
             $queryParams['nextToken'] = ObjectSerializer::toQueryValue($next_token);
         }
 
-        // body params
-        $_tempBody = null;
-
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/json'],
-                []
-            );
-        }
-
-        // for model (json/xml)
-        if (isset($_tempBody)) {
-            // $_tempBody is the method argument, if present
-            $httpBody = $_tempBody;
-            // \stdClass has no __toString(), so we should encode it manually
-            if ($httpBody instanceof \stdClass && 'application/json' === $headers['Content-Type']) {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
-            }
-        } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $multipartContents[] = [
-                        'name' => $formParamName,
-                        'contents' => $formParamValue,
-                    ];
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-            } elseif ('application/json' === $headers['Content-Type']) {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
-            }
-        }
-
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
-
-        $sign = new SignatureSellingPartner();
-        $headersX = $sign->calculateSignature(
-            $this->config->getApiKey('accessKey'),
-            $this->config->getApiKey('secretKey'),
-            $this->config->getApiKey('region'),
-            $this->config->getAccessToken(),
-            $this->config->getUserAgent(),
-            str_replace('https://', '', $this->config->getHost()),
-            'GET',
-            $resourcePath,
-            $query
-        );
-
-        $headers = array_merge(
-            $headerParams,
-            $headers,
-            $headersX
-        );
-
-        return new Request(
-            'GET',
-            $this->config->getHost().$resourcePath.($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Create http client option.
-     *
-     * @throws \RuntimeException on file opening failure
-     *
-     * @return array of http client options
-     */
-    protected function createHttpClientOption()
-    {
-        $options = [];
-        if ($this->config->getDebug()) {
-            $options[RequestOptions::DEBUG] = fopen($this->config->getDebugFile(), 'a');
-            if (!$options[RequestOptions::DEBUG]) {
-                throw new \RuntimeException('Failed to open the debug file: '.$this->config->getDebugFile());
-            }
-        }
-
-        return $options;
+        return $this->generateRequest($multipart, $formParams, $queryParams, $resourcePath, $headerParams, 'GET', $httpBody);
     }
 }

@@ -5,7 +5,7 @@
  * PHP version 5
  *
  * @category Class
- * @package  Swagger\Client
+ * @package  ClouSale\AmazonSellingPartnerAPI
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -26,13 +26,15 @@
  * Do not edit the class manually.
  */
 
-namespace Swagger\Client;
+namespace ClouSale\AmazonSellingPartnerAPI;
+
+use ClouSale\AmazonSellingPartnerAPI\Models\IterableType;
 
 /**
  * ObjectSerializer Class Doc Comment
  *
  * @category Class
- * @package  Swagger\Client
+ * @package  ClouSale\AmazonSellingPartnerAPI
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -241,6 +243,13 @@ class ObjectSerializer
             return $deserialized;
         } elseif (strcasecmp(substr($class, -2), '[]') === 0) {
             $subClass = substr($class, 0, -2);
+            $values = [];
+            foreach ($data as $key => $value) {
+                $values[] = self::deserialize($value, $subClass, null);
+            }
+            return $values;
+        } elseif (method_exists($class, 'getSubClass')) {
+            $subClass = (new $class())->getSubClass();
             $values = [];
             foreach ($data as $key => $value) {
                 $values[] = self::deserialize($value, $subClass, null);

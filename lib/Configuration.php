@@ -26,7 +26,7 @@
  * Do not edit the class manually.
  */
 
-namespace Swagger\Client;
+namespace ClouSale\AmazonSellingPartnerAPI;
 
 /**
  * Configuration Class Doc Comment
@@ -46,6 +46,8 @@ class Configuration
      * Associate array to store API key(s).
      *
      * @var string[]
+     *
+     * @deprecated
      */
     protected $apiKeys = [];
 
@@ -53,6 +55,8 @@ class Configuration
      * Associate array to store API prefix (e.g. Bearer).
      *
      * @var string[]
+     *
+     * @deprecated
      */
     protected $apiKeyPrefixes = [];
 
@@ -62,20 +66,6 @@ class Configuration
      * @var string
      */
     protected $accessToken = '';
-
-    /**
-     * Username for HTTP basic authentication.
-     *
-     * @var string
-     */
-    protected $username = '';
-
-    /**
-     * Password for HTTP basic authentication.
-     *
-     * @var string
-     */
-    protected $password = '';
 
     /**
      * The host.
@@ -89,7 +79,7 @@ class Configuration
      *
      * @var string
      */
-    protected $userAgent = 'Swagger-Codegen/1.0.0/php';
+    protected $userAgent = 'cs-php-sp-api-client/1.3';
 
     /**
      * Debug switch (default set to false).
@@ -111,6 +101,14 @@ class Configuration
      * @var string
      */
     protected $tempFolderPath;
+    /** @var string|null */
+    protected $securityToken;
+    /** @var string|null */
+    protected $accessKey;
+    /** @var string|null */
+    protected $secretKey;
+    /** @var string|null */
+    protected $region;
 
     /**
      * Constructor.
@@ -127,10 +125,24 @@ class Configuration
      * @param string $key              API key or token
      *
      * @return $this
+     *
+     * @deprecated use setSecurityToken(), setAccessKey(), setSecretKey() instead
      */
-    public function setApiKey($apiKeyIdentifier, $key)
+    public function setApiKey(string $apiKeyIdentifier, string $key): self
     {
         $this->apiKeys[$apiKeyIdentifier] = $key;
+        if ('accessKey' == $apiKeyIdentifier) {
+            $this->setAccessKey($key);
+        }
+        if ('secretKey' == $apiKeyIdentifier) {
+            $this->setSecretKey($key);
+        }
+        if ('region' == $apiKeyIdentifier) {
+            $this->setRegion($key);
+        }
+        if ('sessionToken' == $apiKeyIdentifier || 'securityToken' == $apiKeyIdentifier) {
+            $this->setSecurityToken($key);
+        }
 
         return $this;
     }
@@ -140,9 +152,11 @@ class Configuration
      *
      * @param string $apiKeyIdentifier API key identifier (authentication scheme)
      *
-     * @return string API key or token
+     * @return string|null API key or token
+     *
+     * @deprecated
      */
-    public function getApiKey($apiKeyIdentifier)
+    public function getApiKey($apiKeyIdentifier): ?string
     {
         return isset($this->apiKeys[$apiKeyIdentifier]) ? $this->apiKeys[$apiKeyIdentifier] : null;
     }
@@ -168,6 +182,8 @@ class Configuration
      * @param string $apiKeyIdentifier API key identifier (authentication scheme)
      *
      * @return string
+     *
+     * @deprecated
      */
     public function getApiKeyPrefix($apiKeyIdentifier)
     {
@@ -196,54 +212,6 @@ class Configuration
     public function getAccessToken()
     {
         return $this->accessToken;
-    }
-
-    /**
-     * Sets the username for HTTP basic authentication.
-     *
-     * @param string $username Username for HTTP basic authentication
-     *
-     * @return $this
-     */
-    public function setUsername($username)
-    {
-        $this->username = $username;
-
-        return $this;
-    }
-
-    /**
-     * Gets the username for HTTP basic authentication.
-     *
-     * @return string Username for HTTP basic authentication
-     */
-    public function getUsername()
-    {
-        return $this->username;
-    }
-
-    /**
-     * Sets the password for HTTP basic authentication.
-     *
-     * @param string $password Password for HTTP basic authentication
-     *
-     * @return $this
-     */
-    public function setPassword($password)
-    {
-        $this->password = $password;
-
-        return $this;
-    }
-
-    /**
-     * Gets the password for HTTP basic authentication.
-     *
-     * @return string Password for HTTP basic authentication
-     */
-    public function getPassword()
-    {
-        return $this->password;
     }
 
     /**
@@ -405,7 +373,7 @@ class Configuration
      */
     public static function toDebugReport()
     {
-        $report = 'PHP SDK (Swagger\Client) Debug Report:'.PHP_EOL;
+        $report = 'PHP SDK (ClouSale\AmazonSellingPartnerAPI) Debug Report:'.PHP_EOL;
         $report .= '    OS: '.php_uname().PHP_EOL;
         $report .= '    PHP Version: '.PHP_VERSION.PHP_EOL;
         $report .= '    OpenAPI Spec Version: v1'.PHP_EOL;
@@ -438,4 +406,50 @@ class Configuration
 
         return $keyWithPrefix;
     }
+
+    public function getSecurityToken(): ?string
+    {
+        return $this->securityToken;
+    }
+
+    public function setSecurityToken(?string $securityToken): void
+    {
+        $this->securityToken = $securityToken;
+    }
+
+    public function getAccessKey(): ?string
+    {
+        return $this->accessKey;
+    }
+
+    public function setAccessKey(?string $accessKey): void
+    {
+        $this->accessKey = $accessKey;
+    }
+
+    public function getSecretKey(): ?string
+    {
+        return $this->secretKey;
+    }
+
+    public function setSecretKey(?string $secretKey): void
+    {
+        $this->secretKey = $secretKey;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getRegion(): ?string {
+        return $this->region;
+    }
+
+    /**
+     * @param string|null $region
+     */
+    public function setRegion(?string $region): void {
+        $this->region = $region;
+    }
+
+
 }

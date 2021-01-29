@@ -25,6 +25,7 @@ Returns the order indicated by the specified order ID.
 | 1 | 1 |  For more information, see \"Usage Plans and Rate Limits\" in the Selling Partner API documentation.
 
 ### Example
+
 ```php
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
@@ -34,7 +35,7 @@ $config->setApiKey("accessKey", 'AKIA2xxxxxxxxxxxxx'); // Access Key of IAM
 $config->setApiKey("secretKey", '94U4Gi81Tpxxxxxxxxxxxxxxx'); // Secret Key of IAM
 $config->setApiKey("region", 'us-east-1'); //region of MarketPlace country
 
-$apiInstance = new Swagger\Client\Api\OrdersV0Api(
+$apiInstance = new Swagger\Client\Api\OrdersApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client(),
@@ -86,6 +87,7 @@ Returns the shipping address for the order indicated by the specified order ID.
 | 1 | 1 |  For more information, see \"Usage Plans and Rate Limits\" in the Selling Partner API documentation.
 
 ### Example
+
 ```php
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
@@ -96,7 +98,7 @@ $config->setApiKey("accessKey", 'AKIA2xxxxxxxxxxxxx'); // Access Key of IAM
 $config->setApiKey("secretKey", '94U4Gi81Tpxxxxxxxxxxxxxxx'); // Secret Key of IAM
 $config->setApiKey("region", 'us-east-1'); //region of MarketPlace country
 
-$apiInstance = new Swagger\Client\Api\OrdersV0Api(
+$apiInstance = new Swagger\Client\Api\OrdersApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client(),
@@ -148,6 +150,7 @@ Returns buyer information for the order indicated by the specified order ID.
 | 1 | 1 |  For more information, see \"Usage Plans and Rate Limits\" in the Selling Partner API documentation.
 
 ### Example
+
 ```php
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
@@ -158,7 +161,7 @@ $config->setApiKey("accessKey", 'AKIA2xxxxxxxxxxxxx'); // Access Key of IAM
 $config->setApiKey("secretKey", '94U4Gi81Tpxxxxxxxxxxxxxxx'); // Secret Key of IAM
 $config->setApiKey("region", 'us-east-1'); //region of MarketPlace country
 
-$apiInstance = new Swagger\Client\Api\OrdersV0Api(
+$apiInstance = new Swagger\Client\Api\OrdersApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client(),
@@ -210,6 +213,7 @@ Returns detailed order item information for the order indicated by the specified
 | 1 | 1 |  For more information, see \"Usage Plans and Rate Limits\" in the Selling Partner API documentation.
 
 ### Example
+
 ```php
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
@@ -220,7 +224,7 @@ $config->setApiKey("accessKey", 'AKIA2xxxxxxxxxxxxx'); // Access Key of IAM
 $config->setApiKey("secretKey", '94U4Gi81Tpxxxxxxxxxxxxxxx'); // Secret Key of IAM
 $config->setApiKey("region", 'us-east-1'); //region of MarketPlace country
 
-$apiInstance = new Swagger\Client\Api\OrdersV0Api(
+$apiInstance = new Swagger\Client\Api\OrdersApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client(),
@@ -274,6 +278,7 @@ Returns buyer information in the order items of the order indicated by the speci
 | 1 | 1 |  For more information, see \"Usage Plans and Rate Limits\" in the Selling Partner API documentation.
 
 ### Example
+
 ```php
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
@@ -284,7 +289,7 @@ $config->setApiKey("accessKey", 'AKIA2xxxxxxxxxxxxx'); // Access Key of IAM
 $config->setApiKey("secretKey", '94U4Gi81Tpxxxxxxxxxxxxxxx'); // Secret Key of IAM
 $config->setApiKey("region", 'us-east-1'); //region of MarketPlace country
 
-$apiInstance = new Swagger\Client\Api\OrdersV0Api(
+$apiInstance = new Swagger\Client\Api\OrdersApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client(),
@@ -338,6 +343,7 @@ Returns orders created or updated during the time frame indicated by the specifi
 | 1 | 1 |  For more information, see \"Usage Plans and Rate Limits\" in the Selling Partner API documentation.
 
 ### Example
+
 ```php
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
@@ -348,7 +354,7 @@ $config->setApiKey("accessKey", 'AKIA2xxxxxxxxxxxxx'); // Access Key of IAM
 $config->setApiKey("secretKey", '94U4Gi81Tpxxxxxxxxxxxxxxx'); // Secret Key of IAM
 $config->setApiKey("region", 'us-east-1'); //region of MarketPlace country
 
-$apiInstance = new Swagger\Client\Api\OrdersV0Api(
+$apiInstance = new Swagger\Client\Api\OrdersApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client(),

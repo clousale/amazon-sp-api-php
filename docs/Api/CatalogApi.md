@@ -21,6 +21,7 @@ Returns a specified item and its attributes.
 | 1 | 1 |  For more information, see \"Usage Plans and Rate Limits\" in the Selling Partner API documentation.
 
 ### Example
+
 ```php
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
@@ -31,7 +32,7 @@ $config->setApiKey("accessKey", 'AKIA2xxxxxxxxxxxxx'); // Access Key of IAM
 $config->setApiKey("secretKey", '94U4Gi81Tpxxxxxxxxxxxxxxx'); // Secret Key of IAM
 $config->setApiKey("region", 'us-east-1'); //region of MarketPlace country
 
-$apiInstance = new Swagger\Client\Api\CatalogApi(
+$apiInstance = new Swagger\Client\Api\CatalogApiDeprecated(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client(),
@@ -85,6 +86,7 @@ Returns the parent categories to which an item belongs, based on the specified A
 | 1 | 1 |  For more information, see \"Usage Plans and Rate Limits\" in the Selling Partner API documentation.
 
 ### Example
+
 ```php
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
@@ -95,7 +97,7 @@ $config->setApiKey("accessKey", 'AKIA2xxxxxxxxxxxxx'); // Access Key of IAM
 $config->setApiKey("secretKey", '94U4Gi81Tpxxxxxxxxxxxxxxx'); // Secret Key of IAM
 $config->setApiKey("region", 'us-east-1'); //region of MarketPlace country
 
-$apiInstance = new Swagger\Client\Api\CatalogApi(
+$apiInstance = new Swagger\Client\Api\CatalogApiDeprecated(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client(),
@@ -151,6 +153,7 @@ Returns a list of items and their attributes, based on a search query or item id
 | 1 | 1 |  For more information, see \"Usage Plans and Rate Limits\" in the Selling Partner API documentation.
 
 ### Example
+
 ```php
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
@@ -161,7 +164,7 @@ $config->setApiKey("accessKey", 'AKIA2xxxxxxxxxxxxx'); // Access Key of IAM
 $config->setApiKey("secretKey", '94U4Gi81Tpxxxxxxxxxxxxxxx'); // Secret Key of IAM
 $config->setApiKey("region", 'us-east-1'); //region of MarketPlace country
 
-$apiInstance = new Swagger\Client\Api\CatalogApi(
+$apiInstance = new Swagger\Client\Api\CatalogApiDeprecated(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client(),

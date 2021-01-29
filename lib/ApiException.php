@@ -26,7 +26,7 @@
  * Do not edit the class manually.
  */
 
-namespace Swagger\Client;
+namespace ClouSale\AmazonSellingPartnerAPI;
 
 use Exception;
 
