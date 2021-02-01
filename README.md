@@ -4,7 +4,7 @@ This is an API Binding in PHP for the new Amazon Selling Partner API.
 
 This library is based on the output of `swagger-codegen` with the [OpenAPI files provided by Amazon](https://github.com/amzn/selling-partner-api-models/tree/main/models) and has been modified by the contributors.
 
-The purpose of this package is to have an easy way of getting started with the Amazon Selling Partner API through a simple composer package
+The purpose of this package is to have an easy way of getting started with the Amazon Selling Partner API through a simple composer package.
 
 # Requirements
 
@@ -25,7 +25,7 @@ composer require clousale/amazon-sp-api-php
 
 You can find detailed documentation for this PHP Library in the [`docs/Api` directory](https://github.com/clousale/amazon-sp-api-php/tree/master/docs/Api) (Please note: Namespaces and other classes could have been changed)
 
-You can find general information about the Amazon Selling Partner API on [the official Amazon Developer Website](https://developer.amazonservices.com)
+You can find general information about the Amazon Selling Partner API on [the official Amazon Developer Website](https://developer.amazonservices.com).
 
 # Examples
 
@@ -33,7 +33,7 @@ These are simple examples, just to show you how to get started calling the API.
 
 ## IAM Role
 
-For when you entered the IAM Role ARN in your developer profile
+For when you entered the IAM Role ARN in your developer profile:
 
 ```php
 <?php
