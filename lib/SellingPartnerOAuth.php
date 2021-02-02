@@ -41,12 +41,8 @@ class SellingPartnerOAuth
     }
 
     /**
-     * @param string $lwaAuthorizationCode
-     * @param string $clientId
-     * @param string $clientSecret
-     * @param string $redirectUri
-     * @return string|null
      * @throws GuzzleException
+     * @throws SellingPartnerOAuthException
      */
     public static function getRefreshTokenFromLwaAuthorizationCode(
         string $lwaAuthorizationCode,
@@ -74,6 +70,9 @@ class SellingPartnerOAuth
 
         $body = $response->getBody()->getContents();
         $bodyAsJson = json_decode($body, true);
+        if (isset($bodyAsJson['error_description'])) {
+            throw new SellingPartnerOAuthException($bodyAsJson['error_description'], $bodyAsJson['error']);
+        }
 
         return $bodyAsJson['refresh_token'];
     }
