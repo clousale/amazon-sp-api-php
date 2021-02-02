@@ -28,6 +28,12 @@ trait SellingPartnerApiRequest
         string $method,
         $httpBody
     ): Request {
+        if (null != $formParams) {
+            ksort($formParams);
+        }
+        if (null != $queryParams) {
+            ksort($queryParams);
+        }
         // body params
         $_tempBody = $httpBody;
         if ($multipart) {
@@ -47,8 +53,6 @@ trait SellingPartnerApiRequest
             // \stdClass has no __toString(), so we should encode it manually
             if ($httpBody instanceof \stdClass && 'application/json' === $headers['Content-Type']) {
                 $httpBody = Utils::jsonEncode($httpBody);
-//            } else if (method_exists($httpBody, '__toString')) {
-//                $httpBody = $httpBody->__toString();
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -68,7 +72,6 @@ trait SellingPartnerApiRequest
                 $httpBody = Query::build($formParams);
             }
         }
-        ksort($queryParams);
         $query = Query::build($queryParams);
         $amazonHeader = Signature::calculateSignature(
             $this->config,

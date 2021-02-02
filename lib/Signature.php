@@ -25,7 +25,6 @@ class Signature
      * @param string $uri
      * @param string $queryString
      * @param array  $data
-     * @param string $service
      *
      * @throws \Exception
      *
@@ -33,8 +32,8 @@ class Signature
      */
     public static function calculateSignature(
         Configuration $config,
-        $host,
-        $method,
+        string $host,
+        string $method,
         $uri = '',
         $queryString = '',
         $data = []
@@ -56,38 +55,19 @@ class Signature
     }
 
     public static function calculateSignatureForService(
-        $host,
-        $method,
+        string $host,
+        string $method,
         $uri,
         $queryString,
         $data,
-        $service,
-        $accessKey,
-        $secretKey,
-        $region,
+        string $service,
+        string $accessKey,
+        string $secretKey,
+        string $region,
         $accessToken,
         $securityToken,
         $userAgent
     ): array {
-        if (is_null($service)) {
-            throw new \Exception('Service is required');
-        }
-        if (is_null($accessKey)) {
-            throw new \Exception('Access key is required');
-        }
-        if (is_null($secretKey)) {
-            throw new \Exception('Secret key is required');
-        }
-        if (is_null($region)) {
-            throw new \Exception('Region key is required');
-        }
-        if (is_null($host)) {
-            throw new \Exception('Host key is required');
-        }
-        if (is_null($method)) {
-            throw new \Exception('Method key is required');
-        }
-
         $terminationString = 'aws4_request';
         $algorithm = 'AWS4-HMAC-SHA256';
         $amzdate = gmdate('Ymd\THis\Z');
@@ -153,10 +133,8 @@ class Signature
         //Finalize the authorization structure
         $authorizationHeader = $algorithm." Credential={$accessKey}/{$credentialScope}, SignedHeaders={$signedHeadersStr}, Signature={$signature}";
 
-        $amazonHeader = array_merge($canonicalHeaders, [
+        return array_merge($canonicalHeaders, [
             'Authorization' => $authorizationHeader,
         ]);
-
-        return $amazonHeader;
     }
 }
