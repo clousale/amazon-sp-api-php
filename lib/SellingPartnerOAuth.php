@@ -72,6 +72,7 @@ class SellingPartnerOAuth
 
         $body = $response->getBody()->getContents();
         $bodyAsJson = json_decode($body, true);
+        //throw invalid credentials error if invalid credentials instead of undefined access_token exception
         if(!array_key_exists('access_token',$bodyAsJson)) {
             throw new SellingPartnerOAuthException('Invalid credentials');
         }
