@@ -36,7 +36,9 @@ class SellingPartnerOAuth
 
         $body = $response->getBody()->getContents();
         $bodyAsJson = json_decode($body, true);
-
+        if(!array_key_exists('access_token',$bodyAsJson)) {
+            throw new \Exception('Invalid credentials');
+        }
         return $bodyAsJson['access_token'];
     }
 
@@ -70,8 +72,8 @@ class SellingPartnerOAuth
 
         $body = $response->getBody()->getContents();
         $bodyAsJson = json_decode($body, true);
-        if (isset($bodyAsJson['error_description'])) {
-            throw new SellingPartnerOAuthException($bodyAsJson['error_description'], $bodyAsJson['error']);
+        if(!array_key_exists('access_token',$bodyAsJson)) {
+            throw new SellingPartnerOAuthException('Invalid credentials');
         }
 
         return $bodyAsJson['refresh_token'];
