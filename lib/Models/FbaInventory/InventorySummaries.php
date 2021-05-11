@@ -251,4 +251,9 @@ class InventorySummaries implements ModelInterface, ArrayAccess
 
         return json_encode(ObjectSerializer::sanitizeForSerialization($this));
     }
+
+    public function getSubClass()
+    {
+        return InventorySummary::class;
+    }
 }
