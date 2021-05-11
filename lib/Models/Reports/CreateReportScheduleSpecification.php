@@ -43,11 +43,11 @@ class CreateReportScheduleSpecification implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $swaggerTypes = [
-        'report_type' => 'string',
-'marketplace_ids' => 'string[]',
-'report_options' => '\ClouSale\AmazonSellingPartnerAPI\Models\Reports\ReportOptions',
+        'reportType' => 'string',
+'marketplaceIds' => 'string[]',
+'reportOptions' => '\ClouSale\AmazonSellingPartnerAPI\Models\Reports\ReportOptions',
 'period' => 'string',
-'next_report_creation_time' => '\DateTime',    ];
+'nextReportCreationTime' => '\DateTime',    ];
 
     /**
      * Array of property to format mappings. Used for (de)serialization.
@@ -55,11 +55,11 @@ class CreateReportScheduleSpecification implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $swaggerFormats = [
-        'report_type' => null,
-'marketplace_ids' => null,
-'report_options' => null,
+        'reportType' => null,
+'marketplaceIds' => null,
+'reportOptions' => null,
 'period' => null,
-'next_report_creation_time' => 'date-time',    ];
+'nextReportCreationTime' => 'date-time',    ];
 
     /**
      * Array of property to type mappings. Used for (de)serialization.
@@ -88,11 +88,11 @@ class CreateReportScheduleSpecification implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'report_type' => 'reportType',
-'marketplace_ids' => 'marketplaceIds',
-'report_options' => 'reportOptions',
+        'reportType' => 'reportType',
+'marketplaceIds' => 'marketplaceIds',
+'reportOptions' => 'reportOptions',
 'period' => 'period',
-'next_report_creation_time' => 'nextReportCreationTime',    ];
+'nextReportCreationTime' => 'nextReportCreationTime',    ];
 
     /**
      * Array of attributes to setter functions (for deserialization of responses).
@@ -100,11 +100,11 @@ class CreateReportScheduleSpecification implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'report_type' => 'setReportType',
-'marketplace_ids' => 'setMarketplaceIds',
-'report_options' => 'setReportOptions',
+        'reportType' => 'setReportType',
+'marketplaceIds' => 'setMarketplaceIds',
+'reportOptions' => 'setReportOptions',
 'period' => 'setPeriod',
-'next_report_creation_time' => 'setNextReportCreationTime',    ];
+'nextReportCreationTime' => 'setNextReportCreationTime',    ];
 
     /**
      * Array of attributes to getter functions (for serialization of requests).
@@ -112,11 +112,11 @@ class CreateReportScheduleSpecification implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'report_type' => 'getReportType',
-'marketplace_ids' => 'getMarketplaceIds',
-'report_options' => 'getReportOptions',
+        'reportType' => 'getReportType',
+'marketplaceIds' => 'getMarketplaceIds',
+'reportOptions' => 'getReportOptions',
 'period' => 'getPeriod',
-'next_report_creation_time' => 'getNextReportCreationTime',    ];
+'nextReportCreationTime' => 'getNextReportCreationTime',    ];
 
     /**
      * Array of attributes where the key is the local name,
@@ -221,11 +221,11 @@ self::PERIOD_P1_M,        ];
      */
     public function __construct(array $data = null)
     {
-        $this->container['report_type'] = isset($data['report_type']) ? $data['report_type'] : null;
-        $this->container['marketplace_ids'] = isset($data['marketplace_ids']) ? $data['marketplace_ids'] : null;
-        $this->container['report_options'] = isset($data['report_options']) ? $data['report_options'] : null;
+        $this->container['reportType'] = isset($data['reportType']) ? $data['reportType'] : null;
+        $this->container['marketplaceIds'] = isset($data['marketplaceIds']) ? $data['marketplaceIds'] : null;
+        $this->container['reportOptions'] = isset($data['reportOptions']) ? $data['reportOptions'] : null;
         $this->container['period'] = isset($data['period']) ? $data['period'] : null;
-        $this->container['next_report_creation_time'] = isset($data['next_report_creation_time']) ? $data['next_report_creation_time'] : null;
+        $this->container['nextReportCreationTime'] = isset($data['nextReportCreationTime']) ? $data['nextReportCreationTime'] : null;
     }
 
     /**
@@ -237,11 +237,11 @@ self::PERIOD_P1_M,        ];
     {
         $invalidProperties = [];
 
-        if (null === $this->container['report_type']) {
-            $invalidProperties[] = "'report_type' can't be null";
+        if (null === $this->container['reportType']) {
+            $invalidProperties[] = "'reportType' can't be null";
         }
-        if (null === $this->container['marketplace_ids']) {
-            $invalidProperties[] = "'marketplace_ids' can't be null";
+        if (null === $this->container['marketplaceIds']) {
+            $invalidProperties[] = "'marketplaceIds' can't be null";
         }
         if (null === $this->container['period']) {
             $invalidProperties[] = "'period' can't be null";
@@ -269,17 +269,17 @@ self::PERIOD_P1_M,        ];
     }
 
     /**
-     * Gets report_type.
+     * Gets reportType.
      *
      * @return string
      */
     public function getReportType()
     {
-        return $this->container['report_type'];
+        return $this->container['reportType'];
     }
 
     /**
-     * Sets report_type.
+     * Sets reportType.
      *
      * @param string $report_type the report type
      *
@@ -287,23 +287,23 @@ self::PERIOD_P1_M,        ];
      */
     public function setReportType($report_type)
     {
-        $this->container['report_type'] = $report_type;
+        $this->container['reportType'] = $report_type;
 
         return $this;
     }
 
     /**
-     * Gets marketplace_ids.
+     * Gets marketplaceIds.
      *
      * @return string[]
      */
     public function getMarketplaceIds()
     {
-        return $this->container['marketplace_ids'];
+        return $this->container['marketplaceIds'];
     }
 
     /**
-     * Sets marketplace_ids.
+     * Sets marketplaceIds.
      *
      * @param string[] $marketplace_ids a list of marketplace identifiers for the report schedule
      *
@@ -311,23 +311,23 @@ self::PERIOD_P1_M,        ];
      */
     public function setMarketplaceIds($marketplace_ids)
     {
-        $this->container['marketplace_ids'] = $marketplace_ids;
+        $this->container['marketplaceIds'] = $marketplace_ids;
 
         return $this;
     }
 
     /**
-     * Gets report_options.
+     * Gets reportOptions.
      *
      * @return \ClouSale\AmazonSellingPartnerAPI\Models\Reports\ReportOptions
      */
     public function getReportOptions()
     {
-        return $this->container['report_options'];
+        return $this->container['reportOptions'];
     }
 
     /**
-     * Sets report_options.
+     * Sets reportOptions.
      *
      * @param \ClouSale\AmazonSellingPartnerAPI\Models\Reports\ReportOptions $report_options report_options
      *
@@ -335,7 +335,7 @@ self::PERIOD_P1_M,        ];
      */
     public function setReportOptions($report_options)
     {
-        $this->container['report_options'] = $report_options;
+        $this->container['reportOptions'] = $report_options;
 
         return $this;
     }
@@ -369,17 +369,17 @@ self::PERIOD_P1_M,        ];
     }
 
     /**
-     * Gets next_report_creation_time.
+     * Gets nextReportCreationTime.
      *
      * @return \DateTime
      */
     public function getNextReportCreationTime()
     {
-        return $this->container['next_report_creation_time'];
+        return $this->container['nextReportCreationTime'];
     }
 
     /**
-     * Sets next_report_creation_time.
+     * Sets nextReportCreationTime.
      *
      * @param \DateTime $next_report_creation_time the date and time when the schedule will create its next report, in ISO 8601 date time format
      *
@@ -387,7 +387,7 @@ self::PERIOD_P1_M,        ];
      */
     public function setNextReportCreationTime($next_report_creation_time)
     {
-        $this->container['next_report_creation_time'] = $next_report_creation_time;
+        $this->container['nextReportCreationTime'] = $next_report_creation_time;
 
         return $this;
     }
