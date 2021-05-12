@@ -27,6 +27,8 @@ You can find detailed documentation for this PHP Library in the [`docs/Api` dire
 
 You can find general information about the Amazon Selling Partner API on [the official Amazon Developer Website](https://developer.amazonservices.com).
 
+You can view online document on 👉 [Amazon SPAPI online documentation with Swagger UI website](https://spapi.mijing.io).
+
 # Examples
 
 These are simple examples, just to show you how to get started calling the API.
