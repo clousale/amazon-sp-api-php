@@ -432,7 +432,7 @@ class SolutionProviderCreditEvent implements ModelInterface, ArrayAccess
     /**
      * Gets transaction_amount.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\Currency
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\Currency
      */
     public function getTransactionAmount()
     {
@@ -442,7 +442,7 @@ class SolutionProviderCreditEvent implements ModelInterface, ArrayAccess
     /**
      * Sets transaction_amount.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Finances\Currency $transaction_amount transaction_amount
+     * @param \Clousale\AmazonSellingPartnerAPI\Models\Finances\Currency $transaction_amount transaction_amount
      *
      * @return $this
      */
@@ -456,7 +456,7 @@ class SolutionProviderCreditEvent implements ModelInterface, ArrayAccess
     /**
      * Gets transaction_creation_date.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\DateTime
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\DateTime
      */
     public function getTransactionCreationDate()
     {
@@ -466,7 +466,7 @@ class SolutionProviderCreditEvent implements ModelInterface, ArrayAccess
     /**
      * Sets transaction_creation_date.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Finances\DateTime $transaction_creation_date transaction_creation_date
+     * @param \Clousale\AmazonSellingPartnerAPI\Models\Finances\DateTime $transaction_creation_date transaction_creation_date
      *
      * @return $this
      */

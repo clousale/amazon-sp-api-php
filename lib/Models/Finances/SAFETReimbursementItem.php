@@ -198,7 +198,7 @@ class SAFETReimbursementItem implements ModelInterface, ArrayAccess
     /**
      * Gets item_charge_list.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\ChargeComponentList
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\ChargeComponentList
      */
     public function getItemChargeList()
     {
@@ -208,7 +208,7 @@ class SAFETReimbursementItem implements ModelInterface, ArrayAccess
     /**
      * Sets item_charge_list.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Finances\ChargeComponentList $item_charge_list item_charge_list
+     * @param \Clousale\AmazonSellingPartnerAPI\Models\Finances\ChargeComponentList $item_charge_list item_charge_list
      *
      * @return $this
      */

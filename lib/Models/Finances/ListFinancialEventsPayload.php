@@ -216,7 +216,7 @@ class ListFinancialEventsPayload implements ModelInterface, ArrayAccess
     /**
      * Gets financial_events.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\FinancialEvents
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\FinancialEvents
      */
     public function getFinancialEvents()
     {
@@ -226,7 +226,7 @@ class ListFinancialEventsPayload implements ModelInterface, ArrayAccess
     /**
      * Sets financial_events.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Finances\FinancialEvents $financial_events financial_events
+     * @param \Clousale\AmazonSellingPartnerAPI\Models\Finances\FinancialEvents $financial_events financial_events
      *
      * @return $this
      */

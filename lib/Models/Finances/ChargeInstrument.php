@@ -246,7 +246,7 @@ class ChargeInstrument implements ModelInterface, ArrayAccess
     /**
      * Gets amount.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\Currency
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\Currency
      */
     public function getAmount()
     {
@@ -256,7 +256,7 @@ class ChargeInstrument implements ModelInterface, ArrayAccess
     /**
      * Sets amount.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Finances\Currency $amount amount
+     * @param \Clousale\AmazonSellingPartnerAPI\Models\Finances\Currency $amount amount
      *
      * @return $this
      */

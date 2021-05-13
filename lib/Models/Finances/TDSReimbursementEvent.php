@@ -198,7 +198,7 @@ class TDSReimbursementEvent implements ModelInterface, ArrayAccess
     /**
      * Gets posted_date.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\DateTime
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\DateTime
      */
     public function getPostedDate()
     {
@@ -208,7 +208,7 @@ class TDSReimbursementEvent implements ModelInterface, ArrayAccess
     /**
      * Sets posted_date.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Finances\DateTime $posted_date posted_date
+     * @param \Clousale\AmazonSellingPartnerAPI\Models\Finances\DateTime $posted_date posted_date
      *
      * @return $this
      */
@@ -246,7 +246,7 @@ class TDSReimbursementEvent implements ModelInterface, ArrayAccess
     /**
      * Gets reimbursed_amount.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\Currency
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\Currency
      */
     public function getReimbursedAmount()
     {
@@ -256,7 +256,7 @@ class TDSReimbursementEvent implements ModelInterface, ArrayAccess
     /**
      * Sets reimbursed_amount.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Finances\Currency $reimbursed_amount reimbursed_amount
+     * @param \Clousale\AmazonSellingPartnerAPI\Models\Finances\Currency $reimbursed_amount reimbursed_amount
      *
      * @return $this
      */

@@ -204,7 +204,7 @@ class FBALiquidationEvent implements ModelInterface, ArrayAccess
     /**
      * Gets posted_date.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\DateTime
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\DateTime
      */
     public function getPostedDate()
     {
@@ -214,7 +214,7 @@ class FBALiquidationEvent implements ModelInterface, ArrayAccess
     /**
      * Sets posted_date.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Finances\DateTime $posted_date posted_date
+     * @param \Clousale\AmazonSellingPartnerAPI\Models\Finances\DateTime $posted_date posted_date
      *
      * @return $this
      */
@@ -252,7 +252,7 @@ class FBALiquidationEvent implements ModelInterface, ArrayAccess
     /**
      * Gets liquidation_proceeds_amount.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\Currency
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\Currency
      */
     public function getLiquidationProceedsAmount()
     {
@@ -262,7 +262,7 @@ class FBALiquidationEvent implements ModelInterface, ArrayAccess
     /**
      * Sets liquidation_proceeds_amount.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Finances\Currency $liquidation_proceeds_amount liquidation_proceeds_amount
+     * @param \Clousale\AmazonSellingPartnerAPI\Models\Finances\Currency $liquidation_proceeds_amount liquidation_proceeds_amount
      *
      * @return $this
      */
@@ -276,7 +276,7 @@ class FBALiquidationEvent implements ModelInterface, ArrayAccess
     /**
      * Gets liquidation_fee_amount.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\Currency
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\Currency
      */
     public function getLiquidationFeeAmount()
     {
@@ -286,7 +286,7 @@ class FBALiquidationEvent implements ModelInterface, ArrayAccess
     /**
      * Sets liquidation_fee_amount.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Finances\Currency $liquidation_fee_amount liquidation_fee_amount
+     * @param \Clousale\AmazonSellingPartnerAPI\Models\Finances\Currency $liquidation_fee_amount liquidation_fee_amount
      *
      * @return $this
      */

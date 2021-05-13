@@ -158,6 +158,7 @@ class NumberOfOfferListingsList extends Categories implements ModelInterface, Ar
      */
     public function __construct(array $data = null)
     {
+        parent::__construct();
     }
 
     /**

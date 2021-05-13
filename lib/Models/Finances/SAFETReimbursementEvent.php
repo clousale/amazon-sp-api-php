@@ -210,7 +210,7 @@ class SAFETReimbursementEvent implements ModelInterface, ArrayAccess
     /**
      * Gets posted_date.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\DateTime
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\DateTime
      */
     public function getPostedDate()
     {
@@ -220,7 +220,7 @@ class SAFETReimbursementEvent implements ModelInterface, ArrayAccess
     /**
      * Sets posted_date.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Finances\DateTime $posted_date posted_date
+     * @param \Clousale\AmazonSellingPartnerAPI\Models\Finances\DateTime $posted_date posted_date
      *
      * @return $this
      */
@@ -258,7 +258,7 @@ class SAFETReimbursementEvent implements ModelInterface, ArrayAccess
     /**
      * Gets reimbursed_amount.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\Currency
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\Currency
      */
     public function getReimbursedAmount()
     {
@@ -268,7 +268,7 @@ class SAFETReimbursementEvent implements ModelInterface, ArrayAccess
     /**
      * Sets reimbursed_amount.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Finances\Currency $reimbursed_amount reimbursed_amount
+     * @param \Clousale\AmazonSellingPartnerAPI\Models\Finances\Currency $reimbursed_amount reimbursed_amount
      *
      * @return $this
      */
@@ -306,7 +306,7 @@ class SAFETReimbursementEvent implements ModelInterface, ArrayAccess
     /**
      * Gets safet_reimbursement_item_list.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\SAFETReimbursementItemList
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\SAFETReimbursementItemList
      */
     public function getSafetReimbursementItemList()
     {
@@ -316,7 +316,7 @@ class SAFETReimbursementEvent implements ModelInterface, ArrayAccess
     /**
      * Sets safet_reimbursement_item_list.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Finances\SAFETReimbursementItemList $safet_reimbursement_item_list safet_reimbursement_item_list
+     * @param \Clousale\AmazonSellingPartnerAPI\Models\Finances\SAFETReimbursementItemList $safet_reimbursement_item_list safet_reimbursement_item_list
      *
      * @return $this
      */

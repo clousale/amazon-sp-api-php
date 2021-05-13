@@ -324,7 +324,7 @@ class RemovalShipmentItem implements ModelInterface, ArrayAccess
     /**
      * Gets revenue.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\Currency
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\Currency
      */
     public function getRevenue()
     {
@@ -334,7 +334,7 @@ class RemovalShipmentItem implements ModelInterface, ArrayAccess
     /**
      * Sets revenue.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Finances\Currency $revenue revenue
+     * @param \Clousale\AmazonSellingPartnerAPI\Models\Finances\Currency $revenue revenue
      *
      * @return $this
      */
@@ -348,7 +348,7 @@ class RemovalShipmentItem implements ModelInterface, ArrayAccess
     /**
      * Gets fee_amount.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\Currency
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\Currency
      */
     public function getFeeAmount()
     {
@@ -358,7 +358,7 @@ class RemovalShipmentItem implements ModelInterface, ArrayAccess
     /**
      * Sets fee_amount.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Finances\Currency $fee_amount fee_amount
+     * @param \Clousale\AmazonSellingPartnerAPI\Models\Finances\Currency $fee_amount fee_amount
      *
      * @return $this
      */
@@ -372,7 +372,7 @@ class RemovalShipmentItem implements ModelInterface, ArrayAccess
     /**
      * Gets tax_amount.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\Currency
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\Currency
      */
     public function getTaxAmount()
     {
@@ -382,7 +382,7 @@ class RemovalShipmentItem implements ModelInterface, ArrayAccess
     /**
      * Sets tax_amount.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Finances\Currency $tax_amount tax_amount
+     * @param \Clousale\AmazonSellingPartnerAPI\Models\Finances\Currency $tax_amount tax_amount
      *
      * @return $this
      */
@@ -396,7 +396,7 @@ class RemovalShipmentItem implements ModelInterface, ArrayAccess
     /**
      * Gets tax_withheld.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\Currency
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\Currency
      */
     public function getTaxWithheld()
     {
@@ -406,7 +406,7 @@ class RemovalShipmentItem implements ModelInterface, ArrayAccess
     /**
      * Sets tax_withheld.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Finances\Currency $tax_withheld tax_withheld
+     * @param \Clousale\AmazonSellingPartnerAPI\Models\Finances\Currency $tax_withheld tax_withheld
      *
      * @return $this
      */

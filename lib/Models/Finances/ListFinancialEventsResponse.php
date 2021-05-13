@@ -192,7 +192,7 @@ class ListFinancialEventsResponse implements ModelInterface, ArrayAccess
     /**
      * Gets payload.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\ListFinancialEventsPayload
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\ListFinancialEventsPayload
      */
     public function getPayload()
     {
@@ -202,7 +202,7 @@ class ListFinancialEventsResponse implements ModelInterface, ArrayAccess
     /**
      * Sets payload.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Finances\ListFinancialEventsPayload $payload payload
+     * @param \Clousale\AmazonSellingPartnerAPI\Models\Finances\ListFinancialEventsPayload $payload payload
      *
      * @return $this
      */
@@ -216,7 +216,7 @@ class ListFinancialEventsResponse implements ModelInterface, ArrayAccess
     /**
      * Gets errors.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\ErrorList
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\ErrorList
      */
     public function getErrors()
     {
@@ -226,7 +226,7 @@ class ListFinancialEventsResponse implements ModelInterface, ArrayAccess
     /**
      * Sets errors.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Finances\ErrorList $errors errors
+     * @param \Clousale\AmazonSellingPartnerAPI\Models\Finances\ErrorList $errors errors
      *
      * @return $this
      */

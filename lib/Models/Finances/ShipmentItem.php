@@ -354,7 +354,7 @@ class ShipmentItem implements ModelInterface, ArrayAccess
     /**
      * Gets item_charge_list.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\ChargeComponentList
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\ChargeComponentList
      */
     public function getItemChargeList()
     {
@@ -364,7 +364,7 @@ class ShipmentItem implements ModelInterface, ArrayAccess
     /**
      * Sets item_charge_list.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Finances\ChargeComponentList $item_charge_list item_charge_list
+     * @param \Clousale\AmazonSellingPartnerAPI\Models\Finances\ChargeComponentList $item_charge_list item_charge_list
      *
      * @return $this
      */
@@ -378,7 +378,7 @@ class ShipmentItem implements ModelInterface, ArrayAccess
     /**
      * Gets item_charge_adjustment_list.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\ChargeComponentList
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\ChargeComponentList
      */
     public function getItemChargeAdjustmentList()
     {
@@ -388,7 +388,7 @@ class ShipmentItem implements ModelInterface, ArrayAccess
     /**
      * Sets item_charge_adjustment_list.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Finances\ChargeComponentList $item_charge_adjustment_list item_charge_adjustment_list
+     * @param \Clousale\AmazonSellingPartnerAPI\Models\Finances\ChargeComponentList $item_charge_adjustment_list item_charge_adjustment_list
      *
      * @return $this
      */
@@ -402,7 +402,7 @@ class ShipmentItem implements ModelInterface, ArrayAccess
     /**
      * Gets item_fee_list.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\FeeComponentList
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\FeeComponentList
      */
     public function getItemFeeList()
     {
@@ -412,7 +412,7 @@ class ShipmentItem implements ModelInterface, ArrayAccess
     /**
      * Sets item_fee_list.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Finances\FeeComponentList $item_fee_list item_fee_list
+     * @param \Clousale\AmazonSellingPartnerAPI\Models\Finances\FeeComponentList $item_fee_list item_fee_list
      *
      * @return $this
      */
@@ -426,7 +426,7 @@ class ShipmentItem implements ModelInterface, ArrayAccess
     /**
      * Gets item_fee_adjustment_list.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\FeeComponentList
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\FeeComponentList
      */
     public function getItemFeeAdjustmentList()
     {
@@ -436,7 +436,7 @@ class ShipmentItem implements ModelInterface, ArrayAccess
     /**
      * Sets item_fee_adjustment_list.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Finances\FeeComponentList $item_fee_adjustment_list item_fee_adjustment_list
+     * @param \Clousale\AmazonSellingPartnerAPI\Models\Finances\FeeComponentList $item_fee_adjustment_list item_fee_adjustment_list
      *
      * @return $this
      */
@@ -450,7 +450,7 @@ class ShipmentItem implements ModelInterface, ArrayAccess
     /**
      * Gets item_tax_withheld_list.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\TaxWithheldComponentList
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\TaxWithheldComponentList
      */
     public function getItemTaxWithheldList()
     {
@@ -460,7 +460,7 @@ class ShipmentItem implements ModelInterface, ArrayAccess
     /**
      * Sets item_tax_withheld_list.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Finances\TaxWithheldComponentList $item_tax_withheld_list item_tax_withheld_list
+     * @param \Clousale\AmazonSellingPartnerAPI\Models\Finances\TaxWithheldComponentList $item_tax_withheld_list item_tax_withheld_list
      *
      * @return $this
      */
@@ -474,7 +474,7 @@ class ShipmentItem implements ModelInterface, ArrayAccess
     /**
      * Gets promotion_list.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\PromotionList
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\PromotionList
      */
     public function getPromotionList()
     {
@@ -484,7 +484,7 @@ class ShipmentItem implements ModelInterface, ArrayAccess
     /**
      * Sets promotion_list.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Finances\PromotionList $promotion_list promotion_list
+     * @param \Clousale\AmazonSellingPartnerAPI\Models\Finances\PromotionList $promotion_list promotion_list
      *
      * @return $this
      */
@@ -498,7 +498,7 @@ class ShipmentItem implements ModelInterface, ArrayAccess
     /**
      * Gets promotion_adjustment_list.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\PromotionList
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\PromotionList
      */
     public function getPromotionAdjustmentList()
     {
@@ -508,7 +508,7 @@ class ShipmentItem implements ModelInterface, ArrayAccess
     /**
      * Sets promotion_adjustment_list.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Finances\PromotionList $promotion_adjustment_list promotion_adjustment_list
+     * @param \Clousale\AmazonSellingPartnerAPI\Models\Finances\PromotionList $promotion_adjustment_list promotion_adjustment_list
      *
      * @return $this
      */
@@ -522,7 +522,7 @@ class ShipmentItem implements ModelInterface, ArrayAccess
     /**
      * Gets cost_of_points_granted.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\Currency
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\Currency
      */
     public function getCostOfPointsGranted()
     {
@@ -532,7 +532,7 @@ class ShipmentItem implements ModelInterface, ArrayAccess
     /**
      * Sets cost_of_points_granted.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Finances\Currency $cost_of_points_granted cost_of_points_granted
+     * @param \Clousale\AmazonSellingPartnerAPI\Models\Finances\Currency $cost_of_points_granted cost_of_points_granted
      *
      * @return $this
      */
@@ -546,7 +546,7 @@ class ShipmentItem implements ModelInterface, ArrayAccess
     /**
      * Gets cost_of_points_returned.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\Currency
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\Currency
      */
     public function getCostOfPointsReturned()
     {
@@ -556,7 +556,7 @@ class ShipmentItem implements ModelInterface, ArrayAccess
     /**
      * Sets cost_of_points_returned.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Finances\Currency $cost_of_points_returned cost_of_points_returned
+     * @param \Clousale\AmazonSellingPartnerAPI\Models\Finances\Currency $cost_of_points_returned cost_of_points_returned
      *
      * @return $this
      */

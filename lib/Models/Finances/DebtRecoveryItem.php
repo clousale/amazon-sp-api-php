@@ -204,7 +204,7 @@ class DebtRecoveryItem implements ModelInterface, ArrayAccess
     /**
      * Gets recovery_amount.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\Currency
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\Currency
      */
     public function getRecoveryAmount()
     {
@@ -214,7 +214,7 @@ class DebtRecoveryItem implements ModelInterface, ArrayAccess
     /**
      * Sets recovery_amount.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Finances\Currency $recovery_amount recovery_amount
+     * @param \Clousale\AmazonSellingPartnerAPI\Models\Finances\Currency $recovery_amount recovery_amount
      *
      * @return $this
      */
@@ -228,7 +228,7 @@ class DebtRecoveryItem implements ModelInterface, ArrayAccess
     /**
      * Gets original_amount.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\Currency
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\Currency
      */
     public function getOriginalAmount()
     {
@@ -238,7 +238,7 @@ class DebtRecoveryItem implements ModelInterface, ArrayAccess
     /**
      * Sets original_amount.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Finances\Currency $original_amount original_amount
+     * @param \Clousale\AmazonSellingPartnerAPI\Models\Finances\Currency $original_amount original_amount
      *
      * @return $this
      */
@@ -252,7 +252,7 @@ class DebtRecoveryItem implements ModelInterface, ArrayAccess
     /**
      * Gets group_begin_date.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\DateTime
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\DateTime
      */
     public function getGroupBeginDate()
     {
@@ -262,7 +262,7 @@ class DebtRecoveryItem implements ModelInterface, ArrayAccess
     /**
      * Sets group_begin_date.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Finances\DateTime $group_begin_date group_begin_date
+     * @param \Clousale\AmazonSellingPartnerAPI\Models\Finances\DateTime $group_begin_date group_begin_date
      *
      * @return $this
      */
@@ -276,7 +276,7 @@ class DebtRecoveryItem implements ModelInterface, ArrayAccess
     /**
      * Gets group_end_date.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\DateTime
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\DateTime
      */
     public function getGroupEndDate()
     {
@@ -286,7 +286,7 @@ class DebtRecoveryItem implements ModelInterface, ArrayAccess
     /**
      * Sets group_end_date.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Finances\DateTime $group_end_date group_end_date
+     * @param \Clousale\AmazonSellingPartnerAPI\Models\Finances\DateTime $group_end_date group_end_date
      *
      * @return $this
      */

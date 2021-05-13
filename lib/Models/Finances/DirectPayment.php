@@ -216,7 +216,7 @@ class DirectPayment implements ModelInterface, ArrayAccess
     /**
      * Gets direct_payment_amount.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\Currency
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\Currency
      */
     public function getDirectPaymentAmount()
     {
@@ -226,7 +226,7 @@ class DirectPayment implements ModelInterface, ArrayAccess
     /**
      * Sets direct_payment_amount.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Finances\Currency $direct_payment_amount direct_payment_amount
+     * @param \Clousale\AmazonSellingPartnerAPI\Models\Finances\Currency $direct_payment_amount direct_payment_amount
      *
      * @return $this
      */

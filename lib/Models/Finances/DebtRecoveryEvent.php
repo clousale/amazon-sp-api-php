@@ -234,7 +234,7 @@ class DebtRecoveryEvent implements ModelInterface, ArrayAccess
     /**
      * Gets recovery_amount.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\Currency
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\Currency
      */
     public function getRecoveryAmount()
     {
@@ -244,7 +244,7 @@ class DebtRecoveryEvent implements ModelInterface, ArrayAccess
     /**
      * Sets recovery_amount.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Finances\Currency $recovery_amount recovery_amount
+     * @param \Clousale\AmazonSellingPartnerAPI\Models\Finances\Currency $recovery_amount recovery_amount
      *
      * @return $this
      */
@@ -258,7 +258,7 @@ class DebtRecoveryEvent implements ModelInterface, ArrayAccess
     /**
      * Gets over_payment_credit.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\Currency
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\Currency
      */
     public function getOverPaymentCredit()
     {
@@ -268,7 +268,7 @@ class DebtRecoveryEvent implements ModelInterface, ArrayAccess
     /**
      * Sets over_payment_credit.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Finances\Currency $over_payment_credit over_payment_credit
+     * @param \Clousale\AmazonSellingPartnerAPI\Models\Finances\Currency $over_payment_credit over_payment_credit
      *
      * @return $this
      */
@@ -282,7 +282,7 @@ class DebtRecoveryEvent implements ModelInterface, ArrayAccess
     /**
      * Gets debt_recovery_item_list.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\DebtRecoveryItemList
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\DebtRecoveryItemList
      */
     public function getDebtRecoveryItemList()
     {
@@ -292,7 +292,7 @@ class DebtRecoveryEvent implements ModelInterface, ArrayAccess
     /**
      * Sets debt_recovery_item_list.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Finances\DebtRecoveryItemList $debt_recovery_item_list debt_recovery_item_list
+     * @param \Clousale\AmazonSellingPartnerAPI\Models\Finances\DebtRecoveryItemList $debt_recovery_item_list debt_recovery_item_list
      *
      * @return $this
      */
@@ -306,7 +306,7 @@ class DebtRecoveryEvent implements ModelInterface, ArrayAccess
     /**
      * Gets charge_instrument_list.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\ChargeInstrumentList
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\ChargeInstrumentList
      */
     public function getChargeInstrumentList()
     {
@@ -316,7 +316,7 @@ class DebtRecoveryEvent implements ModelInterface, ArrayAccess
     /**
      * Sets charge_instrument_list.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Finances\ChargeInstrumentList $charge_instrument_list charge_instrument_list
+     * @param \Clousale\AmazonSellingPartnerAPI\Models\Finances\ChargeInstrumentList $charge_instrument_list charge_instrument_list
      *
      * @return $this
      */

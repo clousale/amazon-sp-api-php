@@ -216,7 +216,7 @@ class ProductAdsPaymentEvent implements ModelInterface, ArrayAccess
     /**
      * Gets posted_date.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\DateTime
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\DateTime
      */
     public function getPostedDate()
     {
@@ -226,7 +226,7 @@ class ProductAdsPaymentEvent implements ModelInterface, ArrayAccess
     /**
      * Sets posted_date.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Finances\DateTime $posted_date posted_date
+     * @param \Clousale\AmazonSellingPartnerAPI\Models\Finances\DateTime $posted_date posted_date
      *
      * @return $this
      */
@@ -288,7 +288,7 @@ class ProductAdsPaymentEvent implements ModelInterface, ArrayAccess
     /**
      * Gets base_value.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\Currency
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\Currency
      */
     public function getBaseValue()
     {
@@ -298,7 +298,7 @@ class ProductAdsPaymentEvent implements ModelInterface, ArrayAccess
     /**
      * Sets base_value.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Finances\Currency $base_value base_value
+     * @param \Clousale\AmazonSellingPartnerAPI\Models\Finances\Currency $base_value base_value
      *
      * @return $this
      */
@@ -312,7 +312,7 @@ class ProductAdsPaymentEvent implements ModelInterface, ArrayAccess
     /**
      * Gets tax_value.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\Currency
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\Currency
      */
     public function getTaxValue()
     {
@@ -322,7 +322,7 @@ class ProductAdsPaymentEvent implements ModelInterface, ArrayAccess
     /**
      * Sets tax_value.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Finances\Currency $tax_value tax_value
+     * @param \Clousale\AmazonSellingPartnerAPI\Models\Finances\Currency $tax_value tax_value
      *
      * @return $this
      */
@@ -336,7 +336,7 @@ class ProductAdsPaymentEvent implements ModelInterface, ArrayAccess
     /**
      * Gets transaction_value.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\Currency
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\Currency
      */
     public function getTransactionValue()
     {
@@ -346,7 +346,7 @@ class ProductAdsPaymentEvent implements ModelInterface, ArrayAccess
     /**
      * Sets transaction_value.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Finances\Currency $transaction_value transaction_value
+     * @param \Clousale\AmazonSellingPartnerAPI\Models\Finances\Currency $transaction_value transaction_value
      *
      * @return $this
      */

@@ -246,7 +246,7 @@ class AdjustmentItem implements ModelInterface, ArrayAccess
     /**
      * Gets per_unit_amount.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\Currency
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\Currency
      */
     public function getPerUnitAmount()
     {
@@ -256,7 +256,7 @@ class AdjustmentItem implements ModelInterface, ArrayAccess
     /**
      * Sets per_unit_amount.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Finances\Currency $per_unit_amount per_unit_amount
+     * @param \Clousale\AmazonSellingPartnerAPI\Models\Finances\Currency $per_unit_amount per_unit_amount
      *
      * @return $this
      */
@@ -270,7 +270,7 @@ class AdjustmentItem implements ModelInterface, ArrayAccess
     /**
      * Gets total_amount.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\Currency
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\Currency
      */
     public function getTotalAmount()
     {
@@ -280,7 +280,7 @@ class AdjustmentItem implements ModelInterface, ArrayAccess
     /**
      * Sets total_amount.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Finances\Currency $total_amount total_amount
+     * @param \Clousale\AmazonSellingPartnerAPI\Models\Finances\Currency $total_amount total_amount
      *
      * @return $this
      */
