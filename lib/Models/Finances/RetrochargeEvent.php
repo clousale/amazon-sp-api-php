@@ -270,7 +270,7 @@ class RetrochargeEvent implements ModelInterface, ArrayAccess
     /**
      * Gets posted_date.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\DateTime
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\DateTime
      */
     public function getPostedDate()
     {
@@ -280,7 +280,7 @@ class RetrochargeEvent implements ModelInterface, ArrayAccess
     /**
      * Sets posted_date.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Finances\DateTime $posted_date posted_date
+     * @param \Clousale\AmazonSellingPartnerAPI\Models\Finances\DateTime $posted_date posted_date
      *
      * @return $this
      */
@@ -294,7 +294,7 @@ class RetrochargeEvent implements ModelInterface, ArrayAccess
     /**
      * Gets base_tax.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\Currency
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\Currency
      */
     public function getBaseTax()
     {
@@ -304,7 +304,7 @@ class RetrochargeEvent implements ModelInterface, ArrayAccess
     /**
      * Sets base_tax.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Finances\Currency $base_tax base_tax
+     * @param \Clousale\AmazonSellingPartnerAPI\Models\Finances\Currency $base_tax base_tax
      *
      * @return $this
      */
@@ -318,7 +318,7 @@ class RetrochargeEvent implements ModelInterface, ArrayAccess
     /**
      * Gets shipping_tax.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\Currency
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\Currency
      */
     public function getShippingTax()
     {
@@ -328,7 +328,7 @@ class RetrochargeEvent implements ModelInterface, ArrayAccess
     /**
      * Sets shipping_tax.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Finances\Currency $shipping_tax shipping_tax
+     * @param \Clousale\AmazonSellingPartnerAPI\Models\Finances\Currency $shipping_tax shipping_tax
      *
      * @return $this
      */
@@ -366,7 +366,7 @@ class RetrochargeEvent implements ModelInterface, ArrayAccess
     /**
      * Gets retrocharge_tax_withheld_list.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\TaxWithheldComponentList
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\TaxWithheldComponentList
      */
     public function getRetrochargeTaxWithheldList()
     {
@@ -376,7 +376,7 @@ class RetrochargeEvent implements ModelInterface, ArrayAccess
     /**
      * Sets retrocharge_tax_withheld_list.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Finances\TaxWithheldComponentList $retrocharge_tax_withheld_list retrocharge_tax_withheld_list
+     * @param \Clousale\AmazonSellingPartnerAPI\Models\Finances\TaxWithheldComponentList $retrocharge_tax_withheld_list retrocharge_tax_withheld_list
      *
      * @return $this
      */

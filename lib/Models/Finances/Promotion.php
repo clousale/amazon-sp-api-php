@@ -246,7 +246,7 @@ class Promotion implements ModelInterface, ArrayAccess
     /**
      * Gets promotion_amount.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\Currency
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\Currency
      */
     public function getPromotionAmount()
     {
@@ -256,7 +256,7 @@ class Promotion implements ModelInterface, ArrayAccess
     /**
      * Sets promotion_amount.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Finances\Currency $promotion_amount promotion_amount
+     * @param \Clousale\AmazonSellingPartnerAPI\Models\Finances\Currency $promotion_amount promotion_amount
      *
      * @return $this
      */

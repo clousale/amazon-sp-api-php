@@ -192,7 +192,7 @@ class LoanServicingEvent implements ModelInterface, ArrayAccess
     /**
      * Gets loan_amount.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\Currency
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\Currency
      */
     public function getLoanAmount()
     {
@@ -202,7 +202,7 @@ class LoanServicingEvent implements ModelInterface, ArrayAccess
     /**
      * Sets loan_amount.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Finances\Currency $loan_amount loan_amount
+     * @param \Clousale\AmazonSellingPartnerAPI\Models\Finances\Currency $loan_amount loan_amount
      *
      * @return $this
      */

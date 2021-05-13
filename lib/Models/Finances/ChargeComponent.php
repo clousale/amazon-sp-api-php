@@ -216,7 +216,7 @@ class ChargeComponent implements ModelInterface, ArrayAccess
     /**
      * Gets charge_amount.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\Currency
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\Currency
      */
     public function getChargeAmount()
     {
@@ -226,7 +226,7 @@ class ChargeComponent implements ModelInterface, ArrayAccess
     /**
      * Sets charge_amount.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Finances\Currency $charge_amount charge_amount
+     * @param \Clousale\AmazonSellingPartnerAPI\Models\Finances\Currency $charge_amount charge_amount
      *
      * @return $this
      */

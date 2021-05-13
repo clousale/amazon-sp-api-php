@@ -18,8 +18,8 @@ namespace ClouSale\AmazonSellingPartnerAPI\Api;
 use ClouSale\AmazonSellingPartnerAPI\Configuration;
 use ClouSale\AmazonSellingPartnerAPI\HeaderSelector;
 use ClouSale\AmazonSellingPartnerAPI\Helpers\SellingPartnerApiRequest;
-use ClouSale\AmazonSellingPartnerAPI\Models\Finances\ListFinancialEventGroupsResponse;
-use ClouSale\AmazonSellingPartnerAPI\Models\Finances\ListFinancialEventsResponse;
+use Clousale\AmazonSellingPartnerAPI\Models\Finances\ListFinancialEventGroupsResponse;
+use Clousale\AmazonSellingPartnerAPI\Models\Finances\ListFinancialEventsResponse;
 use ClouSale\AmazonSellingPartnerAPI\ObjectSerializer;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
@@ -71,10 +71,10 @@ class FinancesApi
      * @param \DateTime $financial_event_group_started_after  A date used for selecting financial event groups that opened after (or at) a specified date and time, in ISO 8601 format. The date-time must be no later than two minutes before the request was submitted. (optional)
      * @param string    $next_token                           A string token returned in the response of your previous request. (optional)
      *
-     * @throws \InvalidArgumentException
-     * @throws \ClouSale\AmazonSellingPartnerAPI\ApiException on non-2xx response
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\ListFinancialEventGroupsResponse
+     *@throws \ClouSale\AmazonSellingPartnerAPI\ApiException on non-2xx response
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\ListFinancialEventGroupsResponse
+     * @throws \InvalidArgumentException
      */
     public function listFinancialEventGroups($max_results_per_page = '100', $financial_event_group_started_before = null, $financial_event_group_started_after = null, $next_token = null)
     {
@@ -194,10 +194,10 @@ class FinancesApi
      * @param \DateTime $posted_before        A date used for selecting financial events posted before (but not at) a specified time. The date-time must be later than PostedAfter and no later than two minutes before the request was submitted, in ISO 8601 date time format. If PostedAfter and PostedBefore are more than 180 days apart, no financial events are returned. You must specify the PostedAfter parameter if you specify the PostedBefore parameter. Default: Now minus two minutes. (optional)
      * @param string    $next_token           A string token returned in the response of your previous request. (optional)
      *
-     * @throws \InvalidArgumentException
-     * @throws \ClouSale\AmazonSellingPartnerAPI\ApiException on non-2xx response
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\ListFinancialEventsResponse
+     *@throws \ClouSale\AmazonSellingPartnerAPI\ApiException on non-2xx response
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\ListFinancialEventsResponse
+     * @throws \InvalidArgumentException
      */
     public function listFinancialEvents($max_results_per_page = '100', $posted_after = null, $posted_before = null, $next_token = null)
     {
@@ -315,10 +315,10 @@ class FinancesApi
      * @param int    $max_results_per_page The maximum number of results to return per page. (optional, default to 100)
      * @param string $next_token           A string token returned in the response of your previous request. (optional)
      *
-     * @throws \InvalidArgumentException
-     * @throws \ClouSale\AmazonSellingPartnerAPI\ApiException on non-2xx response
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\ListFinancialEventsResponse
+     *@throws \ClouSale\AmazonSellingPartnerAPI\ApiException on non-2xx response
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\ListFinancialEventsResponse
+     * @throws \InvalidArgumentException
      */
     public function listFinancialEventsByGroupId($event_group_id, $max_results_per_page = '100', $next_token = null)
     {
@@ -438,10 +438,10 @@ class FinancesApi
      * @param int    $max_results_per_page The maximum number of results to return per page. (optional, default to 100)
      * @param string $next_token           A string token returned in the response of your previous request. (optional)
      *
-     * @throws \InvalidArgumentException
-     * @throws \ClouSale\AmazonSellingPartnerAPI\ApiException on non-2xx response
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\ListFinancialEventsResponse
+     *@throws \ClouSale\AmazonSellingPartnerAPI\ApiException on non-2xx response
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\ListFinancialEventsResponse
+     * @throws \InvalidArgumentException
      */
     public function listFinancialEventsByOrderId($order_id, $max_results_per_page = '100', $next_token = null)
     {

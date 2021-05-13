@@ -216,7 +216,7 @@ class ListFinancialEventGroupsPayload implements ModelInterface, ArrayAccess
     /**
      * Gets financial_event_group_list.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\FinancialEventGroupList
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\FinancialEventGroupList
      */
     public function getFinancialEventGroupList()
     {
@@ -226,7 +226,7 @@ class ListFinancialEventGroupsPayload implements ModelInterface, ArrayAccess
     /**
      * Sets financial_event_group_list.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Finances\FinancialEventGroupList $financial_event_group_list financial_event_group_list
+     * @param \Clousale\AmazonSellingPartnerAPI\Models\Finances\FinancialEventGroupList $financial_event_group_list financial_event_group_list
      *
      * @return $this
      */

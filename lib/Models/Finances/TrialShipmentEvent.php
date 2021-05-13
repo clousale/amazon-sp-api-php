@@ -258,7 +258,7 @@ class TrialShipmentEvent implements ModelInterface, ArrayAccess
     /**
      * Gets posted_date.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\DateTime
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\DateTime
      */
     public function getPostedDate()
     {
@@ -268,7 +268,7 @@ class TrialShipmentEvent implements ModelInterface, ArrayAccess
     /**
      * Sets posted_date.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Finances\DateTime $posted_date posted_date
+     * @param \Clousale\AmazonSellingPartnerAPI\Models\Finances\DateTime $posted_date posted_date
      *
      * @return $this
      */
@@ -306,7 +306,7 @@ class TrialShipmentEvent implements ModelInterface, ArrayAccess
     /**
      * Gets fee_list.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\FeeComponentList
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\FeeComponentList
      */
     public function getFeeList()
     {
@@ -316,7 +316,7 @@ class TrialShipmentEvent implements ModelInterface, ArrayAccess
     /**
      * Sets fee_list.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Finances\FeeComponentList $fee_list fee_list
+     * @param \Clousale\AmazonSellingPartnerAPI\Models\Finances\FeeComponentList $fee_list fee_list
      *
      * @return $this
      */

@@ -268,7 +268,7 @@ class AffordabilityExpenseEvent implements ModelInterface, ArrayAccess
     /**
      * Gets posted_date.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\DateTime
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\DateTime
      */
     public function getPostedDate()
     {
@@ -278,7 +278,7 @@ class AffordabilityExpenseEvent implements ModelInterface, ArrayAccess
     /**
      * Sets posted_date.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Finances\DateTime $posted_date posted_date
+     * @param \Clousale\AmazonSellingPartnerAPI\Models\Finances\DateTime $posted_date posted_date
      *
      * @return $this
      */
@@ -340,7 +340,7 @@ class AffordabilityExpenseEvent implements ModelInterface, ArrayAccess
     /**
      * Gets base_expense.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\Currency
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\Currency
      */
     public function getBaseExpense()
     {
@@ -350,7 +350,7 @@ class AffordabilityExpenseEvent implements ModelInterface, ArrayAccess
     /**
      * Sets base_expense.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Finances\Currency $base_expense base_expense
+     * @param \Clousale\AmazonSellingPartnerAPI\Models\Finances\Currency $base_expense base_expense
      *
      * @return $this
      */
@@ -364,7 +364,7 @@ class AffordabilityExpenseEvent implements ModelInterface, ArrayAccess
     /**
      * Gets tax_type_cgst.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\Currency
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\Currency
      */
     public function getTaxTypeCgst()
     {
@@ -374,7 +374,7 @@ class AffordabilityExpenseEvent implements ModelInterface, ArrayAccess
     /**
      * Sets tax_type_cgst.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Finances\Currency $tax_type_cgst tax_type_cgst
+     * @param \Clousale\AmazonSellingPartnerAPI\Models\Finances\Currency $tax_type_cgst tax_type_cgst
      *
      * @return $this
      */
@@ -388,7 +388,7 @@ class AffordabilityExpenseEvent implements ModelInterface, ArrayAccess
     /**
      * Gets tax_type_sgst.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\Currency
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\Currency
      */
     public function getTaxTypeSgst()
     {
@@ -398,7 +398,7 @@ class AffordabilityExpenseEvent implements ModelInterface, ArrayAccess
     /**
      * Sets tax_type_sgst.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Finances\Currency $tax_type_sgst tax_type_sgst
+     * @param \Clousale\AmazonSellingPartnerAPI\Models\Finances\Currency $tax_type_sgst tax_type_sgst
      *
      * @return $this
      */
@@ -412,7 +412,7 @@ class AffordabilityExpenseEvent implements ModelInterface, ArrayAccess
     /**
      * Gets tax_type_igst.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\Currency
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\Currency
      */
     public function getTaxTypeIgst()
     {
@@ -422,7 +422,7 @@ class AffordabilityExpenseEvent implements ModelInterface, ArrayAccess
     /**
      * Sets tax_type_igst.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Finances\Currency $tax_type_igst tax_type_igst
+     * @param \Clousale\AmazonSellingPartnerAPI\Models\Finances\Currency $tax_type_igst tax_type_igst
      *
      * @return $this
      */
@@ -436,7 +436,7 @@ class AffordabilityExpenseEvent implements ModelInterface, ArrayAccess
     /**
      * Gets total_expense.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\Currency
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\Currency
      */
     public function getTotalExpense()
     {
@@ -446,7 +446,7 @@ class AffordabilityExpenseEvent implements ModelInterface, ArrayAccess
     /**
      * Sets total_expense.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Finances\Currency $total_expense total_expense
+     * @param \Clousale\AmazonSellingPartnerAPI\Models\Finances\Currency $total_expense total_expense
      *
      * @return $this
      */

@@ -252,7 +252,7 @@ class NetworkComminglingTransactionEvent implements ModelInterface, ArrayAccess
     /**
      * Gets posted_date.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\DateTime
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\DateTime
      */
     public function getPostedDate()
     {
@@ -262,7 +262,7 @@ class NetworkComminglingTransactionEvent implements ModelInterface, ArrayAccess
     /**
      * Sets posted_date.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Finances\DateTime $posted_date posted_date
+     * @param \Clousale\AmazonSellingPartnerAPI\Models\Finances\DateTime $posted_date posted_date
      *
      * @return $this
      */
@@ -372,7 +372,7 @@ class NetworkComminglingTransactionEvent implements ModelInterface, ArrayAccess
     /**
      * Gets tax_exclusive_amount.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\Currency
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\Currency
      */
     public function getTaxExclusiveAmount()
     {
@@ -382,7 +382,7 @@ class NetworkComminglingTransactionEvent implements ModelInterface, ArrayAccess
     /**
      * Sets tax_exclusive_amount.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Finances\Currency $tax_exclusive_amount tax_exclusive_amount
+     * @param \Clousale\AmazonSellingPartnerAPI\Models\Finances\Currency $tax_exclusive_amount tax_exclusive_amount
      *
      * @return $this
      */
@@ -396,7 +396,7 @@ class NetworkComminglingTransactionEvent implements ModelInterface, ArrayAccess
     /**
      * Gets tax_amount.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\Currency
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\Currency
      */
     public function getTaxAmount()
     {
@@ -406,7 +406,7 @@ class NetworkComminglingTransactionEvent implements ModelInterface, ArrayAccess
     /**
      * Sets tax_amount.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Finances\Currency $tax_amount tax_amount
+     * @param \Clousale\AmazonSellingPartnerAPI\Models\Finances\Currency $tax_amount tax_amount
      *
      * @return $this
      */

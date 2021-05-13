@@ -204,7 +204,7 @@ class RemovalShipmentEvent implements ModelInterface, ArrayAccess
     /**
      * Gets posted_date.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\DateTime
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\DateTime
      */
     public function getPostedDate()
     {
@@ -214,7 +214,7 @@ class RemovalShipmentEvent implements ModelInterface, ArrayAccess
     /**
      * Sets posted_date.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Finances\DateTime $posted_date posted_date
+     * @param \Clousale\AmazonSellingPartnerAPI\Models\Finances\DateTime $posted_date posted_date
      *
      * @return $this
      */
@@ -276,7 +276,7 @@ class RemovalShipmentEvent implements ModelInterface, ArrayAccess
     /**
      * Gets removal_shipment_item_list.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\RemovalShipmentItemList
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\RemovalShipmentItemList
      */
     public function getRemovalShipmentItemList()
     {
@@ -286,7 +286,7 @@ class RemovalShipmentEvent implements ModelInterface, ArrayAccess
     /**
      * Sets removal_shipment_item_list.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Finances\RemovalShipmentItemList $removal_shipment_item_list removal_shipment_item_list
+     * @param \Clousale\AmazonSellingPartnerAPI\Models\Finances\RemovalShipmentItemList $removal_shipment_item_list removal_shipment_item_list
      *
      * @return $this
      */

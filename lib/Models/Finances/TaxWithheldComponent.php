@@ -216,7 +216,7 @@ class TaxWithheldComponent implements ModelInterface, ArrayAccess
     /**
      * Gets taxes_withheld.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\ChargeComponentList
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\ChargeComponentList
      */
     public function getTaxesWithheld()
     {
@@ -226,7 +226,7 @@ class TaxWithheldComponent implements ModelInterface, ArrayAccess
     /**
      * Sets taxes_withheld.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Finances\ChargeComponentList $taxes_withheld taxes_withheld
+     * @param \Clousale\AmazonSellingPartnerAPI\Models\Finances\ChargeComponentList $taxes_withheld taxes_withheld
      *
      * @return $this
      */

@@ -228,7 +228,7 @@ class CouponPaymentEvent implements ModelInterface, ArrayAccess
     /**
      * Gets posted_date.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\DateTime
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\DateTime
      */
     public function getPostedDate()
     {
@@ -238,7 +238,7 @@ class CouponPaymentEvent implements ModelInterface, ArrayAccess
     /**
      * Sets posted_date.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Finances\DateTime $posted_date posted_date
+     * @param \Clousale\AmazonSellingPartnerAPI\Models\Finances\DateTime $posted_date posted_date
      *
      * @return $this
      */
@@ -348,7 +348,7 @@ class CouponPaymentEvent implements ModelInterface, ArrayAccess
     /**
      * Gets fee_component.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\FeeComponent
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\FeeComponent
      */
     public function getFeeComponent()
     {
@@ -358,7 +358,7 @@ class CouponPaymentEvent implements ModelInterface, ArrayAccess
     /**
      * Sets fee_component.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Finances\FeeComponent $fee_component fee_component
+     * @param \Clousale\AmazonSellingPartnerAPI\Models\Finances\FeeComponent $fee_component fee_component
      *
      * @return $this
      */
@@ -372,7 +372,7 @@ class CouponPaymentEvent implements ModelInterface, ArrayAccess
     /**
      * Gets charge_component.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\ChargeComponent
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\ChargeComponent
      */
     public function getChargeComponent()
     {
@@ -382,7 +382,7 @@ class CouponPaymentEvent implements ModelInterface, ArrayAccess
     /**
      * Sets charge_component.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Finances\ChargeComponent $charge_component charge_component
+     * @param \Clousale\AmazonSellingPartnerAPI\Models\Finances\ChargeComponent $charge_component charge_component
      *
      * @return $this
      */
@@ -396,7 +396,7 @@ class CouponPaymentEvent implements ModelInterface, ArrayAccess
     /**
      * Gets total_amount.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\Currency
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\Currency
      */
     public function getTotalAmount()
     {
@@ -406,7 +406,7 @@ class CouponPaymentEvent implements ModelInterface, ArrayAccess
     /**
      * Sets total_amount.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Finances\Currency $total_amount total_amount
+     * @param \Clousale\AmazonSellingPartnerAPI\Models\Finances\Currency $total_amount total_amount
      *
      * @return $this
      */

@@ -216,7 +216,7 @@ class FeeComponent implements ModelInterface, ArrayAccess
     /**
      * Gets fee_amount.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\Currency
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\Currency
      */
     public function getFeeAmount()
     {
@@ -226,7 +226,7 @@ class FeeComponent implements ModelInterface, ArrayAccess
     /**
      * Sets fee_amount.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Finances\Currency $fee_amount fee_amount
+     * @param \Clousale\AmazonSellingPartnerAPI\Models\Finances\Currency $fee_amount fee_amount
      *
      * @return $this
      */

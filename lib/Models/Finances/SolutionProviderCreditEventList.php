@@ -167,7 +167,7 @@ class SolutionProviderCreditEventList implements ModelInterface, ArrayAccess, It
      */
     public function listInvalidProperties()
     {
-        $invalidProperties = parent::listInvalidProperties();
+        $invalidProperties = [];
 
         return $invalidProperties;
     }

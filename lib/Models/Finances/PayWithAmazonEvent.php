@@ -264,7 +264,7 @@ class PayWithAmazonEvent implements ModelInterface, ArrayAccess
     /**
      * Gets transaction_posted_date.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\DateTime
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\DateTime
      */
     public function getTransactionPostedDate()
     {
@@ -274,7 +274,7 @@ class PayWithAmazonEvent implements ModelInterface, ArrayAccess
     /**
      * Sets transaction_posted_date.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Finances\DateTime $transaction_posted_date transaction_posted_date
+     * @param \Clousale\AmazonSellingPartnerAPI\Models\Finances\DateTime $transaction_posted_date transaction_posted_date
      *
      * @return $this
      */
@@ -336,7 +336,7 @@ class PayWithAmazonEvent implements ModelInterface, ArrayAccess
     /**
      * Gets charge.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\ChargeComponent
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\ChargeComponent
      */
     public function getCharge()
     {
@@ -346,7 +346,7 @@ class PayWithAmazonEvent implements ModelInterface, ArrayAccess
     /**
      * Sets charge.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Finances\ChargeComponent $charge charge
+     * @param \Clousale\AmazonSellingPartnerAPI\Models\Finances\ChargeComponent $charge charge
      *
      * @return $this
      */
@@ -360,7 +360,7 @@ class PayWithAmazonEvent implements ModelInterface, ArrayAccess
     /**
      * Gets fee_list.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Finances\FeeComponentList
+     * @return \Clousale\AmazonSellingPartnerAPI\Models\Finances\FeeComponentList
      */
     public function getFeeList()
     {
@@ -370,7 +370,7 @@ class PayWithAmazonEvent implements ModelInterface, ArrayAccess
     /**
      * Sets fee_list.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Finances\FeeComponentList $fee_list fee_list
+     * @param \Clousale\AmazonSellingPartnerAPI\Models\Finances\FeeComponentList $fee_list fee_list
      *
      * @return $this
      */
