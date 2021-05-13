@@ -1,5 +1,5 @@
 {
-    "name": "clousale/amazon-sp-api-php",
+    "name": "vovarpd/amazon-sp-api-php",
     "description": "",
     "keywords": [
         "api",
@@ -30,7 +30,7 @@
         "friendsofphp/php-cs-fixer": "v2.17.3"
     },
     "autoload": {
-        "psr-4": { "ClouSale\\AmazonSellingPartnerAPI\\" : "lib/" }
+        "psr-4": { "Clousale\\AmazonSellingPartnerAPI\\" : "lib/" }
     },
     "autoload-dev": {
         "psr-4": { "ClouSale\\AmazonSellingPartnerAPI\\" : "test/" }
