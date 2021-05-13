@@ -30,7 +30,7 @@
         "friendsofphp/php-cs-fixer": "v2.17.3"
     },
     "autoload": {
-        "psr-4": { "Clousale\\AmazonSellingPartnerAPI\\" : "lib/" }
+        "psr-4": { "ClouSale\\AmazonSellingPartnerAPI\\" : "lib/" }
     },
     "autoload-dev": {
         "psr-4": { "ClouSale\\AmazonSellingPartnerAPI\\" : "test/" }
