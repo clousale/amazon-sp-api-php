@@ -98,7 +98,7 @@ trait SellingPartnerApiRequest
     /**
      * @throws ApiException
      */
-    private function sendRequest(Request $request, string $returnType): array
+    private function sendRequest(Request $request, string $returnType, bool $serialize = true): array
     {
         try {
             $options = $this->createHttpClientOption();
@@ -126,7 +126,7 @@ trait SellingPartnerApiRequest
 //            exit();
 
             return [
-                ObjectSerializer::deserialize($content, $returnType, []),
+                $serialize ? ObjectSerializer::deserialize($content, $returnType, []) : $content,
                 $response->getStatusCode(),
                 $response->getHeaders(),
             ];

@@ -506,7 +506,7 @@ class ProductPricingApi
     {
         $request = $this->getPricingRequest($marketplace_id, $item_type, $asins, $skus, $item_condition);
 
-        return $this->sendRequest($request, GetPricingResponse::class);
+        return $this->sendRequest($request, GetPricingResponse::class, false);
     }
 
     /**
