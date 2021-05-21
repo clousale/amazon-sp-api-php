@@ -46,7 +46,8 @@ class RelationshipType extends Categories implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $swaggerTypes = [
-        'color' => 'string',
+        'identifiers' => '\ClouSale\AmazonSellingPartnerAPI\Models\Catalog\IdentifierType',
+'color' => 'string',
 'edition' => 'string',
 'flavor' => 'string',
 'gem_type' => 'string[]',
@@ -75,7 +76,8 @@ class RelationshipType extends Categories implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $swaggerFormats = [
-        'color' => null,
+        'identifiers' => null,
+'color' => null,
 'edition' => null,
 'flavor' => null,
 'gem_type' => null,
@@ -125,7 +127,8 @@ class RelationshipType extends Categories implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'color' => 'Color',
+        'identifiers' => 'Identifiers',
+'color' => 'Color',
 'edition' => 'Edition',
 'flavor' => 'Flavor',
 'gem_type' => 'GemType',
@@ -154,7 +157,8 @@ class RelationshipType extends Categories implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'color' => 'setColor',
+        'identifiers' => 'setIdentifiers',
+'color' => 'setColor',
 'edition' => 'setEdition',
 'flavor' => 'setFlavor',
 'gem_type' => 'setGemType',
@@ -183,7 +187,8 @@ class RelationshipType extends Categories implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'color' => 'getColor',
+        'identifiers' => 'getIdentifiers',
+'color' => 'getColor',
 'edition' => 'getEdition',
 'flavor' => 'getFlavor',
 'gem_type' => 'getGemType',
@@ -262,6 +267,7 @@ class RelationshipType extends Categories implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
+        $this->container['identifiers'] = isset($data['identifiers']) ? $data['identifiers'] : null;
         $this->container['color'] = isset($data['color']) ? $data['color'] : null;
         $this->container['edition'] = isset($data['edition']) ? $data['edition'] : null;
         $this->container['flavor'] = isset($data['flavor']) ? $data['flavor'] : null;
@@ -307,6 +313,30 @@ class RelationshipType extends Categories implements ModelInterface, ArrayAccess
     public function valid()
     {
         return 0 === count($this->listInvalidProperties());
+    }
+
+    /**
+     * Gets identifiers.
+     *
+     * @return \ClouSale\AmazonSellingPartnerAPI\Models\Catalog\IdentifierType
+     */
+    public function getIdentifiers()
+    {
+        return $this->container['identifiers'];
+    }
+
+    /**
+     * Sets identifiers.
+     *
+     * @param \ClouSale\AmazonSellingPartnerAPI\Models\Catalog\IdentifierType $identifiers the identifiers of the variation item
+     *
+     * @return $this
+     */
+    public function setIdentifiers($identifiers)
+    {
+        $this->container['identifiers'] = $identifiers;
+
+        return $this;
     }
 
     /**
