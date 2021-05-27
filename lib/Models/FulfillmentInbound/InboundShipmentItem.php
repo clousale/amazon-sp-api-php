@@ -49,9 +49,9 @@ class InboundShipmentItem implements ModelInterface, ArrayAccess
         'shipment_id' => 'string',
 'seller_sku' => 'string',
 'fulfillment_network_sku' => 'string',
-'quantity_shipped' => '\ClouSale\AmazonSellingPartnerAPI\Models\FulfillmentInbound\Quantity',
-'quantity_received' => '\ClouSale\AmazonSellingPartnerAPI\Models\FulfillmentInbound\Quantity',
-'quantity_in_case' => '\ClouSale\AmazonSellingPartnerAPI\Models\FulfillmentInbound\Quantity',
+'quantity_shipped' => 'int',
+'quantity_received' => 'int',
+'quantity_in_case' => 'int',
 'release_date' => '\ClouSale\AmazonSellingPartnerAPI\Models\FulfillmentInbound\DateStringType',
 'prep_details_list' => '\ClouSale\AmazonSellingPartnerAPI\Models\FulfillmentInbound\PrepDetailsList',    ];
 
@@ -64,9 +64,9 @@ class InboundShipmentItem implements ModelInterface, ArrayAccess
         'shipment_id' => null,
 'seller_sku' => null,
 'fulfillment_network_sku' => null,
-'quantity_shipped' => null,
-'quantity_received' => null,
-'quantity_in_case' => null,
+'quantity_shipped' => 'int32',
+'quantity_received' => 'int32',
+'quantity_in_case' => 'int32',
 'release_date' => null,
 'prep_details_list' => null,    ];
 
@@ -307,7 +307,7 @@ class InboundShipmentItem implements ModelInterface, ArrayAccess
     /**
      * Gets quantity_shipped.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\FulfillmentInbound\Quantity
+     * @return int
      */
     public function getQuantityShipped()
     {
@@ -317,7 +317,7 @@ class InboundShipmentItem implements ModelInterface, ArrayAccess
     /**
      * Sets quantity_shipped.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\FulfillmentInbound\Quantity $quantity_shipped quantity_shipped
+     * @param int $quantity_shipped quantity_shipped
      *
      * @return $this
      */
@@ -331,7 +331,7 @@ class InboundShipmentItem implements ModelInterface, ArrayAccess
     /**
      * Gets quantity_received.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\FulfillmentInbound\Quantity
+     * @return int
      */
     public function getQuantityReceived()
     {
@@ -341,7 +341,7 @@ class InboundShipmentItem implements ModelInterface, ArrayAccess
     /**
      * Sets quantity_received.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\FulfillmentInbound\Quantity $quantity_received quantity_received
+     * @param int $quantity_received quantity_received
      *
      * @return $this
      */
@@ -355,7 +355,7 @@ class InboundShipmentItem implements ModelInterface, ArrayAccess
     /**
      * Gets quantity_in_case.
      *
-     * @return \ClouSale\AmazonSellingPartnerAPI\Models\FulfillmentInbound\Quantity
+     * @return int
      */
     public function getQuantityInCase()
     {
@@ -365,7 +365,7 @@ class InboundShipmentItem implements ModelInterface, ArrayAccess
     /**
      * Sets quantity_in_case.
      *
-     * @param \ClouSale\AmazonSellingPartnerAPI\Models\FulfillmentInbound\Quantity $quantity_in_case quantity_in_case
+     * @param int $quantity_in_case quantity_in_case
      *
      * @return $this
      */
