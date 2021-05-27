@@ -49,9 +49,9 @@ class InboundShipmentItem implements ModelInterface, ArrayAccess
         'shipment_id' => 'string',
 'seller_sku' => 'string',
 'fulfillment_network_sku' => 'string',
-'quantity_shipped' => '\ClouSale\AmazonSellingPartnerAPI\Models\FulfillmentInbound\Quantity',
-'quantity_received' => '\ClouSale\AmazonSellingPartnerAPI\Models\FulfillmentInbound\Quantity',
-'quantity_in_case' => '\ClouSale\AmazonSellingPartnerAPI\Models\FulfillmentInbound\Quantity',
+        'quantity_shipped' => 'int',
+        'quantity_received' => 'int',
+        'quantity_in_case' => 'int',
 'release_date' => '\ClouSale\AmazonSellingPartnerAPI\Models\FulfillmentInbound\DateStringType',
 'prep_details_list' => '\ClouSale\AmazonSellingPartnerAPI\Models\FulfillmentInbound\PrepDetailsList',    ];
 
@@ -64,9 +64,9 @@ class InboundShipmentItem implements ModelInterface, ArrayAccess
         'shipment_id' => null,
 'seller_sku' => null,
 'fulfillment_network_sku' => null,
-'quantity_shipped' => null,
-'quantity_received' => null,
-'quantity_in_case' => null,
+        'quantity_shipped' => 'int32',
+        'quantity_received' => 'int32',
+        'quantity_in_case' => 'int32',
 'release_date' => null,
 'prep_details_list' => null,    ];
 
