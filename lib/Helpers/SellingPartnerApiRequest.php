@@ -86,7 +86,6 @@ trait SellingPartnerApiRequest
             $headers,
             $amazonHeader
         );
-
         return new Request(
             $method,
             $this->config->getHost().$resourcePath.($query ? "?{$query}" : ''),
