@@ -72,20 +72,23 @@ trait SellingPartnerApiRequest
                 $httpBody = Query::build($formParams);
             }
         }
-        $query = Query::build($queryParams);
+
         $amazonHeader = Signature::calculateSignature(
             $this->config,
             str_replace('https://', '', $this->config->getHost()),
             $method,
             $resourcePath,
-            $query,
+            Query::build($queryParams),
             (string) $httpBody,
         );
+
         $headers = array_merge(
             $headerParams,
             $headers,
             $amazonHeader
         );
+
+        $query = Query::build($queryParams, false);
 
         return new Request(
             $method,
