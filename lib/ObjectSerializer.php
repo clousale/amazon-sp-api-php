@@ -311,7 +311,7 @@ class ObjectSerializer
                     $instance->$propertySetter(self::deserialize($propertyValue, $type, null));
                 }
             }
-
+            
             return $instance;
         }
     }

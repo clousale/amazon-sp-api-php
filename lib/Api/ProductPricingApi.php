@@ -595,6 +595,7 @@ class ProductPricingApi
         if (null !== $asins) {
             $queryParams['Asins'] = ObjectSerializer::toQueryValue($asins);
         }
+
         // query params
         if (is_array($skus)) {
             $skus = ObjectSerializer::serializeCollection($skus, 'csv', true);
