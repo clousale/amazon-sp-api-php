@@ -15,7 +15,7 @@ class SellingPartnerOAuth
      *
      * @throws GuzzleException
      */
-    public static function getAccessTokenFromRefreshToken($refreshToken, $clientId, $clientSecret): ?string
+    public static function getAccessTokenFromRefreshToken($refreshToken, $clientId, $clientSecret)
     {
         $client = new Client();
         $params = [
@@ -36,6 +36,9 @@ class SellingPartnerOAuth
 
         $body = $response->getBody()->getContents();
         $bodyAsJson = json_decode($body, true);
+        if (isset($bodyAsJson['error_description'])) {
+            throw new SellingPartnerOAuthException($bodyAsJson['error_description']);
+        }
 
         return $bodyAsJson['access_token'];
     }
