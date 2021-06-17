@@ -168,7 +168,7 @@ class OrdersApi
                 $resourcePath
             );
         }
-
+        
         return $this->generateRequest($multipart, $formParams, $queryParams, $resourcePath, $headerParams, 'GET', $httpBody);
     }
 

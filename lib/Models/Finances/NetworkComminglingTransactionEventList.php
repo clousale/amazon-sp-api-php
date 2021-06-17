@@ -167,7 +167,7 @@ class NetworkComminglingTransactionEventList implements ModelInterface, ArrayAcc
      */
     public function listInvalidProperties()
     {
-        $invalidProperties = parent::listInvalidProperties();
+        $invalidProperties =[];
 
         return $invalidProperties;
     }

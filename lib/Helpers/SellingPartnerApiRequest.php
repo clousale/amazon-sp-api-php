@@ -86,7 +86,6 @@ trait SellingPartnerApiRequest
             $headers,
             $amazonHeader
         );
-
         return new Request(
             $method,
             $this->config->getHost().$resourcePath.($query ? "?{$query}" : ''),
@@ -122,9 +121,7 @@ trait SellingPartnerApiRequest
                     $content = json_decode($content);
                 }
             }
-//            var_dump($content);
-//            exit();
-
+            
             return [
                 ObjectSerializer::deserialize($content, $returnType, []),
                 $response->getStatusCode(),

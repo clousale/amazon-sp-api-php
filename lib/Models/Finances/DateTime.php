@@ -1,6 +1,6 @@
 <?php
 /**
- * PromotionIdList.
+ * Date.
  *
  * PHP version 5
  *
@@ -8,28 +8,25 @@
  */
 
 /**
- * Selling Partner API for Orders.
+ * Selling Partner API for Finances.
  *
- * The Selling Partner API for Orders helps you programmatically retrieve order information. These APIs let you develop fast, flexible, custom applications in areas like order synchronization, order research, and demand-based decision support tools.
+ * The Selling Partner API for Finances helps you obtain financial information relevant to a seller's business. You can obtain financial events for a given order, financial event group, or date range without having to wait until a statement period closes. You can also obtain financial event groups for a given date range.
  *
  * OpenAPI spec version: v0
  */
 
-namespace ClouSale\AmazonSellingPartnerAPI\Models\Orders;
+namespace ClouSale\AmazonSellingPartnerAPI\Models\Finances;
 
 use ArrayAccess;
 use ClouSale\AmazonSellingPartnerAPI\Models\ModelInterface;
 use ClouSale\AmazonSellingPartnerAPI\ObjectSerializer;
 
 /**
- * PromotionIdList Class Doc Comment.
- *
-
- * @description A list of promotion identifiers provided by the seller when the promotions were created.
+ * Date Class Doc Comment.
  *
  * @author   Stefan Neuhaus / ClouSale
  */
-class PromotionIdList implements ModelInterface, ArrayAccess
+class DateTime implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -38,7 +35,7 @@ class PromotionIdList implements ModelInterface, ArrayAccess
      *
      * @var string
      */
-    protected static $swaggerModelName = 'PromotionIdList';
+    protected static $swaggerModelName = 'Date';
 
     /**
      * Array of property to type mappings. Used for (de)serialization.
