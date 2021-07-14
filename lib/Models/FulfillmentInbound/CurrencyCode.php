@@ -20,7 +20,6 @@ namespace ClouSale\AmazonSellingPartnerAPI\Models\FulfillmentInbound;
 /**
  * CurrencyCode Class Doc Comment.
  *
-
  * @description The currency code.
  *
  * @author   Stefan Neuhaus / ClouSale
@@ -32,6 +31,7 @@ class CurrencyCode
      */
     const USD = 'USD';
     const GBP = 'GBP';
+    const JPY = 'JPY';
 
     /**
      * Gets allowable values of the enum.
@@ -42,6 +42,8 @@ class CurrencyCode
     {
         return [
             self::USD,
-self::GBP,        ];
+            self::GBP,
+            self::JPY
+        ];
     }
 }
