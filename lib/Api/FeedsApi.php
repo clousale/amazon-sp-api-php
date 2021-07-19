@@ -822,4 +822,55 @@ class FeedsApi
         $json = json_encode($xml);
         return json_decode($json, TRUE);
     }
+
+    /**
+     * @param $payload : Response from createFeedDocument Function. e.g.: response['payload']
+     * @param $contentType : Content type used during createFeedDocument function call.
+     * @param $xml : XML feed.
+     * @return string
+     * @throws \Exception
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function uploadFeed($payload, $contentType, $xml)
+    {
+        $encryptionDetails = $payload->getEncryptionDetails();
+        $feedUploadUrl = $payload->getUrl();
+
+        $key = $encryptionDetails->getKey();
+        $initializationVector = $encryptionDetails->getInitializationVector();
+
+        // base64 decode before using in encryption
+        $initializationVector = base64_decode($initializationVector, true);
+        $key = base64_decode($key, true);
+
+        // utf8 !
+        $file = utf8_encode($xml);
+
+        // encrypt string and get value as base64 encoded string
+        $encryptedFile = AESCryptoStream::encrypt($file, $key, $initializationVector);
+
+        // my http client
+        $client = new Client(['exceptions' => false]);
+
+        $request = new Request(
+            // PUT!
+            'PUT',
+            // predefined url
+            $feedUploadUrl,
+            // content type equal to content type from response createFeedDocument-operation
+            array('Content-Type' => $contentType),
+            // resource File
+            $encryptedFile
+        );
+
+        $response = $client->send($request);
+        $HTTPStatusCode = $response->getStatusCode();
+
+        if ($HTTPStatusCode == 200) {
+            return 'Done';
+        } else {
+            return $response->getBody()->getContents();
+        }
+    }
+
 }
