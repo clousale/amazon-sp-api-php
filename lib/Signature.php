@@ -73,6 +73,11 @@ class Signature
         $amzdate = gmdate('Ymd\THis\Z');
         $date = substr($amzdate, 0, 8);
 
+        // Normalize uri parts for order number which contains special chars (fba/outbound/2020-07-01/fulfillmentOrders)
+        $uri = implode('/', array_map(function ($chunk) {
+            return urlencode($chunk);
+        }, explode('/', $uri)));
+        
         // Prepare payload
         if (is_array($data)) {
             $param = json_encode($data);
