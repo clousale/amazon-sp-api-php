@@ -167,9 +167,7 @@ class CreateProductReviewAndSellerFeedbackSolicitationResponse implements ModelI
      */
     public function listInvalidProperties()
     {
-        $invalidProperties = [];
-
-        return $invalidProperties;
+        return [];
     }
 
     /**

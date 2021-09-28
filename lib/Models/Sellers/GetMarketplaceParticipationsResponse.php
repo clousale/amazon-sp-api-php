@@ -173,9 +173,7 @@ class GetMarketplaceParticipationsResponse implements ModelInterface, ArrayAcces
      */
     public function listInvalidProperties()
     {
-        $invalidProperties = [];
-
-        return $invalidProperties;
+        return [];
     }
 
     /**

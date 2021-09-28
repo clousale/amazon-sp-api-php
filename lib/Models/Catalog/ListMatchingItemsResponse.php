@@ -164,9 +164,7 @@ class ListMatchingItemsResponse extends Categories implements ModelInterface, Ar
      */
     public function listInvalidProperties()
     {
-        $invalidProperties = [];
-
-        return $invalidProperties;
+        return [];
     }
 
     /**

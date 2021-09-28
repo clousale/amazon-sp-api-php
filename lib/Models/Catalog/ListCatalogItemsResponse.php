@@ -170,9 +170,7 @@ class ListCatalogItemsResponse extends Categories implements ModelInterface, Arr
      */
     public function listInvalidProperties()
     {
-        $invalidProperties = [];
-
-        return $invalidProperties;
+        return [];
     }
 
     /**

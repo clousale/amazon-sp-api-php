@@ -167,9 +167,7 @@ class CompleteServiceJobByServiceJobIdResponse implements ModelInterface, ArrayA
      */
     public function listInvalidProperties()
     {
-        $invalidProperties = [];
-
-        return $invalidProperties;
+        return [];
     }
 
     /**

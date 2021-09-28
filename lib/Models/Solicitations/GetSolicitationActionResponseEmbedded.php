@@ -164,9 +164,7 @@ class GetSolicitationActionResponseEmbedded implements ModelInterface, ArrayAcce
      */
     public function listInvalidProperties()
     {
-        $invalidProperties = [];
-
-        return $invalidProperties;
+        return [];
     }
 
     /**

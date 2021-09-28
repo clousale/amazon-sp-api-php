@@ -167,9 +167,7 @@ class CancelServiceJobByServiceJobIdResponse implements ModelInterface, ArrayAcc
      */
     public function listInvalidProperties()
     {
-        $invalidProperties = [];
-
-        return $invalidProperties;
+        return [];
     }
 
     /**
