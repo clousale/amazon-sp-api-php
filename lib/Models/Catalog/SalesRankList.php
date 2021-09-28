@@ -167,9 +167,7 @@ class SalesRankList extends Categories implements ModelInterface, ArrayAccess, I
      */
     public function listInvalidProperties()
     {
-        $invalidProperties = parent::listInvalidProperties();
-
-        return $invalidProperties;
+        return [];
     }
 
     /**

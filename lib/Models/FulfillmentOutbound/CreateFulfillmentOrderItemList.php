@@ -167,9 +167,7 @@ class CreateFulfillmentOrderItemList implements ModelInterface, ArrayAccess, Ite
      */
     public function listInvalidProperties()
     {
-        $invalidProperties = parent::listInvalidProperties();
-
-        return $invalidProperties;
+        return [];
     }
 
     /**

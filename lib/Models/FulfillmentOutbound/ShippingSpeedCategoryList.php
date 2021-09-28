@@ -164,9 +164,7 @@ class ShippingSpeedCategoryList implements ModelInterface, ArrayAccess, Iterable
      */
     public function listInvalidProperties()
     {
-        $invalidProperties = parent::listInvalidProperties();
-
-        return $invalidProperties;
+        return [];
     }
 
     /**
