@@ -12,6 +12,9 @@
     "license": "MIT",
     "authors": [
         {
+            "name": "PayNow"
+        },
+        {
             "name": "ClouSale",
             "homepage": "https://www.clousale.com"
         }
