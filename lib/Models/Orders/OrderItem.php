@@ -292,8 +292,40 @@ class OrderItem implements ModelInterface, ArrayAccess
         return self::$swaggerModelName;
     }
 
+    /**
+     * Import one stop shop. The item being purchased is not held in the EU for shipment.
+     *
+     * @var string
+     */
     const DEEMED_RESELLER_CATEGORY_IOSS = 'IOSS';
+    
+    /**
+     * Union one stop shop. The item being purchased is held in the EU for shipment.
+     *
+     * @var string
+     */
     const DEEMED_RESELLER_CATEGORY_UOSS = 'UOSS';
+    
+    /**
+     * Great Britain VAT On E-Commerce
+     *
+     * @var string
+     */
+    const DEEMED_RESELLER_CATEGORY_GB_VOEC = 'GB_VOEC';
+    
+    /**
+     * Norway VAT On E-Commerce
+     *
+     * @var string
+     */
+    const DEEMED_RESELLER_CATEGORY_NO_VOEC = 'NO_VOEC';
+    
+    /**
+     * Canada Merchandise Processing Fee
+     *
+     * @var string
+     */
+    const DEEMED_RESELLER_CATEGORY_CA_MPF = 'CA_MPF';
 
     /**
      * Gets allowable values of the enum.
@@ -304,7 +336,11 @@ class OrderItem implements ModelInterface, ArrayAccess
     {
         return [
             self::DEEMED_RESELLER_CATEGORY_IOSS,
-self::DEEMED_RESELLER_CATEGORY_UOSS,        ];
+            self::DEEMED_RESELLER_CATEGORY_UOSS,
+            self::DEEMED_RESELLER_CATEGORY_GB_VOEC,
+            self::DEEMED_RESELLER_CATEGORY_NO_VOEC,
+            self::DEEMED_RESELLER_CATEGORY_CA_MPF
+        ];
     }
 
     /**
