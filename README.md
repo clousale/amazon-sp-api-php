@@ -1,6 +1,6 @@
 # This project is not maintained anymore
 
-This project is not maintained anymore. We recommend to use the Library of [jlevers/selling-partner-api](https://github.com/jlevers/selling-partner-api) library.
+This project is not maintained anymore. We recommend to use the [jlevers/selling-partner-api](https://github.com/jlevers/selling-partner-api) package.
 
 # Amazon Selling Partner API PHP 
 
