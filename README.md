@@ -1,3 +1,7 @@
+# This project is not maintained anymore
+
+This project is not maintained anymore. We recommend to use the Library of [jlevers/selling-partner-api](https://github.com/jlevers/selling-partner-api) library.
+
 # Amazon Selling Partner API PHP 
 
 This is an API Binding in PHP for the new Amazon Selling Partner API.
